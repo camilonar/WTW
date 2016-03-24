@@ -9,8 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="epiphany_soft.wtw.MainActivity">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Consultar"
+        android:id="@+id/btnConsultar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:nestedScrollingEnabled="true"
+        android:onClick="onClickConsultar" />
+
 </RelativeLayout>

@@ -16,6 +16,9 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
     public void onClickBuscar(View v) {
         EditText txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         String text = txtBuscar.getText().toString();
-        //DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        if (text.matches("[0-9]+"))
+            txtBuscar.setText(db.pruebaInsercionGenero(Integer.parseInt(text)));
+
     }
 }

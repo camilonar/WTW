@@ -2,6 +2,7 @@ package epiphany_soft.wtw;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.io.IOException;
@@ -47,4 +48,23 @@ public class DataBaseConnection {
         }
     }
 
+    public Cursor consultarPeliculaNombre(String nombre){
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + " ";
+            query +=
+                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME + " JOIN " +
+                            DataBaseContract.PeliculaContract.TABLE_NAME +
+                            " ON " + DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+           query +=
+                    "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
 }

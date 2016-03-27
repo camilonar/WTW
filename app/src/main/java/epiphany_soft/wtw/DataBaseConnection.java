@@ -31,7 +31,6 @@ public class DataBaseConnection {
     }
 
     public String pruebaInsercionGenero(int id_gen){
-
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -48,7 +47,11 @@ public class DataBaseConnection {
         }
     }
 
-    public Cursor consultarPeliculaNombre(String nombre){
+    public Cursor consultarPeliculaPorNombre(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =

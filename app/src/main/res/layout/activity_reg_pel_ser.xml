@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Registrar Pelicula o Serie"
+        android:id="@+id/textView" />
+
+    <RadioGroup
+        android:layout_width="96dp"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Serie"
+            android:id="@+id/but_ser"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pelicula"
+            android:id="@+id/but_pel"
+            android:checked="false" />
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="356dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Nombre pelicula o serie"
+        android:ems="10"
+        android:id="@+id/name_programa" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gen_programa"
+        android:text="Genero" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.35">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/sin_programa"
+            android:text="Sinopsis"
+            android:layout_gravity="center_horizontal|top" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registrar"
+            android:id="@+id/btnRegistrar"
+            android:layout_gravity="center_horizontal|bottom"
+            android:onClick="onClickRegistrar" />
+    </FrameLayout>
+
+
+</LinearLayout>

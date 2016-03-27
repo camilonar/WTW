@@ -70,7 +70,7 @@ public class DataBaseConnection {
         }
         else return null;
     }
-    /*@param nombre es el nombre con el que se realizará la búsqueda de la película
+    /**@param nombre es el nombre con el que se realizará la búsqueda de la película
     * @return la pelicula cuyo nombre es nombre*/
     public Cursor consultarPeliculaPorNombre(String nombre){
         try {

@@ -24,4 +24,9 @@ public class MainActivity extends AppCompatActivity{
         Intent i = new Intent(this, ActivityAgregarGenero.class);
         startActivity(i);
     }
+
+    public void onClickAgregarPrograma(View v){
+        Intent i = new Intent(this, ActivityRegistrarPrograma.class);
+        startActivity(i);
+    }
 }

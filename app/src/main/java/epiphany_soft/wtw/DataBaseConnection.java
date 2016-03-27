@@ -47,7 +47,7 @@ public class DataBaseConnection {
         }
     }
 
-    public Cursor consultarPeliculaPorNombre(String nombre){
+    public Cursor consultarPeliculaLikeNombre(String nombre){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -65,6 +65,31 @@ public class DataBaseConnection {
                             + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
            query +=
                     "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+    /*@param nombre es el nombre con el que se realizará la búsqueda de la película
+    * @return la pelicula cuyo nombre es nombre*/
+    public Cursor consultarPeliculaPorNombre(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + " ";
+            query +=
+                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME + " JOIN " +
+                            DataBaseContract.PeliculaContract.TABLE_NAME +
+                            " ON " + DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE +"=\'"+nombre+"\'";
             Cursor c = db.rawQuery(query, null);
             return c;
         }

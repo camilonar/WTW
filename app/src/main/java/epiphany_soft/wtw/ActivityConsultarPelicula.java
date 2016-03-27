@@ -42,7 +42,7 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
         //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         if (text!=null){
-            Cursor c=db.consultarPeliculaPorNombre(text);
+            Cursor c=db.consultarPeliculaLikeNombre(text);
             if (c!=null) {
                 String[] nombres=new String[c.getCount()];
                 int i=0;

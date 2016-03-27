@@ -95,4 +95,19 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
+    public boolean insertarGenero(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
+            long rowid=db.insert(DataBaseContract.GeneroContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
 }

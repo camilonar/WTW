@@ -18,6 +18,7 @@
         <activity android:name=".Activities.ActivityConsultarPelicula"></activity>
         <activity android:name=".Activities.ActivityDetallePelicula"></activity>
         <activity android:name=".Activities.ActivityAgregarGenero"></activity>
+        <activity android:name=".Activities.ActivityRegistrarPrograma"></activity>
     </application>
 
 </manifest>

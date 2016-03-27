@@ -1,9 +1,12 @@
-package epiphany_soft.wtw;
+package epiphany_soft.wtw.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import epiphany_soft.wtw.Activities.ActivityConsultarPelicula;
+import epiphany_soft.wtw.R;
 
 public class MainActivity extends AppCompatActivity{
 

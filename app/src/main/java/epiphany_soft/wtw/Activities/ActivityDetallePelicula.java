@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.DataBaseConnection;
-import epiphany_soft.wtw.DataBaseContract;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.R;
 
 /**

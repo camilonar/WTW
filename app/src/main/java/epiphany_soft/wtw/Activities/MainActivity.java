@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import epiphany_soft.wtw.Activities.ActivityConsultarPelicula;
 import epiphany_soft.wtw.R;
 
 public class MainActivity extends AppCompatActivity{
@@ -18,6 +17,11 @@ public class MainActivity extends AppCompatActivity{
 
     public void onClickConsultar(View v){
         Intent i = new Intent(this, ActivityConsultarPelicula.class);
+        startActivity(i);
+    }
+
+    public void onClickAgregarGenero(View v){
+        Intent i = new Intent(this, ActivityAgregarGenero.class);
         startActivity(i);
     }
 }

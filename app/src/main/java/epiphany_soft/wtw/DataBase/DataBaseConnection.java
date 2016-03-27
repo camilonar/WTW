@@ -1,4 +1,4 @@
-package epiphany_soft.wtw;
+package epiphany_soft.wtw.DataBase;
 
 import android.content.ContentValues;
 import android.content.Context;

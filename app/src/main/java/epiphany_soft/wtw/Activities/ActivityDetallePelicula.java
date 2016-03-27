@@ -1,9 +1,13 @@
-package epiphany_soft.wtw;
+package epiphany_soft.wtw.Activities;
 
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import epiphany_soft.wtw.DataBaseConnection;
+import epiphany_soft.wtw.DataBaseContract;
+import epiphany_soft.wtw.R;
 
 /**
  * Created by Camilo on 26/03/2016.

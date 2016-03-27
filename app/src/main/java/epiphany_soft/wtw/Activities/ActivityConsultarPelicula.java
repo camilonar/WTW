@@ -1,4 +1,4 @@
-package epiphany_soft.wtw;
+package epiphany_soft.wtw.Activities;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,6 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+
+import epiphany_soft.wtw.DataBaseConnection;
+import epiphany_soft.wtw.DataBaseContract;
+import epiphany_soft.wtw.PeliculaAdapter;
+import epiphany_soft.wtw.R;
 
 /**
  * Created by Camilo on 22/03/2016.

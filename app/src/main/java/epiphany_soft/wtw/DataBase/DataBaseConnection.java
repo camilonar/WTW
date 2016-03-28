@@ -47,6 +47,22 @@ public class DataBaseConnection {
         }
     }
 
+    public Cursor consultarAllGeneros(){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " +DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+","+
+                            DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
+            query+= "FROM "+ DataBaseContract.GeneroContract.TABLE_NAME;
+            Cursor c=db.rawQuery(query,null);
+            return c;
+        }
+        return null;
+    }
     public Cursor consultarPeliculaLikeNombre(String nombre){
         try {
             miDBHelper.createDataBase();

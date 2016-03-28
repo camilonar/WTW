@@ -160,7 +160,7 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             String query= DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+"=?";
-            int numDel=db.delete(DataBaseContract.GeneroContract.TABLE_NAME,query,new String[]{Integer.toString(id)});
+            int numDel=db.delete(DataBaseContract.GeneroContract.TABLE_NAME, query, new String[]{Integer.toString(id)});
             if (numDel>0) return true;
         }
         return false;
@@ -180,7 +180,6 @@ public class DataBaseConnection {
 
             query +=
                     "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "=\'" + nombre + "\'";
-
             Cursor c = db.rawQuery(query, null);
             if (c.moveToNext()){
                 return c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
@@ -218,6 +217,24 @@ public class DataBaseConnection {
             values.put(DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID, id);
             long rowide= db.insert(DataBaseContract.PeliculaContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
+        }
+        return false;
+    }
+
+    public boolean actualizarPrograma(int id_gen, String nombre, String sinopsis){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombre);
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
+            String query= DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE+"=?";
+            int rowid=db.update(DataBaseContract.ProgramaContract.TABLE_NAME,values,query,new String[]{nombre});
+            if (rowid>0) return true;
         }
         return false;
     }

@@ -18,7 +18,9 @@ public class ActivityDetallePelicula extends AppCompatActivity {
     String nombre;
     String sinopsis;
     String genero;
+    public static boolean actualizado=false;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_pelicula);
@@ -26,6 +28,14 @@ public class ActivityDetallePelicula extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         String nombrePelicula = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         this.llenarInfo(nombrePelicula);
+    }
+
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (actualizado) this.recreate();
+        actualizado=false;
     }
 
     private void llenarInfo(String nombrePelicula){
@@ -49,6 +59,7 @@ public class ActivityDetallePelicula extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombre);
         b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS,sinopsis);
+        b.putString(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE, genero);
         i.putExtras(b);
         startActivity(i);
     }

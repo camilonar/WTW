@@ -165,4 +165,60 @@ public class DataBaseConnection {
         }
         return false;
     }
+
+    public int consultarId_Programa (String nombre ) {
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID +" ";
+            query +=
+                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME+" ";
+
+            query +=
+                    "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "=\'" + nombre + "\'";
+
+            Cursor c = db.rawQuery(query, null);
+            if (c.moveToNext()){
+                return c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+            }
+        }
+        return -1;
+    }
+
+    public boolean insertarPrograma( int id_gen, String nombre, String sinopsis) {
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
+            long rowide= db.insert(DataBaseContract.ProgramaContract.TABLE_NAME, null, values);
+            if (rowide > 0) return true;
+        }
+        return false;
+
+    }
+
+    public boolean insertarPelicula(int  id) {
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID, id);
+            long rowide= db.insert(DataBaseContract.PeliculaContract.TABLE_NAME, null, values);
+            if (rowide > 0) return true;
+        }
+        return false;
+    }
 }

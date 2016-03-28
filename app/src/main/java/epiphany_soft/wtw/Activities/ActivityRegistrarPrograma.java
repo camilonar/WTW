@@ -1,5 +1,6 @@
 package epiphany_soft.wtw.Activities;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,9 +19,9 @@ import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
 
 public class ActivityRegistrarPrograma extends AppCompatActivity{
-        private EditText name,sinopsis;
-        private Spinner spnGenero;
-        private RadioButton pel,ser;
+    private EditText name,sinopsis;
+    private Spinner spnGenero;
+    private RadioButton pel,ser;
 
 
         @Override
@@ -39,10 +41,19 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             String sinopsisS=sinopsis.getText().toString();
             int idGen=((Genero)spnGenero.getSelectedItem()).getId();
             if (pel.isChecked()==true) {
-
+                DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+                boolean success=db.insertarPrograma(idGen,nombre,sinopsisS);
+                if (success){
+                    int id=db.consultarId_Programa(nombre);
+                    success=db.insertarPelicula(id);
+                    if (success) createToast("Película creada");
+                    else createToast("Ocurrió un error");
+                }
+                else createToast("Ocurrió un error");
             }
-            if (ser.isChecked()==true) {
-
+            else if (ser.isChecked()==true) {
+                //TODO:realizar el código para insertar una serie
+                createToast("Operación no soportada aún");
             }
         }
 
@@ -61,5 +72,13 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spnGenero.setAdapter(adapter);
         }
+
+    public void createToast(String message){
+        Context context = getApplicationContext();
+        CharSequence text = message;
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
 
 }

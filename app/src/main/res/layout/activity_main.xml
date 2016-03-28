@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.MainActivity">
+    tools:context=".Activities.MainActivity"
+    android:onClick="onClickBtnEliminarGenero">
 
     <Button
         android:layout_width="wrap_content"
@@ -35,10 +36,20 @@
         android:layout_height="wrap_content"
         android:text="Agregar programa"
         android:id="@+id/btnAgregarPrograma"
+        android:layout_marginTop="69dp"
+        android:onClick="onClickAgregarPrograma"
         android:layout_below="@+id/btnGenero"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Eliminar Género"
+        android:id="@+id/btnEliminarGenero"
+        android:layout_marginTop="47dp"
+        android:layout_below="@+id/btnAgregarPrograma"
         android:layout_alignLeft="@+id/btnGenero"
         android:layout_alignStart="@+id/btnGenero"
-        android:layout_marginTop="67dp"
-        android:onClick="onClickAgregarPrograma" />
+        android:onClick="onClickBtnEliminarGenero" />
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ public class DataBaseConnection {
     public long insertPrueba(int id, String nombre)
     {
         SQLiteDatabase db = miDBHelper.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID, id);
         values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
@@ -98,9 +99,11 @@ public class DataBaseConnection {
             String query =
                     "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
                             DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
-                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + " ";
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS +","+
+                            DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
             query +=
-                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME + " JOIN " +
+                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME+" NATURAL JOIN "+
+                            DataBaseContract.GeneroContract.TABLE_NAME+ " JOIN " +
                             DataBaseContract.PeliculaContract.TABLE_NAME +
                             " ON " + DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
                             + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
@@ -123,6 +126,42 @@ public class DataBaseConnection {
             values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
             long rowid=db.insert(DataBaseContract.GeneroContract.TABLE_NAME, null, values);
             if (rowid>0) return true;
+        }
+        return false;
+    }
+
+    public Cursor getGenerosNoUsados(){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT "+ DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+","+
+                            DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
+            query+=
+                    "FROM "+ DataBaseContract.GeneroContract.TABLE_NAME+" ";
+            query+=
+                    "WHERE "+DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID + " NOT IN ("+
+                            "SELECT "+ DataBaseContract.ProgramaContract.COLUMN_NAME_GENERO_ID+" FROM "+
+                            DataBaseContract.ProgramaContract.TABLE_NAME+")";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+
+    public boolean eliminarGenero(int id){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+"=?";
+            int numDel=db.delete(DataBaseContract.GeneroContract.TABLE_NAME,query,new String[]{Integer.toString(id)});
+            if (numDel>0) return true;
         }
         return false;
     }

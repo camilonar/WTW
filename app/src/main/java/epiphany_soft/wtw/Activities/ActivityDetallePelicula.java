@@ -17,6 +17,7 @@ import epiphany_soft.wtw.R;
 public class ActivityDetallePelicula extends AppCompatActivity {
     String nombre;
     String sinopsis;
+    String genero;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +33,15 @@ public class ActivityDetallePelicula extends AppCompatActivity {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.consultarPeliculaPorNombre(nombrePelicula);
         c.moveToNext();
-        nombre=c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
-        sinopsis=c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS));
+        nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+        sinopsis = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS));
+        genero = c.getString(c.getColumnIndex(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE));
         if (nombre!=null) ((TextView) findViewById(R.id.txtNombrePel)).setText(nombre);
         else ((TextView) findViewById(R.id.txtNombrePel)).setText("Película sin nombre");
         if (sinopsis!=null) ((TextView) findViewById(R.id.txtSinopsisPel)).setText(sinopsis);
         else ((TextView) findViewById(R.id.txtSinopsisPel)).setText("Película sin sinopsis");
+        if (genero!=null) ((TextView) findViewById(R.id.txtGeneroPel)).setText(genero);
+        else ((TextView) findViewById(R.id.txtGeneroPel)).setText("Película sin genero");
     }
 
     public void onClickActualizarPelicula(View v){

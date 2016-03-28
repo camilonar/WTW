@@ -38,7 +38,6 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             String nombre=name.getText().toString();
             String sinopsisS=sinopsis.getText().toString();
             int idGen=((Genero)spnGenero.getSelectedItem()).getId();
-            System.out.println(idGen);
             if (pel.isChecked()==true) {
 
             }

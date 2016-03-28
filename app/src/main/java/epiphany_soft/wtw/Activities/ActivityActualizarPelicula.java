@@ -3,6 +3,7 @@ package epiphany_soft.wtw.Activities;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -38,6 +39,9 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         crearSpinnerGeneros();
     }
 
+    public void onClickActualizarPelicula(View v){
+        System.out.println("OK");
+    }
     public void crearSpinnerGeneros(){
         spnGenero = (Spinner) findViewById(R.id.spnGeneroAct);
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());

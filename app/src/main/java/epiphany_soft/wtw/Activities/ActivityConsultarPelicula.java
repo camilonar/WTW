@@ -27,7 +27,7 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_peliculas);
         setTitle("CONSULTAR PELÍCULA");
-        crearRecycledView(new String[]{""});
+        crearRecycledView(null);
     }
 
     private void crearRecycledView(String[] contenido){
@@ -38,8 +38,10 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Se especifica el adaptador
-        mAdapter = new PeliculaAdapter(contenido);
-        mRecyclerView.setAdapter(mAdapter);
+        if (contenido!=null) {
+            mAdapter = new PeliculaAdapter(contenido);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     public void onClickBuscar(View v) {

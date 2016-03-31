@@ -53,6 +53,7 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         if (success) {
             createToast("Película actualizada");
             ActivityDetallePelicula.actualizado=true;
+            this.finish();
         }
         else createToast("Ocurrió un error");
     }

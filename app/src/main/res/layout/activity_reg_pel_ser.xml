@@ -34,8 +34,12 @@
         android:layout_width="356dp"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Nombre pelicula o serie"
+        android:text=""
+        android:hint="Nombre de película o serie"
+        android:textColorHint="@color/colorHintText"
+        android:textColor="@color/colorNormalText"
         android:ems="10"
+
         android:id="@+id/name_programa" />
 
     <LinearLayout
@@ -48,6 +52,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Genero: "
+            android:textColor="@color/colorNormalText"
             android:id="@+id/textView2" />
 
         <Spinner
@@ -67,7 +72,10 @@
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/sin_programa"
-            android:text="Sinopsis"
+            android:text=""
+            android:hint="Sinopsis"
+            android:textColor="@color/colorNormalText"
+            android:textColorHint="@color/colorHintText"
             android:layout_gravity="center_horizontal|top" />
 
         <Button
@@ -76,6 +84,7 @@
             android:text="Registrar"
             android:id="@+id/btnRegistrar"
             android:layout_gravity="center_horizontal|bottom"
+            android:textColor="@color/colorButtonText"
             android:onClick="onClickRegistrar" />
     </FrameLayout>
 

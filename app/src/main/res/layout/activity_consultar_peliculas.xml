@@ -20,6 +20,9 @@
                 android:layout_width="223dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtBuscar"
+                android:hint="Introduzca un nombre para buscar"
+                android:textColor="@color/colorNormalText"
+                android:textColorHint="@color/colorHintText"
                 android:layout_weight="0.90" />
 
             <Button
@@ -29,11 +32,13 @@
                 android:text="Buscar"
                 android:id="@+id/btnBuscar"
                 android:onClick="onClickBuscar"
+                android:textColor="@color/colorButtonText"
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_consulta_pelicula"
             android:scrollbars="vertical"
+            android:textColor="@color/colorNormalText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

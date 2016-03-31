@@ -32,13 +32,14 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            System.out.println(mTextView.getText() + " " + getAdapterPosition());
-            Intent i = new Intent(v.getContext(), ActivityDetallePelicula.class);
-            //Se manda el nombre del programa para saber que información debe mostrarse
-            Bundle b = new Bundle();
-            b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,mTextView.getText().toString());
-            i.putExtras(b);
-            v.getContext().startActivity(i);
+            if (mTextView.getText()!="") {
+                Intent i = new Intent(v.getContext(), ActivityDetallePelicula.class);
+                //Se manda el nombre del programa para saber que información debe mostrarse
+                Bundle b = new Bundle();
+                b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, mTextView.getText().toString());
+                i.putExtras(b);
+                v.getContext().startActivity(i);
+            }
         }
     }
 

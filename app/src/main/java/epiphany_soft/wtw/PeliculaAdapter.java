@@ -2,6 +2,7 @@ package epiphany_soft.wtw;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +23,13 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
     // you provide access to all the views for a data item in a view holder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
+        public CardView mCardView;
         public TextView mTextView;
-        public ViewHolder(TextView v) {
+        public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
-            mTextView = v;
+            mCardView = (CardView)v.findViewById(R.id.cv);
+            mTextView = (TextView)v.findViewById(R.id.textCard);
         }
 
 
@@ -55,10 +58,8 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tv_pelicula, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-        v.layout(50,0,0,0);
         v.setClickable(true);
-        ViewHolder vh = new ViewHolder((TextView)v);
+        ViewHolder vh = new ViewHolder(v);
         return vh;
     }
 

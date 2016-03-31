@@ -47,7 +47,7 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
         String text = txtBuscar.getText().toString();
         //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        if (text!=null){
+        if (!text.equals("")){
             Cursor c=db.consultarPeliculaLikeNombre(text);
             if (c!=null) {
                 String[] nombres=new String[c.getCount()];

@@ -7,4 +7,5 @@
     <color name="colorHintText">#6c6a6b</color>color>
     <color name="colorButtonText">#1a1718</color>color>
     <color name="colorLabelText">#1a1718</color>color>
+    <color name="colorButtonBackground">#2d9778</color>color>
 </resources>

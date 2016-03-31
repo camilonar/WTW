@@ -8,4 +8,6 @@
     <color name="colorButtonText">#1a1718</color>color>
     <color name="colorLabelText">#1a1718</color>color>
     <color name="colorButtonBackground">#2d9778</color>color>
+    <color name="colorTableBackground">#c0c0c0</color>color>
+    <color name="colorLine">#c0c0c0</color>
 </resources>

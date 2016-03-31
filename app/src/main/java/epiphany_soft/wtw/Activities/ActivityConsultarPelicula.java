@@ -26,6 +26,7 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_peliculas);
+        setTitle("CONSULTAR PELÍCULA");
         crearRecycledView(new String[]{""});
     }
 

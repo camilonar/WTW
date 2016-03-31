@@ -19,6 +19,7 @@ public class ActivityAgregarGenero extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_genero);
+        setTitle("AGREGAR GÉNERO");
     }
 
     public void onClickAgregarGenero(View v){

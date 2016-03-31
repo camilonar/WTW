@@ -33,6 +33,7 @@ public class ActivityEliminarGenero extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eliminar_genero);
+        setTitle("ELIMINAR GÉNERO");
         crearSpinnerGenerosNoUsados();
         if (spnGenero.getCount()<1){
             Button b = (Button) findViewById(R.id.btnEliminarGenero);

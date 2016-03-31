@@ -31,6 +31,8 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actualizar_pelicula);
+        setTitle("ACTUALIZAR PELICULA");
+
         name=(EditText)findViewById(R.id.txtNombrePelicula);
         name.setKeyListener(null);
         sinopsis=(EditText)findViewById(R.id.txtSinopsis);

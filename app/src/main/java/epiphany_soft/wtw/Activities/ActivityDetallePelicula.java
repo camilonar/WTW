@@ -27,6 +27,7 @@ public class ActivityDetallePelicula extends AppCompatActivity {
         //Se recibe el nombre del programa
         Bundle b = getIntent().getExtras();
         String nombrePelicula = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
+        setTitle(nombrePelicula);
         this.llenarInfo(nombrePelicula);
     }
 

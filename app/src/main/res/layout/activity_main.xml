@@ -18,6 +18,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="66dp"
         android:nestedScrollingEnabled="true"
+        android:textColor="@color/colorButtonText"
         android:onClick="onClickConsultar" />
 
     <Button
@@ -29,6 +30,7 @@
         android:onClick="onClickAgregarGenero"
         android:layout_below="@+id/btnConsultar"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/colorButtonText"
         android:layout_marginTop="56dp" />
 
     <Button
@@ -39,6 +41,7 @@
         android:layout_marginTop="69dp"
         android:onClick="onClickAgregarPrograma"
         android:layout_below="@+id/btnGenero"
+        android:textColor="@color/colorButtonText"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -50,6 +53,7 @@
         android:layout_below="@+id/btnAgregarPrograma"
         android:layout_alignLeft="@+id/btnGenero"
         android:layout_alignStart="@+id/btnGenero"
+        android:textColor="@color/colorButtonText"
         android:onClick="onClickBtnEliminarGenero" />
 
 </RelativeLayout>

@@ -13,6 +13,9 @@
             android:layout_width="207dp"
             android:layout_height="wrap_content"
             android:id="@+id/txtAgregarGenero"
+            android:hint="Genero"
+            android:textColor="@color/colorNormalText"
+            android:textColorHint="@color/colorHintText"
             android:layout_weight="0.94" />
 
         <Button
@@ -21,6 +24,7 @@
             android:text="Agregar"
             android:id="@+id/btnAgregarGenero"
             android:layout_gravity="right"
+            android:textColor="@color/colorButtonText"
             android:onClick="onClickAgregarGenero" />
     </LinearLayout>
 

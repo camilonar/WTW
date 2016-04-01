@@ -3,138 +3,237 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView" >
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right">
+            android:layout_height="match_parent">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="60dp"
+                    android:paddingTop="20dp"
+                    android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Nombre:"
+                    android:text="NOMBRE DEL PROGRAMA:"
                     android:textColor="@color/colorLabelText"
-                    android:id="@+id/lblNombrePelicula" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:textColor="@color/colorNormalText"
-                    android:id="@+id/txtNombrePel" />
+                    android:gravity="bottom"
+                    android:id="@+id/lblNombrePrograma" />
             </TableRow>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="356dp"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Genero:"
-                    android:textColor="@color/colorLabelText"
-                    android:id="@+id/lblGenero" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
+                    android:layout_margin="5dp"
+                    android:text=""
                     android:textColor="@color/colorNormalText"
-                    android:id="@+id/txtGeneroPel" />
+                    android:ems="10"
+                    android:id="@+id/txtNombrePelicula" />
+
             </TableRow>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_margin="5dp"
+                    android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Sinopsis:"
+                    android:text="SINOPSIS:"
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblSinopsis" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:textColor="@color/colorNormalText"
-                    android:id="@+id/txtSinopsisPel" />
-
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/txtSinopsis"
+                    android:textColor="@color/colorNormalText"
+                    android:layout_gravity="top" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_margin="5dp"
+                    android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Año de Estreno: "
+                    android:text="AÑO DE ESTRENO:"
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblAnioEstreno" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:textColor="@color/colorNormalText"
-                    android:id="@+id/txtAnioEstreno" />
-
             </TableRow>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="57dp"
-                android:weightSum="1">
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:width="130dp"
+                    android:layout_margin="5dp"
+                    android:ems="10"
+                    android:id="@+id/txtAnioEstreno"
+                    android:textColor="@color/colorNormalText"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_margin="5dp"
+                    android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Pais de Origen: "
+                    android:text="PAIS DE ORIGEN:"
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblPaisOrigen" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="356dp"
+                    android:width="356dp"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txtPaisOrigen"
+                    android:textColor="@color/colorNormalText"
+                    android:layout_gravity="left|center_vertical"
+                    android:text="" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Large Text"
-                    android:textColor="@color/colorNormalText"
-                    android:id="@+id/txtPaisOrigen"
-                    android:layout_weight="0.19" />
+                    android:layout_margin="5dp"
+                    android:textStyle="bold"
+                    android:paddingTop="20dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="GÉNERO: "
+                    android:textColor="@color/colorLabelText"
+                    android:id="@+id/lblGenero" />
+            </TableRow>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:ems="10"
+                    android:textColor="@color/colorNormalText"
+                    android:layout_gravity="top"
+                    android:id="@+id/txtGenero" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Actualizar"
+                    android:id="@+id/btnActualizarPelicula"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:onClick="onClickActualizarPelicula"
+                    android:textColor="@color/colorButtonText"
+                    android:enabled="true" />
             </TableRow>
 
         </TableLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Actualizar"
-            android:id="@+id/btnActualizarPelicula"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onClickActualizarPelicula"
-            android:textColor="@color/colorButtonText"
-            android:layout_column="1" />
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

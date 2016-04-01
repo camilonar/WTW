@@ -56,6 +56,10 @@ public class ActivityDetallePelicula extends AppCompatActivity {
         else ((TextView) findViewById(R.id.txtSinopsisPel)).setText("Película sin sinopsis");
         if (!genero.equals("")) ((TextView) findViewById(R.id.txtGeneroPel)).setText(genero);
         else ((TextView) findViewById(R.id.txtGeneroPel)).setText("Película sin genero");
+        if (anio!=0) ((TextView) findViewById(R.id.txtAnioEstreno)).setText(Integer.toString(anio));
+        else ((TextView) findViewById(R.id.txtAnioEstreno)).setText("Película sin año registrado");
+        if (!pais.equals("")) ((TextView) findViewById(R.id.txtPaisOrigen)).setText(pais);
+        else ((TextView) findViewById(R.id.txtPaisOrigen)).setText("Película sin país registrado");
     }
 
     public void onClickActualizarPelicula(View v){

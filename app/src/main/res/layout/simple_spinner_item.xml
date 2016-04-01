@@ -7,5 +7,5 @@
     android:layout_height="wrap_content"
     android:padding="10dp"
     android:textColor="@color/colorNormalText"
-    android:typeface="monospace"
+    android:textAppearance="?android:attr/textAppearanceMedium"
     android:gravity="left" />

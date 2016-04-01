@@ -131,8 +131,10 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:layout_width="230dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:width="130dp"
+                    android:layout_margin="5dp"
                     android:inputType="number"
                     android:ems="10"
                     android:id="@+id/txtAnioEstreno"
@@ -169,7 +171,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <EditText
-                    android:layout_width="160dp"
+                    android:layout_width="356dp"
+                    android:width="356dp"
+                    android:layout_margin="5dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:id="@+id/txtPaisOrigen"

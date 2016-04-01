@@ -15,7 +15,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -25,9 +26,14 @@
                     android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="TIPO DE PROGRAMA:"
-                    android:textColor="@color/colorNormalText"
+                    android:textColor="@color/colorLabelText"
                     android:id="@+id/textView7" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -64,21 +70,27 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_marginTop="60dp"
-                    android:paddingTop="30dp"
+                    android:paddingTop="20dp"
                     android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="NOMBRE DEL PROGRAMA:"
-                    android:textColor="@color/colorNormalText"
+                    android:textColor="@color/colorLabelText"
                     android:gravity="bottom"
                     android:id="@+id/textView" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -105,19 +117,25 @@
                 android:background="@color/colorLine"/>
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:layout_margin="5dp"
-                    android:paddingTop="30dp"
+                    android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="SINOPSIS:"
-                    android:textColor="@color/colorNormalText"
+                    android:textColor="@color/colorLabelText"
                     android:id="@+id/textView6" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -143,19 +161,25 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:textStyle="bold"
-                    android:paddingTop="30dp"
+                    android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="GÉNERO: "
-                    android:textColor="@color/colorNormalText"
+                    android:textColor="@color/colorLabelText"
                     android:id="@+id/textView2" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -167,11 +191,6 @@
                     android:layout_margin="5dp"
                     android:id="@+id/spnGenero" />
             </TableRow>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"

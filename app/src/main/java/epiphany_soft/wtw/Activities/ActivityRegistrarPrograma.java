@@ -28,7 +28,7 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_reg_pel_ser);
-            setTitle("ACTUALIZAR PELICULA");
+            setTitle("AGREGAR PROGRAMA");
             pel=(RadioButton)findViewById(R.id.but_pel);
             ser=(RadioButton)findViewById(R.id.but_ser);
             name=(EditText)findViewById(R.id.name_programa);

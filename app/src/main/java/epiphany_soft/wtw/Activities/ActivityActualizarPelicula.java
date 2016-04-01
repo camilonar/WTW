@@ -26,7 +26,7 @@ import epiphany_soft.wtw.R;
  * Created by Camilo on 27/03/2016.
  */
 public class ActivityActualizarPelicula extends AppCompatActivity {
-    private EditText name,sinopsis;
+    private EditText name,sinopsis,anio,pais;
     private Spinner spnGenero;
     String nombrePelicula;
     String sinopsisText;
@@ -41,6 +41,8 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         name=(EditText)findViewById(R.id.txtNombrePelicula);
         name.setKeyListener(null);
         sinopsis=(EditText)findViewById(R.id.txtSinopsis);
+        anio =(EditText)findViewById(R.id.txtAnioEstreno);
+        pais =(EditText)findViewById(R.id.txtPaisOrigen);
         Bundle b = getIntent().getExtras();
         nombrePelicula = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         sinopsisText = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS);
@@ -58,9 +60,15 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         sinopsisLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView genero=(TextView) findViewById(R.id.lblGenero);
         genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView lblAnio=(TextView) findViewById(R.id.lblAnioEstreno);
+        lblAnio.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView lblPais=(TextView) findViewById(R.id.lblPaisOrigen);
+        lblPais.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         //Los textos
         name.setTypeface(RobotoFont.getInstance(this).getTypeFace());
         sinopsis.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+        anio.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+        pais.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
     public void onClickActualizarPelicula(View v){

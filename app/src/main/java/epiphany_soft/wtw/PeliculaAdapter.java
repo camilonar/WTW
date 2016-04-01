@@ -77,4 +77,5 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
     public int getItemCount() {
         return mDataset.length;
     }
+
 }

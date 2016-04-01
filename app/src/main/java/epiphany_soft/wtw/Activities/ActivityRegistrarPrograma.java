@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
+import epiphany_soft.wtw.SpecialFont;
 
 public class ActivityRegistrarPrograma extends AppCompatActivity{
     private EditText name,sinopsis;
@@ -34,6 +36,18 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             name=(EditText)findViewById(R.id.name_programa);
             sinopsis=(EditText)findViewById(R.id.sin_programa);
             crearSpinnerGeneros();
+            setSpecialFonts();
+        }
+
+        private void setSpecialFonts(){
+            TextView tipo=(TextView) findViewById(R.id.lblTipoPrograma);
+            tipo.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            TextView nombre=(TextView) findViewById(R.id.lblNombrePrograma);
+            nombre.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            TextView sinopsis=(TextView) findViewById(R.id.lblSinopsis);
+            sinopsis.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            TextView genero=(TextView) findViewById(R.id.lblGenero);
+            genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         }
 
         public void onClickRegistrar(View v)

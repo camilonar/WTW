@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
+import epiphany_soft.wtw.SpecialFont;
 
 /**
  * Created by Camilo on 27/03/2016.
@@ -43,6 +45,16 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         sinopsis.setText(sinopsisText);
         name.setText(nombrePelicula);
         crearSpinnerGeneros();
+        setSpecialFonts();
+    }
+
+    private void setSpecialFonts(){
+        TextView nombre=(TextView) findViewById(R.id.lblNombrePrograma);
+        nombre.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView sinopsis=(TextView) findViewById(R.id.lblSinopsis);
+        sinopsis.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView genero=(TextView) findViewById(R.id.lblGenero);
+        genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
     }
 
     public void onClickActualizarPelicula(View v){

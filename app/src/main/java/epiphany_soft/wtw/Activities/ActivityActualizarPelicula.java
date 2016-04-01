@@ -15,9 +15,10 @@ import java.util.ArrayList;
 
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
-import epiphany_soft.wtw.SpecialFont;
+import epiphany_soft.wtw.Fonts.SpecialFont;
 
 /**
  * Created by Camilo on 27/03/2016.
@@ -51,10 +52,13 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
     private void setSpecialFonts(){
         TextView nombre=(TextView) findViewById(R.id.lblNombrePrograma);
         nombre.setTypeface(SpecialFont.getInstance(this).getTypeFace());
-        TextView sinopsis=(TextView) findViewById(R.id.lblSinopsis);
-        sinopsis.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView sinopsisLabel=(TextView) findViewById(R.id.lblSinopsis);
+        sinopsisLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView genero=(TextView) findViewById(R.id.lblGenero);
         genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        //Los textos
+        name.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+        sinopsis.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
     public void onClickActualizarPelicula(View v){

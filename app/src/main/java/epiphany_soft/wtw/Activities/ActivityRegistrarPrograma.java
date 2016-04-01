@@ -16,9 +16,10 @@ import java.util.ArrayList;
 
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
-import epiphany_soft.wtw.SpecialFont;
+import epiphany_soft.wtw.Fonts.SpecialFont;
 
 public class ActivityRegistrarPrograma extends AppCompatActivity{
     private EditText name,sinopsis;
@@ -44,10 +45,15 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             tipo.setTypeface(SpecialFont.getInstance(this).getTypeFace());
             TextView nombre=(TextView) findViewById(R.id.lblNombrePrograma);
             nombre.setTypeface(SpecialFont.getInstance(this).getTypeFace());
-            TextView sinopsis=(TextView) findViewById(R.id.lblSinopsis);
-            sinopsis.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            TextView sinopsisLabel=(TextView) findViewById(R.id.lblSinopsis);
+            sinopsisLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
             TextView genero=(TextView) findViewById(R.id.lblGenero);
             genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            //Los textos
+            pel.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+            ser.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+            name.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+            sinopsis.setTypeface(RobotoFont.getInstance(this).getTypeFace());
         }
 
         public void onClickRegistrar(View v)

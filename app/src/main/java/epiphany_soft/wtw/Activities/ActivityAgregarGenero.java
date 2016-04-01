@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.R;
 
 /**
@@ -15,15 +16,22 @@ import epiphany_soft.wtw.R;
  */
 public class ActivityAgregarGenero extends AppCompatActivity {
 
+    private EditText txtAgregar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_genero);
+        txtAgregar = (EditText) findViewById(R.id.txtAgregarGenero);
         setTitle("AGREGAR GÉNERO");
+        setSpecialFonts();
+    }
+
+    private void setSpecialFonts(){
+        txtAgregar.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
     public void onClickAgregarGenero(View v){
-        EditText txtAgregar = (EditText) findViewById(R.id.txtAgregarGenero);
         String text = txtAgregar.getText().toString();
         //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());

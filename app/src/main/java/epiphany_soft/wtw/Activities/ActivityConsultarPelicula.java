@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.PeliculaAdapter;
 import epiphany_soft.wtw.R;
 
@@ -21,13 +22,20 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private EditText txtBuscar;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_peliculas);
+        txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         setTitle("CONSULTAR PELÍCULA");
         crearRecycledView(null);
+        setSpecialFonts();
+    }
+
+    private void setSpecialFonts(){
+        txtBuscar.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
     private void crearRecycledView(String[] contenido){
@@ -45,7 +53,6 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
     }
 
     public void onClickBuscar(View v) {
-        EditText txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         String text = txtBuscar.getText().toString();
         //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());

@@ -1,4 +1,4 @@
-package epiphany_soft.wtw;
+package epiphany_soft.wtw.Fonts;
 
 import android.content.Context;
 import android.graphics.Typeface;

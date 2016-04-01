@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Genero;
@@ -28,9 +29,8 @@ import epiphany_soft.wtw.R;
 public class ActivityActualizarPelicula extends AppCompatActivity {
     private EditText name,sinopsis,anio,pais;
     private Spinner spnGenero;
-    String nombrePelicula;
-    String sinopsisText;
-    String generoText;
+    String nombrePelicula,sinopsisText,generoText,paisText;
+    int anioText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +43,18 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         sinopsis=(EditText)findViewById(R.id.txtSinopsis);
         anio =(EditText)findViewById(R.id.txtAnioEstreno);
         pais =(EditText)findViewById(R.id.txtPaisOrigen);
+
         Bundle b = getIntent().getExtras();
-        nombrePelicula = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
-        sinopsisText = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS);
+        nombrePelicula = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
+        sinopsisText = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS);
         generoText = b.getString(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE);
+        anioText = b.getInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO);
+        paisText = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN);
+
         sinopsis.setText(sinopsisText);
         name.setText(nombrePelicula);
+        anio.setText(Integer.toString(anioText));
+        pais.setText(paisText);
         crearSpinnerGeneros();
         setSpecialFonts();
     }

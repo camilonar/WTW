@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,9 +19,9 @@ import java.util.ArrayList;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
+import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
-import epiphany_soft.wtw.Fonts.SpecialFont;
 
 public class ActivityRegistrarPrograma extends AppCompatActivity{
     private EditText name,sinopsis;
@@ -82,14 +84,32 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             spnGenero = (Spinner) findViewById(R.id.spnGenero);
             DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
             Cursor c=db.consultarAllGeneros();
-            ArrayList<Genero> generos = new ArrayList<Genero>();
+            final ArrayList<Genero> generos = new ArrayList<Genero>();
             while (c.moveToNext()){
                 Genero g=
                         new Genero(c.getInt(c.getColumnIndex(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID)),
                                 c.getString(c.getColumnIndex(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE)));
                 generos.add(g);
             }
-            ArrayAdapter adapter = new ArrayAdapter(this,R.layout.simple_spinner_item,generos);
+            ArrayAdapter adapter = new ArrayAdapter(this,R.layout.simple_spinner_item,generos){
+                public View getView(int position,View convertView, ViewGroup parent){
+                    View v = super.getView(position, convertView, parent);
+                    if (position <= generos.size()) {
+                        ((TextView) v).setTypeface(RobotoFont.getInstance(this.getContext()).getTypeFace());
+                    }
+                    return v;
+                }
+                public View getDropDownView(int position, View convertView, ViewGroup parent) {
+
+                    LayoutInflater inflater = getLayoutInflater();
+                    View row = inflater.inflate(R.layout.simple_spinner_item, parent,
+                            false);
+                    TextView make = (TextView) row.findViewById(R.id.text1);
+                    make.setTypeface(RobotoFont.getInstance(this.getContext()).getTypeFace());
+                    make.setText( generos.get(position).toString());
+                    return make;
+                }
+            };
             adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spnGenero.setAdapter(adapter);
         }

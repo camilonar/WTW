@@ -78,10 +78,17 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
     }
 
     public void onClickActualizarPelicula(View v){
-        String sinopsisS=sinopsis.getText().toString();
+        
+        if (anio.getText().toString().equals("")){
+            createToast("Introduzca un año");
+            return;
+        }
+        String sinopsisS = sinopsis.getText().toString();
+        String paisS=pais.getText().toString();
+        int anioS=Integer.parseInt(anio.getText().toString());
         int idGen=((Genero)spnGenero.getSelectedItem()).getId();
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        boolean success=db.actualizarPrograma(idGen,nombrePelicula,sinopsisS);
+        boolean success=db.actualizarPrograma(idGen,nombrePelicula,sinopsisS,anioS,paisS);
         if (success) {
             createToast("Película actualizada");
             ActivityDetallePelicula.actualizado=true;

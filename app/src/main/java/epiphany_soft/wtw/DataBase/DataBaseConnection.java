@@ -205,8 +205,8 @@ public class DataBaseConnection {
             values.put(ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
             long rowide= db.insert(ProgramaContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
         }
@@ -237,14 +237,14 @@ public class DataBaseConnection {
         if (miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DataBaseContract.SerieContract.COLUMN_NAME_SERIE_ID, id);
-            long rowide= db.insert(DataBaseContract.SerieContract.TABLE_NAME, null, values);
+            values.put(SerieContract.COLUMN_NAME_SERIE_ID, id);
+            long rowide= db.insert(SerieContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
         }
         return false;
     }
 
-    public boolean actualizarPrograma(int id_gen, String nombre, String sinopsis){
+    public boolean actualizarPrograma(int id_gen, String nombre, String sinopsis, int anio, String pais){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -255,6 +255,9 @@ public class DataBaseConnection {
             values.put(ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombre);
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
+
             String query= ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE+"=?";
             int rowid=db.update(ProgramaContract.TABLE_NAME,values,query,new String[]{nombre});
             if (rowid>0) return true;

@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.IOException;
 
+import static epiphany_soft.wtw.DataBase.DataBaseContract.*;
+
 /**
  * Created by Camilo on 23/03/2016.
  */
@@ -20,12 +22,12 @@ public class DataBaseConnection {
         SQLiteDatabase db = miDBHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID, id);
-        values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
+        values.put(GeneroContract.COLUMN_NAME_GENERO_ID, id);
+        values.put(GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
         // Insert the new row, returning the primary key value of the new row
         long newRowId;
         newRowId = db.insert(
-                DataBaseContract.GeneroContract.TABLE_NAME,
+                GeneroContract.TABLE_NAME,
                 null,
                 values);
         return newRowId;
@@ -56,9 +58,9 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " +DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+","+
-                            DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
-            query+= "FROM "+ DataBaseContract.GeneroContract.TABLE_NAME;
+                    "SELECT " + GeneroContract.COLUMN_NAME_GENERO_ID+","+
+                            GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
+            query+= "FROM "+ GeneroContract.TABLE_NAME;
             Cursor c=db.rawQuery(query,null);
             return c;
         }
@@ -72,16 +74,18 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
-                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
-                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + " ";
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
             query +=
-                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME + " JOIN " +
-                            DataBaseContract.PeliculaContract.TABLE_NAME +
-                            " ON " + DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
-                            + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+                    "FROM " + ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
            query +=
-                    "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
             Cursor c = db.rawQuery(query, null);
             return c;
         }
@@ -97,18 +101,20 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
-                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
-                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS +","+
-                            DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            GeneroContract.COLUMN_NAME_GENERO_NOMBRE +","+
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
             query +=
-                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME+" NATURAL JOIN "+
-                            DataBaseContract.GeneroContract.TABLE_NAME+ " JOIN " +
-                            DataBaseContract.PeliculaContract.TABLE_NAME +
-                            " ON " + DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
-                            + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+                    "FROM " + ProgramaContract.TABLE_NAME+" NATURAL JOIN "+
+                            GeneroContract.TABLE_NAME+ " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
             query +=
-                    "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE +"=\'"+nombre+"\'";
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE +"=\'"+nombre+"\'";
             Cursor c = db.rawQuery(query, null);
             return c;
         }
@@ -123,8 +129,8 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
-            long rowid=db.insert(DataBaseContract.GeneroContract.TABLE_NAME, null, values);
+            values.put(GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
+            long rowid=db.insert(GeneroContract.TABLE_NAME, null, values);
             if (rowid>0) return true;
         }
         return false;
@@ -138,14 +144,14 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT "+ DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+","+
-                            DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
+                    "SELECT "+ GeneroContract.COLUMN_NAME_GENERO_ID+","+
+                            GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
             query+=
-                    "FROM "+ DataBaseContract.GeneroContract.TABLE_NAME+" ";
+                    "FROM "+ GeneroContract.TABLE_NAME+" ";
             query+=
-                    "WHERE "+DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID + " NOT IN ("+
-                            "SELECT "+ DataBaseContract.ProgramaContract.COLUMN_NAME_GENERO_ID+" FROM "+
-                            DataBaseContract.ProgramaContract.TABLE_NAME+")";
+                    "WHERE "+ GeneroContract.COLUMN_NAME_GENERO_ID + " NOT IN ("+
+                            "SELECT "+ ProgramaContract.COLUMN_NAME_GENERO_ID+" FROM "+
+                            ProgramaContract.TABLE_NAME+")";
             Cursor c = db.rawQuery(query, null);
             return c;
         }
@@ -159,8 +165,8 @@ public class DataBaseConnection {
         }
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
-            String query= DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_ID+"=?";
-            int numDel=db.delete(DataBaseContract.GeneroContract.TABLE_NAME, query, new String[]{Integer.toString(id)});
+            String query= GeneroContract.COLUMN_NAME_GENERO_ID+"=?";
+            int numDel=db.delete(GeneroContract.TABLE_NAME, query, new String[]{Integer.toString(id)});
             if (numDel>0) return true;
         }
         return false;
@@ -174,21 +180,21 @@ public class DataBaseConnection {
         if (miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID +" ";
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID +" ";
             query +=
-                    "FROM " + DataBaseContract.ProgramaContract.TABLE_NAME+" ";
+                    "FROM " + ProgramaContract.TABLE_NAME+" ";
 
             query +=
-                    "WHERE " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "=\'" + nombre + "\'";
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "=\'" + nombre + "\'";
             Cursor c = db.rawQuery(query, null);
             if (c.moveToNext()){
-                return c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+                return c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
             }
         }
         return -1;
     }
 
-    public boolean insertarPrograma( int id_gen, String nombre, String sinopsis) {
+    public boolean insertarPrograma( int id_gen, String nombre, String sinopsis, int anio, String pais) {
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -196,10 +202,12 @@ public class DataBaseConnection {
         if (miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
-            long rowide= db.insert(DataBaseContract.ProgramaContract.TABLE_NAME, null, values);
+            values.put(ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
+            long rowide= db.insert(ProgramaContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
         }
         return false;
@@ -214,14 +222,14 @@ public class DataBaseConnection {
         if (miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID, id);
-            long rowide= db.insert(DataBaseContract.PeliculaContract.TABLE_NAME, null, values);
+            values.put(PeliculaContract.COLUMN_NAME_PELICULA_ID, id);
+            long rowide= db.insert(PeliculaContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
         }
         return false;
     }
 
-    public boolean actualizarPrograma(int id_gen, String nombre, String sinopsis){
+    public boolean insertarSerie(int  id) {
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -229,11 +237,29 @@ public class DataBaseConnection {
         if (miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombre);
-            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
-            String query= DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE+"=?";
-            int rowid=db.update(DataBaseContract.ProgramaContract.TABLE_NAME,values,query,new String[]{nombre});
+            values.put(SerieContract.COLUMN_NAME_SERIE_ID, id);
+            long rowide= db.insert(SerieContract.TABLE_NAME, null, values);
+            if (rowide > 0) return true;
+        }
+        return false;
+    }
+
+    public boolean actualizarPrograma(int id_gen, String nombre, String sinopsis, int anio, String pais){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombre);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
+            values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
+
+            String query= ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE+"=?";
+            int rowid=db.update(ProgramaContract.TABLE_NAME,values,query,new String[]{nombre});
             if (rowid>0) return true;
         }
         return false;

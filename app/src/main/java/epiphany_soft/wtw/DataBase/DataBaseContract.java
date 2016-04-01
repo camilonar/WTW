@@ -15,6 +15,8 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_GENERO_ID = "Gen_Identificador";
         public static final String COLUMN_NAME_PROGRAMA_NOMBRE = "Pro_Nombre";
         public static final String COLUMN_NAME_PROGRAMA_SINOPSIS = "Pro_Sinopsis";
+        public static final String COLUMN_NAME_PROGRAMA_ANIO_ESTRENO = "Pro_AnioEstreno";
+        public static final String COLUMN_NAME_PROGRAMA_PAIS_ORIGEN = "Pro_PaisOrigen";
     }
 
     public static abstract class PeliculaContract implements BaseColumns {

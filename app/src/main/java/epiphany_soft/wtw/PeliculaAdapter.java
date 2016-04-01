@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Fonts.RobotoFont;
 
 /**
  * Created by Camilo on 26/03/2016.
@@ -30,6 +31,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
+            mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
 
@@ -77,4 +79,5 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
     public int getItemCount() {
         return mDataset.length;
     }
+
 }

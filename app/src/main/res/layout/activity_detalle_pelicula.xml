@@ -23,7 +23,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Nombre:"
                     android:textColor="@color/colorLabelText"
-                    android:id="@+id/textView3" />
+                    android:id="@+id/lblNombrePelicula" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Genero:"
                     android:textColor="@color/colorLabelText"
-                    android:id="@+id/textView4" />
+                    android:id="@+id/lblGenero" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -65,7 +65,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Sinopsis:"
                     android:textColor="@color/colorLabelText"
-                    android:id="@+id/textView5" />
+                    android:id="@+id/lblSinopsis" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -74,6 +74,53 @@
                     android:text="Large Text"
                     android:textColor="@color/colorNormalText"
                     android:id="@+id/txtSinopsisPel" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Año de Estreno: "
+                    android:textColor="@color/colorLabelText"
+                    android:id="@+id/lblAnioEstreno" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Large Text"
+                    android:textColor="@color/colorNormalText"
+                    android:id="@+id/txtAnioEstreno" />
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Pais de Origen: "
+                    android:textColor="@color/colorLabelText"
+                    android:id="@+id/lblPaisOrigen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Large Text"
+                    android:textColor="@color/colorNormalText"
+                    android:id="@+id/txtPaisOrigen"
+                    android:layout_weight="0.19" />
 
             </TableRow>
 

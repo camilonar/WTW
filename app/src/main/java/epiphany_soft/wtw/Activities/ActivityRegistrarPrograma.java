@@ -68,12 +68,22 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
 
         public void onClickRegistrar(View v)
         {
+            if (name.getText().toString().equals("")) {
+                createToast("Introduzca un nombre");
+                return;
+            }
+            if (anio.getText().toString().equals("")){
+                createToast("Introduzca un año");
+                return;
+            }
             String nombre=name.getText().toString();
             String sinopsisS=sinopsis.getText().toString();
+            int anioEstreno=Integer.parseInt(anio.getText().toString());
+            String paisOrigen=pais.getText().toString();
             int idGen=((Genero)spnGenero.getSelectedItem()).getId();
             if (pel.isChecked()==true) {
                 DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-                boolean success=db.insertarPrograma(idGen,nombre,sinopsisS);
+                boolean success=db.insertarPrograma(idGen,nombre,sinopsisS,anioEstreno,paisOrigen);
                 if (success){
                     int id=db.consultarId_Programa(nombre);
                     success=db.insertarPelicula(id);
@@ -83,8 +93,15 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
                 else createToast("Ocurrió un error");
             }
             else if (ser.isChecked()==true) {
-                //TODO:realizar el código para insertar una serie
-                createToast("Operación no soportada aún");
+                DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+                boolean success=db.insertarPrograma(idGen,nombre,sinopsisS,anioEstreno,paisOrigen);
+                if (success){
+                    int id=db.consultarId_Programa(nombre);
+                    success=db.insertarSerie(id);
+                    if (success) createToast("Serie creada");
+                    else createToast("Ocurrió un error");
+                }
+                else createToast("Ocurrió un error");
             }
         }
 

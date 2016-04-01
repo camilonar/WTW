@@ -76,7 +76,9 @@ public class DataBaseConnection {
             String query =
                     "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
                             ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + " ";
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
             query +=
                     "FROM " + ProgramaContract.TABLE_NAME + " JOIN " +
                             PeliculaContract.TABLE_NAME +
@@ -100,9 +102,11 @@ public class DataBaseConnection {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
                     "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS +","+
-                            GeneroContract.COLUMN_NAME_GENERO_NOMBRE+" ";
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            GeneroContract.COLUMN_NAME_GENERO_NOMBRE +","+
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                    ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
             query +=
                     "FROM " + ProgramaContract.TABLE_NAME+" NATURAL JOIN "+
                             GeneroContract.TABLE_NAME+ " JOIN " +
@@ -190,7 +194,7 @@ public class DataBaseConnection {
         return -1;
     }
 
-    public boolean insertarPrograma( int id_gen, String nombre, String sinopsis) {
+    public boolean insertarPrograma( int id_gen, String nombre, String sinopsis, int anio, String pais) {
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -201,7 +205,9 @@ public class DataBaseConnection {
             values.put(ProgramaContract.COLUMN_NAME_GENERO_ID, id_gen);
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
-            long rowide= db.insertOrThrow(ProgramaContract.TABLE_NAME, null, values);
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
+            values.put(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
+            long rowide= db.insert(ProgramaContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
         }
         return false;
@@ -218,6 +224,21 @@ public class DataBaseConnection {
             ContentValues values = new ContentValues();
             values.put(PeliculaContract.COLUMN_NAME_PELICULA_ID, id);
             long rowide= db.insert(PeliculaContract.TABLE_NAME, null, values);
+            if (rowide > 0) return true;
+        }
+        return false;
+    }
+
+    public boolean insertarSerie(int  id) {
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DataBaseContract.SerieContract.COLUMN_NAME_SERIE_ID, id);
+            long rowide= db.insert(DataBaseContract.SerieContract.TABLE_NAME, null, values);
             if (rowide > 0) return true;
         }
         return false;

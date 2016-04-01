@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -37,6 +38,7 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actualizar_pelicula);
         setTitle("ACTUALIZAR PELICULA");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         name=(EditText)findViewById(R.id.txtNombrePelicula);
         name.setKeyListener(null);
@@ -141,5 +143,19 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    @Override
+    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

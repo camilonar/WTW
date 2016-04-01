@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -30,6 +31,7 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
         setContentView(R.layout.activity_consultar_peliculas);
         txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         setTitle("CONSULTAR PELÍCULA");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         crearRecycledView(null);
         setSpecialFonts();
     }
@@ -67,6 +69,20 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
                 }
                 this.crearRecycledView(nombres);
             }
+        }
+    }
+
+    @Override
+    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

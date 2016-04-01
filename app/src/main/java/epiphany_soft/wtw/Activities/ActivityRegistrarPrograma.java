@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -34,6 +35,8 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_reg_pel_ser);
             setTitle("AGREGAR PROGRAMA");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            
             pel=(RadioButton)findViewById(R.id.but_pel);
             ser=(RadioButton)findViewById(R.id.but_ser);
             name=(EditText)findViewById(R.id.name_programa);
@@ -145,6 +148,20 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    @Override
+    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

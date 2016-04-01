@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class ActivityDetallePelicula extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_pelicula);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Se recibe el nombre del programa
         Bundle b = getIntent().getExtras();
         String nombrePelicula = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
@@ -72,5 +74,19 @@ public class ActivityDetallePelicula extends AppCompatActivity {
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO,anio);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    @Override
+    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -39,6 +40,7 @@ public class ActivityEliminarGenero extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eliminar_genero);
         setTitle("ELIMINAR GÉNERO");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         crearSpinnerGenerosNoUsados();
         if (spnGenero.getCount()<1){
             Button b = (Button) findViewById(R.id.btnEliminarGenero);
@@ -129,6 +131,20 @@ public class ActivityEliminarGenero extends AppCompatActivity{
                     });
 
             return builder.create();
+        }
+    }
+
+    @Override
+    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
+     *
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

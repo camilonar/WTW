@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -37,6 +38,7 @@ public class ActivityEliminarGenero extends AppCompatActivity{
         crearSpinnerGenerosNoUsados();
         if (spnGenero.getCount()<1){
             Button b = (Button) findViewById(R.id.btnEliminarGenero);
+            b.setTextColor(Color.GRAY);
             b.setEnabled(false);
         }
     }

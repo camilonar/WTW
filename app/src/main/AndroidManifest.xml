@@ -15,11 +15,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ActivityConsultarPelicula"></activity>
+        <activity android:name=".Activities.ActivityConsultarPelicula" ></activity>
         <activity android:name=".Activities.ActivityDetallePelicula"></activity>
-        <activity android:name=".Activities.ActivityAgregarGenero"></activity>
-        <activity android:name=".Activities.ActivityRegistrarPrograma"></activity>
-        <activity android:name=".Activities.ActivityActualizarPelicula"></activity>
+        <activity android:name=".Activities.ActivityAgregarGenero"
+            android:windowSoftInputMode="stateVisible"></activity>
+        <activity android:name=".Activities.ActivityRegistrarPrograma"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".Activities.ActivityActualizarPelicula"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".Activities.ActivityEliminarGenero"></activity>
     </application>
 

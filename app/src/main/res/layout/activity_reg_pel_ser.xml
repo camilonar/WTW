@@ -42,6 +42,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Serie"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/but_ser"
                         android:checked="false" />
 
@@ -49,6 +50,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Pelicula"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:id="@+id/but_pel"
                         android:checked="true" />
 

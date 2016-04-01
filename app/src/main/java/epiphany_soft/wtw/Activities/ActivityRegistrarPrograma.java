@@ -24,7 +24,7 @@ import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
 
 public class ActivityRegistrarPrograma extends AppCompatActivity{
-    private EditText name,sinopsis;
+    private EditText name,sinopsis,anio,pais;
     private Spinner spnGenero;
     private RadioButton pel,ser;
 
@@ -38,6 +38,8 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             ser=(RadioButton)findViewById(R.id.but_ser);
             name=(EditText)findViewById(R.id.name_programa);
             sinopsis=(EditText)findViewById(R.id.sin_programa);
+            anio =(EditText)findViewById(R.id.txtAnioEstreno);
+            pais =(EditText)findViewById(R.id.txtPaisOrigen);
             crearSpinnerGeneros();
             setSpecialFonts();
         }
@@ -51,11 +53,17 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             sinopsisLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
             TextView genero=(TextView) findViewById(R.id.lblGenero);
             genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            TextView lblAnio=(TextView) findViewById(R.id.lblAnioEstreno);
+            lblAnio.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+            TextView lblPais=(TextView) findViewById(R.id.lblPaisOrigen);
+            lblPais.setTypeface(SpecialFont.getInstance(this).getTypeFace());
             //Los textos
             pel.setTypeface(RobotoFont.getInstance(this).getTypeFace());
             ser.setTypeface(RobotoFont.getInstance(this).getTypeFace());
             name.setTypeface(RobotoFont.getInstance(this).getTypeFace());
             sinopsis.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+            anio.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+            pais.setTypeface(RobotoFont.getInstance(this).getTypeFace());
         }
 
         public void onClickRegistrar(View v)

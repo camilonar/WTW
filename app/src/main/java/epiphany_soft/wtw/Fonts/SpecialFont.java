@@ -15,7 +15,7 @@ public class SpecialFont {
         synchronized (SpecialFont.class) {
             if (instance == null) {
                 instance = new SpecialFont();
-                typeface = Typeface.createFromAsset(context.getResources().getAssets(), "Quicksand-Bold.otf");
+                typeface = Typeface.createFromAsset(context.getResources().getAssets(), "Capture_it.ttf");
             }
             return instance;
         }

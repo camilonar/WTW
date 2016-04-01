@@ -23,6 +23,7 @@
                 android:hint="Introduzca un nombre"
                 android:textColor="@color/colorNormalText"
                 android:textColorHint="@color/colorHintText"
+                android:inputType="textPersonName"
                 android:layout_weight="0.90" />
 
             <Button

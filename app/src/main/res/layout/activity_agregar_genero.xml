@@ -9,6 +9,7 @@
         android:id="@+id/txtAgregarGenero"
         android:hint="Genero"
         android:textColor="@color/colorNormalText"
+        android:inputType="textPersonName"
         android:textColorHint="@color/colorHintText"
         android:layout_weight="0.94" />
 

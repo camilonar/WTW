@@ -91,9 +91,9 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
                     int id=db.consultarId_Programa(nombre);
                     success=db.insertarPelicula(id);
                     if (success) createToast("Película creada");
-                    else createToast("Ocurrió un error");
+                    else createToast("El programa ya existe");
                 }
-                else createToast("Ocurrió un error");
+                else createToast("El programa ya existe");
             }
             else if (ser.isChecked()==true) {
                 DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
@@ -102,9 +102,9 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
                     int id=db.consultarId_Programa(nombre);
                     success=db.insertarSerie(id);
                     if (success) createToast("Serie creada");
-                    else createToast("Ocurrió un error");
+                    else createToast("El programa ya existe");
                 }
-                else createToast("Ocurrió un error");
+                else createToast("El programa ya existe");
             }
         }
 

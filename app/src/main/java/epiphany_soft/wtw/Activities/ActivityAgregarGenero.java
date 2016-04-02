@@ -39,7 +39,7 @@ public class ActivityAgregarGenero extends AppCompatActivity {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.insertarGenero(text);
         if (success) createToast("Genero creado");
-        else createToast("Ocurrió un error");
+        else createToast("El género ya existe");
     }
 
     public void createToast(String message){

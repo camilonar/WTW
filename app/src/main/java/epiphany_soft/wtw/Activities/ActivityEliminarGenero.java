@@ -2,7 +2,6 @@ package epiphany_soft.wtw.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -10,19 +9,17 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -32,7 +29,7 @@ import epiphany_soft.wtw.R;
 /**
  * Created by Camilo on 27/03/2016.
  */
-public class ActivityEliminarGenero extends AppCompatActivity{
+public class ActivityEliminarGenero extends ActivityBase {
     private Spinner spnGenero;
 
     @Override
@@ -53,14 +50,6 @@ public class ActivityEliminarGenero extends AppCompatActivity{
         FragmentManager fragmentManager = getSupportFragmentManager();
         DialogoConfirmacion dialogo = new DialogoConfirmacion();
         dialogo.show(fragmentManager, "tagConfirmacion");
-    }
-
-    public void createToast(String message){
-        Context context = getApplicationContext();
-        CharSequence text = message;
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
     }
 
     public void crearSpinnerGenerosNoUsados(){
@@ -131,20 +120,6 @@ public class ActivityEliminarGenero extends AppCompatActivity{
                     });
 
             return builder.create();
-        }
-    }
-
-    @Override
-    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
-     *
-     */
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

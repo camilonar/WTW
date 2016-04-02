@@ -3,11 +3,10 @@ package epiphany_soft.wtw.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
@@ -17,7 +16,7 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 
 // se supone que esta clase con ss metodos ya esta bn .. :)
-public class ActivityDetalleSerie extends AppCompatActivity {
+public class ActivityDetalleSerie extends ActivityBase {
     String nombre,sinopsis,genero,pais;
     int anio, idSerie;
     public static boolean actualizado=false;
@@ -103,19 +102,5 @@ public class ActivityDetalleSerie extends AppCompatActivity {
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO,anio);
         i.putExtras(b);
         startActivity(i);
-    }
-
-    @Override
-    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
-     *
-     */
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

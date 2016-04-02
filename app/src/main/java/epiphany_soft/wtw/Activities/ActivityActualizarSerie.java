@@ -90,7 +90,7 @@ public class ActivityActualizarSerie extends AppCompatActivity {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.actualizarPrograma(idGen, nombreSerie,sinopsisS,anioS,paisS);
         if (success) {
-            createToast("serie actualizada");
+            createToast("Serie actualizada");
             ActivityDetalleSerie.actualizado=true;
             this.finish();
         }

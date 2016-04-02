@@ -19,7 +19,7 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 // se supone que esta clase con ss metodos ya esta bn .. :)
 public class ActivityDetalleSerie extends AppCompatActivity {
     String nombre,sinopsis,genero,pais;
-    int anio;
+    int anio, idSerie;
     public static boolean actualizado=false;
 
 
@@ -80,6 +80,7 @@ public class ActivityDetalleSerie extends AppCompatActivity {
         genero = c.getString(c.getColumnIndex(GeneroContract.COLUMN_NAME_GENERO_NOMBRE));
         anio = c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO));
         pais = c.getString(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN));
+        idSerie =  c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
         if (!nombre.equals("")) ((TextView) findViewById(R.id.txtNombreSe)).setText(nombre);
         else ((TextView) findViewById(R.id.txtNombreSe)).setText("Serie sin nombre");
         if (!sinopsis.equals("")) ((TextView) findViewById(R.id.txtSinopsisSe)).setText(sinopsis);

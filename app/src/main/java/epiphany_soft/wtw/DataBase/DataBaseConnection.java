@@ -319,7 +319,7 @@ public class DataBaseConnection {
         else return null;
     }
 
-    public boolean agregarCapitulo(int id_cap, String nombreCap, int id_temp, int id_ser){
+    public boolean insertarCapitulo(int id_cap, String nombreCap, int id_temp, int id_ser){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -336,5 +336,24 @@ public class DataBaseConnection {
             if (rowide > 0) return true;
         }
         return false;
+    }
+
+    public Cursor getTemporadasDeSerie(int idSerie){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + TemporadaContract.COLUMN_NAME_TEMPORADA_ID + " ";
+            query +=
+                    "FROM " + TemporadaContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE " + TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idSerie)});
+            return c;
+        }
+        else return null;
     }
 }

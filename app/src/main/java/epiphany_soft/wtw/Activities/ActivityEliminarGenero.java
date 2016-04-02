@@ -37,7 +37,6 @@ public class ActivityEliminarGenero extends ActivityBase {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_eliminar_genero);
         setTitle("ELIMINAR GÉNERO");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         crearSpinnerGenerosNoUsados();
         if (spnGenero.getCount()<1){
             Button b = (Button) findViewById(R.id.btnEliminarGenero);

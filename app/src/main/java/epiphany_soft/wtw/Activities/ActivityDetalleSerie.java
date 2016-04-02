@@ -3,11 +3,17 @@ package epiphany_soft.wtw.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.Adapters.TemporadaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.R;
@@ -17,8 +23,12 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 
 // se supone que esta clase con ss metodos ya esta bn .. :)
 public class ActivityDetalleSerie extends ActivityBase {
-    String nombre,sinopsis,genero,pais;
-    int anio, idSerie;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    private String nombre,sinopsis,genero,pais;
+    private int anio, idSerie;
     public static boolean actualizado=false;
 
 
@@ -27,12 +37,12 @@ public class ActivityDetalleSerie extends ActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_serie);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle b = getIntent().getExtras();
         String nombreSerie = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         setTitle(nombreSerie);
         this.llenarInfo(nombreSerie);
+        crearRecycledView(getContenidoTemporadas());
         setSpecialFonts();
     }
 
@@ -59,6 +69,38 @@ public class ActivityDetalleSerie extends ActivityBase {
         TextView generoTxt=(TextView) findViewById(R.id.txtGeneroSe);
         generoTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
 
+    }
+
+    private String[] getContenidoTemporadas(){
+        DataBaseConnection db = new DataBaseConnection(this);
+        Cursor c=db.getTemporadasDeSerie(idSerie);
+            if (c!=null) {
+                String[] nombres = new String[c.getCount()];
+                int i = 0;
+                while (c.moveToNext()) {
+                    nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID));
+                    i++;
+                }
+                return nombres;
+            } else return null;
+    }
+
+    private void crearRecycledView(String[] contenido){
+        LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutTempRV);
+        Float height = getResources().getDimension(R.dimen.size_temporada)*(contenido.length);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
+        layoutRV.setLayoutParams(params);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_temporadas);
+        // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
+        mRecyclerView.setHasFixedSize(false);
+        // Se usa un layout manager lineal para el recycler view
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // Se especifica el adaptador
+        if (contenido!=null) {
+            mAdapter = new TemporadaAdapter(contenido);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
 

@@ -12,7 +12,7 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.R;
-import epiphany_soft.wtw.SerieAdapter;
+import epiphany_soft.wtw.Adapters.SerieAdapter;
 
 
 public class ActivityConsultarSerie extends ActivityBase {
@@ -28,7 +28,6 @@ public class ActivityConsultarSerie extends ActivityBase {
         setContentView(R.layout.activity_consultar_series);
         txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         setTitle("CONSULTAR SERIE ");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         crearRecycledView(null);
         setSpecialFonts();
     }

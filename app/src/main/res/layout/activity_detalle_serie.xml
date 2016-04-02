@@ -109,12 +109,58 @@
                     android:layout_margin="5dp"
                     android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="TEMPORADAS:"
+                    android:textColor="@color/colorLabelText"
+                    android:id="@+id/lblTemporadas" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/layoutTempRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_temporadas"
+                    android:scrollbars="vertical"
+                    android:textColor="@color/colorNormalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                </LinearLayout>
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_margin="5dp"
+                    android:paddingTop="20dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="AÑO DE ESTRENO:"
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblAnioEstreno" />
             </TableRow>
 
-            <View
+                        <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLine"/>

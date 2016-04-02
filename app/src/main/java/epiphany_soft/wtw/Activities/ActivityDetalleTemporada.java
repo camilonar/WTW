@@ -13,7 +13,7 @@ public class ActivityDetalleTemporada extends ActivityBase {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reg_pel_ser);
+        setContentView(R.layout.activity_detalle_temporada);
         setTitle("TEMPORADA");//TODO revisar el título
     }
 }

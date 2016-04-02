@@ -11,7 +11,7 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
-import epiphany_soft.wtw.PeliculaAdapter;
+import epiphany_soft.wtw.Adapters.PeliculaAdapter;
 import epiphany_soft.wtw.R;
 
 /**
@@ -30,7 +30,6 @@ public class ActivityConsultarPelicula extends ActivityBase {
         setContentView(R.layout.activity_consultar_peliculas);
         txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         setTitle("CONSULTAR PELÍCULA");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         crearRecycledView(null);
         setSpecialFonts();
     }

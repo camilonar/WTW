@@ -27,7 +27,6 @@ public class ActivityDetallePelicula extends ActivityBase {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_pelicula);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //Se recibe el nombre del programa
         Bundle b = getIntent().getExtras();
         String nombrePelicula = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);

@@ -2,13 +2,12 @@ package epiphany_soft.wtw.Activities;
 
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -16,7 +15,7 @@ import epiphany_soft.wtw.R;
 import epiphany_soft.wtw.SerieAdapter;
 
 
-public class ActivityConsultarSerie extends AppCompatActivity {
+public class ActivityConsultarSerie extends ActivityBase {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -66,20 +65,6 @@ public class ActivityConsultarSerie extends AppCompatActivity {
                 }
                 this.crearRecycledView(nombres);
             }
-        }
-    }
-
-    @Override
-    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
-     *
-     */
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

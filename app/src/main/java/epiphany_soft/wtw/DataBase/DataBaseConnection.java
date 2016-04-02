@@ -318,4 +318,42 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
+    public boolean insertarCapitulo(int id_cap, String nombreCap, int id_temp, int id_ser){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CapituloContract.COLUMN_NAME_CAPITULO_ID, id_cap);
+            values.put(CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE,nombreCap);
+            values.put(CapituloContract.COLUMN_NAME_TEMPORADA_ID, id_temp);
+            values.put(CapituloContract.COLUMN_NAME_SERIE_ID, id_ser);
+
+            long rowide= db.insert(CapituloContract.TABLE_NAME, null, values);
+            if (rowide > 0) return true;
+        }
+        return false;
+    }
+
+    public Cursor getTemporadasDeSerie(int idSerie){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + TemporadaContract.COLUMN_NAME_TEMPORADA_ID + " ";
+            query +=
+                    "FROM " + TemporadaContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE " + TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idSerie)});
+            return c;
+        }
+        else return null;
+    }
 }

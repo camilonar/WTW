@@ -1,11 +1,8 @@
 package epiphany_soft.wtw.Activities;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -13,10 +10,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -24,7 +21,7 @@ import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
 
-public class ActivityRegistrarPrograma extends AppCompatActivity{
+public class ActivityRegistrarPrograma extends ActivityBase{
     private EditText name,sinopsis,anio,pais;
     private Spinner spnGenero;
     private RadioButton pel,ser;
@@ -35,7 +32,6 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_reg_pel_ser);
             setTitle("AGREGAR PROGRAMA");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             
             pel=(RadioButton)findViewById(R.id.but_pel);
             ser=(RadioButton)findViewById(R.id.but_ser);
@@ -91,9 +87,9 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
                     int id=db.consultarId_Programa(nombre);
                     success=db.insertarPelicula(id);
                     if (success) createToast("Película creada");
-                    else createToast("Ocurrió un error");
+                    else createToast("El programa ya existe");
                 }
-                else createToast("Ocurrió un error");
+                else createToast("El programa ya existe");
             }
             else if (ser.isChecked()==true) {
                 DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
@@ -102,9 +98,9 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
                     int id=db.consultarId_Programa(nombre);
                     success=db.insertarSerie(id);
                     if (success) createToast("Serie creada");
-                    else createToast("Ocurrió un error");
+                    else createToast("El programa ya existe");
                 }
-                else createToast("Ocurrió un error");
+                else createToast("El programa ya existe");
             }
         }
 
@@ -141,27 +137,5 @@ public class ActivityRegistrarPrograma extends AppCompatActivity{
             adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
             spnGenero.setAdapter(adapter);
         }
-
-    public void createToast(String message){
-        Context context = getApplicationContext();
-        CharSequence text = message;
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
-
-    @Override
-    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
-     *
-     */
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 }

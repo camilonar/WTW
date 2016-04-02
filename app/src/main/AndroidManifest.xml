@@ -17,28 +17,35 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.ActivityConsultarPelicula"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityDetallePelicula"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityAgregarGenero"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible"></activity>
+            android:windowSoftInputMode="stateVisible"/>
         <activity android:name=".Activities.ActivityRegistrarPrograma"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Activities.ActivityActualizarPelicula"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".Activities.ActivityEliminarGenero"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".Activities.ActivityConsultarSerie"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityDetalleSerie"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityActualizarSerie"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden"/>
+
+        <activity android:name=".Activities.ActivityAgregarCapitulo"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible"/>
+
+        <activity android:name=".Activities.ActivityDetalleTemporada"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

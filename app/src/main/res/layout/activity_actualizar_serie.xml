@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-    
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -12,61 +12,6 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorTable">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textStyle="bold"
-                    android:paddingTop="20dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="TIPO DE PROGRAMA:"
-                    android:textColor="@color/colorLabelText"
-                    android:id="@+id/lblTipoPrograma" />
-            </TableRow>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RadioGroup
-                    android:layout_width="96dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Serie"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/but_ser"
-                        android:checked="false" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pelicula"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/but_pel"
-                        android:checked="true" />
-
-                </RadioGroup>
-            </TableRow>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -101,13 +46,11 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:inputType="textPersonName"
-                    android:text=""
                     android:hint="Nombre de película o serie"
                     android:textColorHint="@color/colorHintText"
                     android:textColor="@color/colorNormalText"
                     android:ems="10"
-
-                    android:id="@+id/name_programa" />
+                    android:id="@+id/txtNombreSerie" />
 
             </TableRow>
 
@@ -115,6 +58,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLine"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -147,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:ems="10"
-                    android:id="@+id/sin_programa"
+                    android:id="@+id/txtSinopsis"
                     android:hint="Sinopsis"
                     android:textColor="@color/colorNormalText"
                     android:textColorHint="@color/colorHintText"
@@ -175,11 +119,6 @@
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblAnioEstreno" />
             </TableRow>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
 
             <View
                 android:layout_width="fill_parent"
@@ -279,8 +218,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:id="@+id/spnGenero" />
+                    android:id="@+id/spnGeneroAct" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -290,15 +234,15 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Registrar"
-                    android:id="@+id/btnRegistrar"
-                    android:layout_gravity="center"
+                    android:text="Actualizar"
+                    android:id="@+id/btnActualizarPelicula"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:onClick="onClickActualizarSerie"
                     android:textColor="@color/colorButtonText"
-                    android:onClick="onClickRegistrar" />
+                    android:enabled="true" />
             </TableRow>
 
         </TableLayout>
     </ScrollView>
-
 
 </LinearLayout>

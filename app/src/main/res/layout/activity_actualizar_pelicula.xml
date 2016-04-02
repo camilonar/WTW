@@ -145,6 +145,11 @@
                     android:text="" />
             </TableRow>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

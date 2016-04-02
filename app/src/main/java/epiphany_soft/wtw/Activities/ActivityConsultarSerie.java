@@ -5,20 +5,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
-import epiphany_soft.wtw.PeliculaAdapter;
 import epiphany_soft.wtw.R;
+import epiphany_soft.wtw.SerieAdapter;
 
-/**
- * Created by Camilo on 22/03/2016.
- */
-public class ActivityConsultarPelicula extends AppCompatActivity{
+
+public class ActivityConsultarSerie extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -28,10 +25,9 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consultar_peliculas);
+        setContentView(R.layout.activity_consultar_series);
         txtBuscar = (EditText) findViewById(R.id.txtBuscar);
-        setTitle("CONSULTAR PELÍCULA");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("CONSULTAR SERIE ");
         crearRecycledView(null);
         setSpecialFonts();
     }
@@ -41,7 +37,7 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
     }
 
     private void crearRecycledView(String[] contenido){
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_consulta_pelicula);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_consulta_serie);
         // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
         mRecyclerView.setHasFixedSize(true);
         // Se usa un layout manager lineal para el recycler view
@@ -49,17 +45,16 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Se especifica el adaptador
         if (contenido!=null) {
-            mAdapter = new PeliculaAdapter(contenido);
+            mAdapter = new SerieAdapter(contenido);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
 
     public void onClickBuscar(View v) {
         String text = txtBuscar.getText().toString();
-        //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         if (!text.equals("")){
-            Cursor c=db.consultarPeliculaLikeNombre(text);
+            Cursor c=db.consultarSerieLikeNombre(text);
             if (c!=null) {
                 String[] nombres=new String[c.getCount()];
                 int i=0;
@@ -69,20 +64,6 @@ public class ActivityConsultarPelicula extends AppCompatActivity{
                 }
                 this.crearRecycledView(nombres);
             }
-        }
-    }
-
-    @Override
-    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
-     *
-     */
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
 }

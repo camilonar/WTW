@@ -20,6 +20,11 @@ public class MainActivity extends AppCompatActivity{
         startActivity(i);
     }
 
+    public void onClickConsultarSerie(View v){
+        Intent i = new Intent(this, ActivityConsultarSerie.class);
+        startActivity(i);
+    }
+
     public void onClickAgregarGenero(View v){
         Intent i = new Intent(this, ActivityAgregarGenero.class);
         startActivity(i);

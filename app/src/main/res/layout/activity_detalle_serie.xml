@@ -1,72 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
-    
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/scrollView" >
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView" >
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorTable">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:textStyle="bold"
-                    android:paddingTop="20dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="TIPO DE PROGRAMA:"
-                    android:textColor="@color/colorLabelText"
-                    android:id="@+id/lblTipoPrograma" />
-            </TableRow>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RadioGroup
-                    android:layout_width="96dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp">
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Serie"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/but_ser"
-                        android:checked="false" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Pelicula"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:id="@+id/but_pel"
-                        android:checked="true" />
-
-                </RadioGroup>
-            </TableRow>
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -96,18 +40,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
+                <TextView
                     android:layout_width="356dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:inputType="textPersonName"
                     android:text=""
-                    android:hint="Nombre de película o serie"
-                    android:textColorHint="@color/colorHintText"
                     android:textColor="@color/colorNormalText"
                     android:ems="10"
-
-                    android:id="@+id/name_programa" />
+                    android:id="@+id/txtNombreSe" />
 
             </TableRow>
 
@@ -115,6 +55,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorLine"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -142,15 +83,12 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp">
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
                     android:ems="10"
-                    android:id="@+id/sin_programa"
-                    android:hint="Sinopsis"
+                    android:id="@+id/txtSinopsisSe"
                     android:textColor="@color/colorNormalText"
-                    android:textColorHint="@color/colorHintText"
                     android:layout_gravity="top" />
             </TableRow>
 
@@ -181,29 +119,26 @@
                 android:layout_height="1dp"
                 android:background="@color/colorLine"/>
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:width="130dp"
                     android:layout_margin="5dp"
-                    android:inputType="number"
                     android:ems="10"
                     android:id="@+id/txtAnioEstreno"
-                    android:hint="Año de estreno"
                     android:textColor="@color/colorNormalText"
-                    android:textColorHint="@color/colorHintText"
                     android:layout_gravity="left|center_vertical"
                     android:text="" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -230,17 +165,14 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <EditText
+                <TextView
                     android:layout_width="356dp"
                     android:width="356dp"
                     android:layout_margin="5dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPersonName"
                     android:id="@+id/txtPaisOrigen"
-                    android:hint="Pais de Origen"
                     android:textColor="@color/colorNormalText"
-                    android:textColorHint="@color/colorHintText"
-                    android:layout_gravity="left|bottom"
+                    android:layout_gravity="left|center_vertical"
                     android:text="" />
             </TableRow>
 
@@ -275,11 +207,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Spinner
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:id="@+id/spnGenero" />
+                    android:ems="10"
+                    android:textColor="@color/colorNormalText"
+                    android:layout_gravity="top"
+                    android:id="@+id/txtGeneroSe" />
             </TableRow>
 
             <TableRow
@@ -287,18 +222,18 @@
                 android:layout_height="match_parent"
                 android:layout_margin="5dp">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Registrar"
-                    android:id="@+id/btnRegistrar"
-                    android:layout_gravity="center"
-                    android:textColor="@color/colorButtonText"
-                    android:onClick="onClickRegistrar" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Actualizar"
+                android:id="@+id/btnActualizarSerie"
+                android:layout_gravity="center_horizontal|bottom"
+                android:onClick="onClickActualizar"
+                android:textColor="@color/colorButtonText" />
             </TableRow>
 
         </TableLayout>
-    </ScrollView>
 
+    </ScrollView>
 
 </LinearLayout>

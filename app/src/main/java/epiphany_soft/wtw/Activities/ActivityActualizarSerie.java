@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -24,37 +23,34 @@ import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.R;
 
-/**
- * Created by Camilo on 27/03/2016.
- */
-public class ActivityActualizarPelicula extends AppCompatActivity {
+
+public class ActivityActualizarSerie extends AppCompatActivity {
     private EditText name,sinopsis,anio,pais;
     private Spinner spnGenero;
-    String nombrePelicula,sinopsisText,generoText,paisText;
+    String nombreSerie,sinopsisText,generoText,paisText;
     int anioText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actualizar_pelicula);
-        setTitle("ACTUALIZAR PELICULA");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_actualizar_serie);
+        setTitle("ACTUALIZAR SERIE");
 
-        name=(EditText)findViewById(R.id.txtNombrePelicula);
+        name=(EditText)findViewById(R.id.txtNombreSerie);
         name.setKeyListener(null);
         sinopsis=(EditText)findViewById(R.id.txtSinopsis);
         anio =(EditText)findViewById(R.id.txtAnioEstreno);
         pais =(EditText)findViewById(R.id.txtPaisOrigen);
 
         Bundle b = getIntent().getExtras();
-        nombrePelicula = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
+        nombreSerie = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         sinopsisText = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS);
         generoText = b.getString(DataBaseContract.GeneroContract.COLUMN_NAME_GENERO_NOMBRE);
         anioText = b.getInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO);
         paisText = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN);
 
         sinopsis.setText(sinopsisText);
-        name.setText(nombrePelicula);
+        name.setText(nombreSerie);
         anio.setText(Integer.toString(anioText));
         pais.setText(paisText);
         crearSpinnerGeneros();
@@ -79,7 +75,7 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         pais.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
-    public void onClickActualizarPelicula(View v){
+    public void onClickActualizarSerie(View v){
 
         if (anio.getText().toString().equals("")){
             createToast("Introduzca un año");
@@ -90,10 +86,10 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         int anioS=Integer.parseInt(anio.getText().toString());
         int idGen=((Genero)spnGenero.getSelectedItem()).getId();
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        boolean success=db.actualizarPrograma(idGen,nombrePelicula,sinopsisS,anioS,paisS);
+        boolean success=db.actualizarPrograma(idGen, nombreSerie,sinopsisS,anioS,paisS);
         if (success) {
-            createToast("Película actualizada");
-            ActivityDetallePelicula.actualizado=true;
+            createToast("serie actualizada");
+            ActivityDetalleSerie.actualizado=true;
             this.finish();
         }
         else createToast("Ocurrió un error");
@@ -113,7 +109,7 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
             } else generos.add(g);
 
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,R.layout.simple_spinner_item,generos){
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.simple_spinner_item,generos){
             public View getView(int position,View convertView, ViewGroup parent){
                 View v = super.getView(position, convertView, parent);
 
@@ -143,19 +139,5 @@ public class ActivityActualizarPelicula extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
-    }
-
-    @Override
-    /**Esta funcion sirve para poner el botón de regresar a la anterior actividad
-     *
-     */
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home: //hago un case por si en un futuro agrego mas opciones
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
     }
 }

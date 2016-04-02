@@ -259,9 +259,63 @@ public class DataBaseConnection {
             values.put(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
 
             String query= ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE+"=?";
-            int rowid=db.update(ProgramaContract.TABLE_NAME,values,query,new String[]{nombre});
+            int rowid=db.update(ProgramaContract.TABLE_NAME, values, query, new String[]{nombre});
             if (rowid>0) return true;
         }
         return false;
+    }
+
+    public Cursor consultarSerieLikeNombre(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+            query +=
+                    "FROM " + ProgramaContract.TABLE_NAME + " JOIN " +
+                            SerieContract.TABLE_NAME +
+                            " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+
+    public Cursor consultarSeriePorNombre(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            GeneroContract.COLUMN_NAME_GENERO_NOMBRE +","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+            query +=
+                    "FROM " + ProgramaContract.TABLE_NAME+" NATURAL JOIN "+
+                            GeneroContract.TABLE_NAME+ " JOIN " +
+                            SerieContract.TABLE_NAME +
+                            " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE +"=\'"+nombre+"\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
     }
 }

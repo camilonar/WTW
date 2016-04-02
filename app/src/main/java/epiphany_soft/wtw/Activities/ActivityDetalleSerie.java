@@ -29,7 +29,7 @@ public class ActivityDetalleSerie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_serie);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         Bundle b = getIntent().getExtras();
         String nombreSerie = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         setTitle(nombreSerie);

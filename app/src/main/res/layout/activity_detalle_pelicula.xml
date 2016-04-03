@@ -225,7 +225,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Actualizar"
+                    android:text="Editar"
                     android:id="@+id/btnActualizarPelicula"
                     android:layout_gravity="center_horizontal|bottom"
                     android:onClick="onClickActualizarPelicula"

@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Series;
 
 import android.database.Cursor;
 import android.os.Bundle;

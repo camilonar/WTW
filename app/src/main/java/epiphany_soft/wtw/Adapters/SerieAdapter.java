@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityDetalleSerie;
+import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.R;

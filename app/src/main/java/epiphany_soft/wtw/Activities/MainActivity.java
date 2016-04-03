@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerie;
 import epiphany_soft.wtw.R;
 
 public class MainActivity extends AppCompatActivity{

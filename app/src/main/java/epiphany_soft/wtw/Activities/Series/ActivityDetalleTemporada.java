@@ -1,9 +1,10 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Series;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import epiphany_soft.wtw.Activities.Series.ActivityAgregarCapitulo;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.R;

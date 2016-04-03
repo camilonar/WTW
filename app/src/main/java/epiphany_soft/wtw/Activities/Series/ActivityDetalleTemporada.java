@@ -20,6 +20,7 @@ public class ActivityDetalleTemporada extends ActivityBase {
 
     int idSerie, idTemporada;
     String nombreSerie;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,5 +44,17 @@ public class ActivityDetalleTemporada extends ActivityBase {
         b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombreSerie);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    public int getIdSerie(){
+        return idSerie;
+    }
+
+    public int getIdTemporada(){
+        return idTemporada;
+    }
+
+    public String getNombreSerie(){
+        return nombreSerie;
     }
 }

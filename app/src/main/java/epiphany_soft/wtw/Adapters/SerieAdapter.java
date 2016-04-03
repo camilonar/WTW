@@ -1,4 +1,4 @@
-package epiphany_soft.wtw;
+package epiphany_soft.wtw.Adapters;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
+import epiphany_soft.wtw.Activities.ActivityDetalleSerie;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
+import epiphany_soft.wtw.R;
+// parece q ya esta bn.
 
-/**
- * Created by Camilo on 26/03/2016.
- */
-public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHolder> {
+public class SerieAdapter extends RecyclerView.Adapter<SerieAdapter.ViewHolder> {
     private String[] mDataset;
 
     // Provide a reference to the views for each data item
@@ -38,7 +37,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         @Override
         public void onClick(View v) {
             if (mTextView.getText()!="") {
-                Intent i = new Intent(v.getContext(), ActivityDetallePelicula.class);
+                Intent i = new Intent(v.getContext(), ActivityDetalleSerie.class);
                 //Se manda el nombre del programa para saber que información debe mostrarse
                 Bundle b = new Bundle();
                 b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, mTextView.getText().toString());
@@ -49,13 +48,13 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public PeliculaAdapter(String[] myDataset) {
+    public SerieAdapter(String[] myDataset) {
         mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public PeliculaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public SerieAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())

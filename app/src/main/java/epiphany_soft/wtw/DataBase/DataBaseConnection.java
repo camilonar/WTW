@@ -370,13 +370,33 @@ public class DataBaseConnection {
             values.put(CapituloContract.COLUMN_NAME_TEMPORADA_ID, id_temp);
             values.put(CapituloContract.COLUMN_NAME_SERIE_ID, id_ser);
 
-            String query= CapituloContract.COLUMN_NAME_SERIE_ID+"=? "
-                    +CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? "
+            String query= CapituloContract.COLUMN_NAME_SERIE_ID+"=? AND "
+                    +CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
                     +CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
             String[] compare = new String[]{Integer.toString(id_ser),Integer.toString(id_temp),Integer.toString(id_cap_old)};
             int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
             if (rowid>0) return true;
         }
         return false;
+    }
+
+    public Cursor consultarCapitulosPorTemporada(int idTemporada, int idSerie){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + CapituloContract.COLUMN_NAME_CAPITULO_ID +","+
+                    CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE+" ";
+            query +=
+                    "FROM " + CapituloContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE "+CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND " + CapituloContract.COLUMN_NAME_SERIE_ID +"=?";
+
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idTemporada),Integer.toString(idSerie)});
+            return c;
+        }
+        else return null;
     }
 }

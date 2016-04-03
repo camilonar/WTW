@@ -19,7 +19,8 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 // parece q ya esta bn.
 
 public class CapituloAdapter extends RecyclerView.Adapter<CapituloAdapter.ViewHolder> {
-    private String[] mDataset;
+    private String[] numCaps;
+    private String[] nombreCaps;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -60,8 +61,9 @@ public class CapituloAdapter extends RecyclerView.Adapter<CapituloAdapter.ViewHo
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CapituloAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    public CapituloAdapter(String[] numCaps,String[] nombreCaps) {
+        this.numCaps = numCaps;
+        this.nombreCaps = nombreCaps;
     }
 
     // Create new views (invoked by the layout manager)
@@ -70,7 +72,7 @@ public class CapituloAdapter extends RecyclerView.Adapter<CapituloAdapter.ViewHo
                                                          int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tv_pelicula, parent, false);
+                .inflate(R.layout.tv_capitulo, parent, false);
         v.setClickable(true);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -81,14 +83,15 @@ public class CapituloAdapter extends RecyclerView.Adapter<CapituloAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.numCapTextView.setText(mDataset[position]);
+        holder.numCapTextView.setText(numCaps[position]);
+        holder.nombreCapTextView.setText(nombreCaps[position]);
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return numCaps.length;
     }
 
 }

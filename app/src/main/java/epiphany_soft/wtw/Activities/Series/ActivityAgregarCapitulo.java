@@ -61,7 +61,11 @@ public class ActivityAgregarCapitulo extends ActivityBase {
         int numeroCap=Integer.parseInt(numero.getText().toString());
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.insertarCapitulo(numeroCap,nombreCap,idTemporada,idSerie);
-        if (success) createToast("Capítulo creado");
+        if (success) {
+            createToast("Capítulo creado");
+            ActivityDetalleTemporada.actualizado=true;
+            this.finish();
+        }
         else createToast("El capítulo ya existe");
     }
 }

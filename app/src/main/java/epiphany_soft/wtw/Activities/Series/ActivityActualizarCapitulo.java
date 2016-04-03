@@ -36,7 +36,7 @@ public class ActivityActualizarCapitulo extends ActivityBase {
         nombreCapitulo = b.getString(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE);
         setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
 
-        numero.setText(idCapitulo);
+        numero.setText(Integer.toString(idCapitulo));
         nombre.setText(nombreCapitulo);
 
         setSpecialFonts();
@@ -52,7 +52,7 @@ public class ActivityActualizarCapitulo extends ActivityBase {
         numero.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
-    public void onClickAgregarCapitulo(View v) {
+    public void onClickActualizarCapitulo(View v) {
         if (nombre.getText().toString().equals("")) {
             createToast("Introduzca un nombre");
             return;
@@ -65,7 +65,12 @@ public class ActivityActualizarCapitulo extends ActivityBase {
         int numeroCap=Integer.parseInt(numero.getText().toString());
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.actualizarCapitulo(idCapitulo, numeroCap, nombreCap, idTemporada, idSerie);
-        if (success) createToast("Capítulo actualizado");
+        if (success) {
+            createToast("Capítulo actualizado");
+            ActivityDetalleCapitulo.actualizado=true;
+            ActivityDetalleTemporada.actualizado=true;
+            this.finish();
+        }
         else createToast("El número de capítulo ya existe");
     }
 }

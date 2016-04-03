@@ -1,11 +1,15 @@
 package epiphany_soft.wtw.Activities.Series;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.Adapters.CapituloAdapter;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.R;
 
@@ -21,6 +25,8 @@ public class ActivityDetalleTemporada extends ActivityBase {
     int idSerie, idTemporada;
     String nombreSerie;
 
+    public static boolean actualizado=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,9 +37,16 @@ public class ActivityDetalleTemporada extends ActivityBase {
         idTemporada = b.getInt(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID);
         nombreSerie = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
 
-        setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
+        setTitle(nombreSerie + ": Temporada " + Integer.toString(idTemporada));
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_consultar_capitulo);
+        crearRecycledViewCapitulos();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (actualizado) this.recreate();
+        actualizado=false;
     }
 
     public void onClickAgregarCapitulo(View v){
@@ -44,6 +57,36 @@ public class ActivityDetalleTemporada extends ActivityBase {
         b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombreSerie);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    private void crearRecycledViewCapitulos(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        Cursor c=db.consultarCapitulosPorTemporada(idTemporada,idSerie);
+        if (c!=null) {
+            String[] nombresCap=new String[c.getCount()];
+            String[] numerosCap=new String[c.getCount()];
+            int i=0;
+            while (c.moveToNext()){
+                nombresCap[i]=c.getString(c.getColumnIndex(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE));
+                numerosCap[i]=c.getString(c.getColumnIndex(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_ID));
+                i++;
+            }
+            this.crearRecycledView(numerosCap,nombresCap);
+        }
+    }
+
+    private void crearRecycledView(String[] numCapitulos,String[] nombreCapitulos){
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_consultar_capitulo);
+        // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
+        mRecyclerView.setHasFixedSize(true);
+        // Se usa un layout manager lineal para el recycler view
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // Se especifica el adaptador
+        if (numCapitulos!=null && nombreCapitulos!=null) {
+            mAdapter = new CapituloAdapter(numCapitulos,nombreCapitulos);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     public int getIdSerie(){

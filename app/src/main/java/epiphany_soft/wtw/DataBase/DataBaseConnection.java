@@ -356,4 +356,27 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
+    public boolean actualizarCapitulo(int id_cap_old, int id_cap_new, String nombreCap, int id_temp, int id_ser){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CapituloContract.COLUMN_NAME_CAPITULO_ID, id_cap_new);
+            values.put(CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE,nombreCap);
+            values.put(CapituloContract.COLUMN_NAME_TEMPORADA_ID, id_temp);
+            values.put(CapituloContract.COLUMN_NAME_SERIE_ID, id_ser);
+
+            String query= CapituloContract.COLUMN_NAME_SERIE_ID+"=? "
+                    +CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? "
+                    +CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
+            String[] compare = new String[]{Integer.toString(id_ser),Integer.toString(id_temp),Integer.toString(id_cap_old)};
+            int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
 }

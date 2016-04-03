@@ -30,8 +30,8 @@ public class ActivityAgregarCapitulo extends ActivityBase {
         numero = (EditText) findViewById(R.id.txtNumeroCapitulo);
 
         Bundle b = getIntent().getExtras();
-        idSerie = b.getInt(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID);
-        idTemporada = b.getInt(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID);
+        idSerie = b.getInt(DataBaseContract.CapituloContract.COLUMN_NAME_SERIE_ID);
+        idTemporada = b.getInt(DataBaseContract.CapituloContract.COLUMN_NAME_TEMPORADA_ID);
         nombreSerie = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
 

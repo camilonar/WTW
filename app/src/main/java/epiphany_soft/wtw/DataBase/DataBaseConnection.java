@@ -392,7 +392,8 @@ public class DataBaseConnection {
             query +=
                     "FROM " + CapituloContract.TABLE_NAME+" ";
             query +=
-                    "WHERE "+CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND " + CapituloContract.COLUMN_NAME_SERIE_ID +"=?";
+                    "WHERE "+CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND " + CapituloContract.COLUMN_NAME_SERIE_ID +"=? ";
+            query += "ORDER BY "+CapituloContract.COLUMN_NAME_CAPITULO_ID;
 
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idTemporada),Integer.toString(idSerie)});
             return c;

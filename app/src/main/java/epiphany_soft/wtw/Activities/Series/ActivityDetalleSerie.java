@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Series;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.Series.ActivityActualizarSerie;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.TemporadaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;

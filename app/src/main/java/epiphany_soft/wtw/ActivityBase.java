@@ -3,6 +3,7 @@ package epiphany_soft.wtw;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ActivityBase extends AppCompatActivity{
         CharSequence text = message;
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
+        toast.setGravity(Gravity.TOP,0,300);
         toast.show();
     }
 

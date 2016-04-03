@@ -236,11 +236,12 @@
                     android:layout_margin="5dp"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
+                    android:ems="10"
                     android:id="@+id/txtPaisOrigen"
                     android:hint="Pais de Origen"
                     android:textColor="@color/colorNormalText"
                     android:textColorHint="@color/colorHintText"
-                    android:layout_gravity="left|bottom"
+                    android:layout_gravity="top"
                     android:text="" />
             </TableRow>
 

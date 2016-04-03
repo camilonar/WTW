@@ -32,18 +32,22 @@
         <activity android:name=".Activities.ActivityEliminarGenero"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.ActivityConsultarSerie"
+        <activity android:name=".Activities.Series.ActivityConsultarSerie"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.ActivityDetalleSerie"
+        <activity android:name=".Activities.Series.ActivityDetalleSerie"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Activities.ActivityActualizarSerie"
+        <activity android:name=".Activities.Series.ActivityActualizarSerie"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name=".Activities.ActivityAgregarCapitulo"
+        <activity android:name=".Activities.Series.ActivityAgregarCapitulo"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
-        <activity android:name=".Activities.ActivityDetalleTemporada"
+        <activity android:name=".Activities.Series.ActivityDetalleTemporada"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Series.ActivityActualizarCapitulo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Series.ActivityDetalleCapitulo"
             android:screenOrientation="portrait"/>
     </application>
 

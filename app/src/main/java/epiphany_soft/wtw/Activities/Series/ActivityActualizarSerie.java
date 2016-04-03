@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Series;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -84,7 +84,7 @@ public class ActivityActualizarSerie extends ActivityBase {
         int anioS=Integer.parseInt(anio.getText().toString());
         int idGen=((Genero)spnGenero.getSelectedItem()).getId();
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        boolean success=db.actualizarPrograma(idGen, nombreSerie,sinopsisS,anioS,paisS);
+        boolean success=db.actualizarPrograma(idGen, nombreSerie, sinopsisS, anioS, paisS);
         if (success) {
             createToast("Serie actualizada");
             ActivityDetalleSerie.actualizado=true;

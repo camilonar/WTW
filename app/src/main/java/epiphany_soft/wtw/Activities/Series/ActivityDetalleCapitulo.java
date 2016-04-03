@@ -1,11 +1,13 @@
 package epiphany_soft.wtw.Activities.Series;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.R;
@@ -18,9 +20,10 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
  */
 public class ActivityDetalleCapitulo extends ActivityBase {
     private TextView nombre,numero;
-    private int idSerie, idTemporada,idCapitulo;
+    private int idSerie, idTemporada;
     private String nombreSerie,nombreCapitulo;
 
+    public static int idCapitulo;
     public static boolean actualizado=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +37,26 @@ public class ActivityDetalleCapitulo extends ActivityBase {
         idSerie = b.getInt(CapituloContract.COLUMN_NAME_SERIE_ID);
         idTemporada = b.getInt(CapituloContract.COLUMN_NAME_TEMPORADA_ID);
         nombreSerie = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
-        //TODO Cambiar para que se actualice al modificar
-        idCapitulo = b.getInt(CapituloContract.COLUMN_NAME_CAPITULO_ID);
+
+        //Solo debe obtenerse el idCapitulo de ésta forma la primera vez que se crea
+        if (savedInstanceState==null) idCapitulo = b.getInt(CapituloContract.COLUMN_NAME_CAPITULO_ID);
         nombreCapitulo = b.getString(CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE);
 
-        setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
+        setTitle(nombreSerie + ": Temporada " + Integer.toString(idTemporada));
+
+        setInfoCapitulo();
+        setSpecialFonts();
+    }
+
+    private void setInfoCapitulo(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        Cursor c=db.consultarInfoCapitulo(idTemporada, idSerie, idCapitulo);
+        c.moveToNext();
+        idCapitulo = c.getInt(c.getColumnIndex(CapituloContract.COLUMN_NAME_CAPITULO_ID));
+        nombreCapitulo = c.getString(c.getColumnIndex(CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE));
 
         numero.setText(Integer.toString(idCapitulo));
         nombre.setText(nombreCapitulo);
-
-        setSpecialFonts();
     }
 
     private void setSpecialFonts(){

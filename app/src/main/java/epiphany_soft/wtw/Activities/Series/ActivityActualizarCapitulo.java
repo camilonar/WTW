@@ -67,6 +67,7 @@ public class ActivityActualizarCapitulo extends ActivityBase {
         boolean success=db.actualizarCapitulo(idCapitulo, numeroCap, nombreCap, idTemporada, idSerie);
         if (success) {
             createToast("Capítulo actualizado");
+            ActivityDetalleCapitulo.idCapitulo=numeroCap;
             ActivityDetalleCapitulo.actualizado=true;
             ActivityDetalleTemporada.actualizado=true;
             this.finish();

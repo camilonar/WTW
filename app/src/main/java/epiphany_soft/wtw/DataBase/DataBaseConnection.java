@@ -400,4 +400,26 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
+    public Cursor consultarInfoCapitulo(int idTemporada, int idSerie, int idCap){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + CapituloContract.COLUMN_NAME_CAPITULO_ID +","+
+                    CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE+" ";
+            query +=
+                    "FROM " + CapituloContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE "+CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
+                            + CapituloContract.COLUMN_NAME_SERIE_ID +"=? AND "
+                            + CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idTemporada),Integer.toString(idSerie),
+            Integer.toString(idCap)});
+            return c;
+        }
+        else return null;
+    }
 }

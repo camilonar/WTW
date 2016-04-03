@@ -51,6 +51,8 @@ public class ActivityDetalleSerie extends ActivityBase {
         nombreLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView sinopsisLabel=(TextView) findViewById(R.id.lblSinopsis);
         sinopsisLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView lblTemporadas=(TextView) findViewById(R.id.lblTemporadas);
+        lblTemporadas.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView genero=(TextView) findViewById(R.id.lblGenero);
         genero.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView lblAnio=(TextView) findViewById(R.id.lblAnioEstreno);
@@ -144,5 +146,13 @@ public class ActivityDetalleSerie extends ActivityBase {
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO,anio);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    public int getIdSerie(){
+        return idSerie;
+    }
+
+    public String getNombreSerie(){
+        return nombre;
     }
 }

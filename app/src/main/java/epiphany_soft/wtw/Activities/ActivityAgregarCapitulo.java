@@ -19,6 +19,7 @@ public class ActivityAgregarCapitulo extends ActivityBase {
 
     private EditText nombre,numero;
     private int idSerie, idTemporada;
+    private String nombreSerie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class ActivityAgregarCapitulo extends ActivityBase {
         Bundle b = getIntent().getExtras();
         idSerie = b.getInt(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID);
         idTemporada = b.getInt(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID);
+        nombreSerie = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
+        setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
 
         setSpecialFonts();
     }

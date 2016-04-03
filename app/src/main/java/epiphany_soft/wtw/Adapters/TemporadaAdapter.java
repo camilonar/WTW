@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.ActivityDetalleSerie;
 import epiphany_soft.wtw.Activities.ActivityDetalleTemporada;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -38,9 +39,13 @@ public class TemporadaAdapter extends RecyclerView.Adapter<TemporadaAdapter.View
         public void onClick(View v) {
             if (mTextView.getText()!="") {
                 Intent i = new Intent(v.getContext(), ActivityDetalleTemporada.class);
+                int idSerie=((ActivityDetalleSerie)v.getContext()).getIdSerie();
+                String nombreSerie = ((ActivityDetalleSerie)v.getContext()).getNombreSerie();
                 //Se manda el nombre del programa para saber que información debe mostrarse
                 Bundle b = new Bundle();
                 b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID, Integer.parseInt(mTextView.getText().toString()));
+                b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID,idSerie);
+                b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE,nombreSerie);
                 i.putExtras(b);
                 v.getContext().startActivity(i);
             }

@@ -45,7 +45,16 @@ public class ActivityDetalleCapitulo extends ActivityBase {
         setTitle(nombreSerie + ": Temporada " + Integer.toString(idTemporada));
 
         setInfoCapitulo();
+        setTitlePersonalizado();
         setSpecialFonts();
+    }
+
+    private void setTitlePersonalizado(){
+        String numTemp = Integer.toString(idTemporada);
+        String numCap = Integer.toString(idCapitulo);
+        if (numTemp.length()==1) numTemp = "0"+numTemp;
+        if (numCap.length()==1) numCap = "0"+numCap;
+        setTitle(nombreSerie + "-T" + numTemp +": E"+numCap);
     }
 
     private void setInfoCapitulo(){

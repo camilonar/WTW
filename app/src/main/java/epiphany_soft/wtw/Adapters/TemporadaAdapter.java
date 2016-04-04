@@ -17,7 +17,8 @@ import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
 public class TemporadaAdapter extends RecyclerView.Adapter<TemporadaAdapter.ViewHolder> {
-    private String[] mDataset;
+    private String[] numTemporadas;
+    private String[] cantCapitulos;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -25,13 +26,15 @@ public class TemporadaAdapter extends RecyclerView.Adapter<TemporadaAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public CardView mCardView;
-        public TextView mTextView;
+        public TextView mTextView, cantCapTextView;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
+            cantCapTextView = (TextView)v.findViewById(R.id.textCardCantidadCapitulo);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
+            cantCapTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
 
@@ -53,8 +56,9 @@ public class TemporadaAdapter extends RecyclerView.Adapter<TemporadaAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public TemporadaAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    public TemporadaAdapter(String[] myDataset, String[] cantCapitulos) {
+        numTemporadas = myDataset;
+        this.cantCapitulos = cantCapitulos;
     }
 
     // Create new views (invoked by the layout manager)
@@ -74,14 +78,15 @@ public class TemporadaAdapter extends RecyclerView.Adapter<TemporadaAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        holder.mTextView.setText(numTemporadas[position]);
+        holder.cantCapTextView.setText(cantCapitulos[position]);
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return numTemporadas.length;
     }
 
 }

@@ -70,6 +70,7 @@ public class ActivityAgregarCapitulo extends ActivityBase {
         if (success) {
             createToast("Capítulo creado");
             ActivityDetalleTemporada.actualizado=true;
+            ActivityDetalleSerie.actualizado=true;
             this.finish();
         }
         else createToast("El capítulo ya existe");

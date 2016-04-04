@@ -17,38 +17,6 @@ public class DataBaseConnection {
     public DataBaseConnection (Context context){
         miDBHelper = new DataBaseHelper(context);
     }
-    public long insertPrueba(int id, String nombre)
-    {
-        SQLiteDatabase db = miDBHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(GeneroContract.COLUMN_NAME_GENERO_ID, id);
-        values.put(GeneroContract.COLUMN_NAME_GENERO_NOMBRE, nombre);
-        // Insert the new row, returning the primary key value of the new row
-        long newRowId;
-        newRowId = db.insert(
-                GeneroContract.TABLE_NAME,
-                null,
-                values);
-        return newRowId;
-    }
-
-    public String pruebaInsercionGenero(int id_gen){
-        try {
-            miDBHelper.createDataBase();
-        } catch (IOException e) {
-        }
-
-        if(miDBHelper.checkDataBase()){
-            long rowId=insertPrueba(id_gen,"comedia");
-            miDBHelper.close();
-
-            if (rowId<0) return null;
-            return Long.toString(rowId);
-        }else{
-            return null;
-        }
-    }
 
     public Cursor consultarAllGeneros(){
         try {
@@ -337,7 +305,7 @@ public class DataBaseConnection {
         }
         return false;
     }
-
+/*
     public Cursor getTemporadasDeSerie(int idSerie){
         try {
             miDBHelper.createDataBase();
@@ -350,12 +318,39 @@ public class DataBaseConnection {
             query +=
                     "FROM " + TemporadaContract.TABLE_NAME+" ";
             query +=
-                    "WHERE " + TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=?";
+                    "WHERE " + TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idSerie)});
+            return c;
+        }
+        else return null;
+    }*/
+
+    public Cursor getTemporadasDeSerie(int idSerie){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " +TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID + ","
+                    +"COUNT("+TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID+") AS cuenta ";
+            query +=
+                    "FROM " + TemporadaContract.TABLE_NAME+" LEFT OUTER JOIN "+CapituloContract.TABLE_NAME +
+                            " ON "+TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID
+                            +"="+CapituloContract.TABLE_NAME+"."+CapituloContract.COLUMN_NAME_TEMPORADA_ID+" AND "
+                            +TemporadaContract.TABLE_NAME+"."+TemporadaContract.COLUMN_NAME_PROGRAMA_ID+"="
+                            +CapituloContract.TABLE_NAME+"."+CapituloContract.COLUMN_NAME_SERIE_ID+" ";
+            query +=
+                    "WHERE " +TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
+            query+=
+                    "GROUP BY "+TemporadaContract.TABLE_NAME+"."+TemporadaContract.COLUMN_NAME_TEMPORADA_ID;
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idSerie)});
             return c;
         }
         else return null;
     }
+
 
     public boolean actualizarCapitulo(int id_cap_old, int id_cap_new, String nombreCap, int id_temp, int id_ser){
         try {

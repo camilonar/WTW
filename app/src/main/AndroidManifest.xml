@@ -49,6 +49,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.Series.ActivityDetalleCapitulo"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.Series.ActivityAgregarTemporada"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible"/>
     </application>
 
 </manifest>

@@ -150,6 +150,17 @@ public class ActivityDetalleSerie extends ActivityBase {
         startActivity(i);
     }
 
+    public void onClickRegistrarTemporada(View v){
+
+        Intent i = new Intent(this, ActivityAgregarTemporada.class);
+        Bundle b = new Bundle();
+        b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        i.putExtras(b);
+        startActivity(i);
+
+    }
+
     public int getIdSerie(){
         return idSerie;
     }

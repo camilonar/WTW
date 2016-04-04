@@ -334,7 +334,7 @@ public class DataBaseConnection {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
                     "SELECT " +TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID + ","
-                    +"COUNT("+TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID+") AS cuenta ";
+                    +"COUNT("+CapituloContract.TABLE_NAME+"."+ CapituloContract.COLUMN_NAME_TEMPORADA_ID+") AS cuenta ";
             query +=
                     "FROM " + TemporadaContract.TABLE_NAME+" LEFT OUTER JOIN "+CapituloContract.TABLE_NAME +
                             " ON "+TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID
@@ -416,5 +416,22 @@ public class DataBaseConnection {
             return c;
         }
         else return null;
+    }
+
+    public boolean insertarTemporada(int id_serie, int  idTemporada){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(TemporadaContract.COLUMN_NAME_PROGRAMA_ID, id_serie);
+            values.put(TemporadaContract.COLUMN_NAME_TEMPORADA_ID, idTemporada);
+
+            long rowide= db.insert(TemporadaContract.TABLE_NAME, null, values);
+            if (rowide > 0) return true;
+        }
+        return false;
     }
 }

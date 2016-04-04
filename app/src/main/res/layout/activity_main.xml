@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.MainActivity">
 
@@ -14,11 +12,19 @@
         android:layout_height="wrap_content"
         android:text="Consultar Película"
         android:id="@+id/btnConsultar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
         android:nestedScrollingEnabled="true"
         android:textColor="@color/colorButtonText"
-        android:onClick="onClickConsultar" />
+        android:onClick="onClickConsultar"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine"
+        android:layout_above="@+id/btnAgregarPrograma"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -27,33 +33,41 @@
         android:id="@+id/btnGenero"
         android:nestedScrollingEnabled="true"
         android:onClick="onClickAgregarGenero"
-        android:layout_below="@+id/btnConsultar"
-        android:layout_centerHorizontal="true"
         android:textColor="@color/colorButtonText"
-        android:layout_marginTop="56dp" />
+        android:layout_marginTop="62dp"
+        android:layout_below="@+id/btnAgregarPrograma"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Agregar programa"
         android:id="@+id/btnAgregarPrograma"
-        android:layout_marginTop="69dp"
         android:onClick="onClickAgregarPrograma"
-        android:layout_below="@+id/btnGenero"
         android:textColor="@color/colorButtonText"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/btnConsultar"
+        android:layout_alignEnd="@+id/btnConsultar" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorLine"
+        android:layout_below="@+id/btnAgregarPrograma"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Eliminar Género"
         android:id="@+id/btnEliminarGenero"
-        android:layout_marginTop="47dp"
-        android:layout_below="@+id/btnAgregarPrograma"
-        android:layout_alignLeft="@+id/btnGenero"
-        android:layout_alignStart="@+id/btnGenero"
         android:textColor="@color/colorButtonText"
-        android:onClick="onClickBtnEliminarGenero" />
+        android:onClick="onClickBtnEliminarGenero"
+        android:layout_below="@+id/btnGenero"
+        android:layout_alignLeft="@+id/btnGenero"
+        android:layout_alignStart="@+id/btnGenero" />
 
     <Button
         android:layout_width="wrap_content"
@@ -64,6 +78,7 @@
         android:textColor="@color/colorButtonText"
         android:onClick="onClickConsultarSerie"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
 
 </RelativeLayout>

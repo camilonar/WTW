@@ -33,9 +33,15 @@ public class ActivityAgregarCapitulo extends ActivityBase {
         idSerie = b.getInt(DataBaseContract.CapituloContract.COLUMN_NAME_SERIE_ID);
         idTemporada = b.getInt(DataBaseContract.CapituloContract.COLUMN_NAME_TEMPORADA_ID);
         nombreSerie = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
-        setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
 
+        setTitlePersonalizado();
         setSpecialFonts();
+    }
+
+    private void setTitlePersonalizado(){
+        String numTemp = Integer.toString(idTemporada);
+        if (numTemp.length()==1) numTemp = "0"+numTemp;
+        setTitle(nombreSerie + "-T" + numTemp);
     }
 
     private void setSpecialFonts(){
@@ -64,6 +70,7 @@ public class ActivityAgregarCapitulo extends ActivityBase {
         if (success) {
             createToast("Capítulo creado");
             ActivityDetalleTemporada.actualizado=true;
+            ActivityDetalleSerie.actualizado=true;
             this.finish();
         }
         else createToast("El capítulo ya existe");

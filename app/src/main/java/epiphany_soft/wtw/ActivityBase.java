@@ -23,7 +23,7 @@ public class ActivityBase extends AppCompatActivity{
         CharSequence text = message;
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
-        toast.setGravity(Gravity.TOP,0,300);
+        toast.setGravity(Gravity.TOP,0,350);
         toast.show();
     }
 

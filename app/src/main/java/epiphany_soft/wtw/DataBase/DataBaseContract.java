@@ -62,7 +62,6 @@ public final class DataBaseContract {
         public static final String TABLE_NAME = "Temporada";
         public static final String COLUMN_NAME_PROGRAMA_ID = "Ser_Id";
         public static final String COLUMN_NAME_TEMPORADA_ID = "Tem_Identificador";
-        public static final String COLUMN_NAME_TEMPORADA_NUMERO = "Tem_Nombre";
     }
 
     /*TODO: Implementarlo en la BD. Todavía no se pueden usar. La definición puede variar*/

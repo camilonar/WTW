@@ -30,7 +30,7 @@ public class ActivityConsultarPelicula extends ActivityBase {
         setContentView(R.layout.activity_consultar_peliculas);
         txtBuscar = (EditText) findViewById(R.id.txtBuscar);
         setTitle("CONSULTAR PELÍCULA");
-        crearRecycledView(null);
+        llenarRecyclerOnCreate();
         setSpecialFonts();
     }
 
@@ -66,7 +66,22 @@ public class ActivityConsultarPelicula extends ActivityBase {
                     i++;
                 }
                 this.crearRecycledView(nombres);
+                if (c.getCount()==0) createToast("No se encontraron resultados");
             }
         }
+    }
+
+    private void llenarRecyclerOnCreate(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        Cursor c=db.consultarPeliculaLikeNombre("");
+        if (c!=null) {
+            String[] nombres=new String[c.getCount()];
+            int i=0;
+            while (c.moveToNext()) {
+                nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                i++;
+            }
+            this.crearRecycledView(nombres);
+        } else this.crearRecycledView(null);
     }
 }

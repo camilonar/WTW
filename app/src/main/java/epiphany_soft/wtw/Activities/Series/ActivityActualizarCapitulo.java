@@ -34,12 +34,20 @@ public class ActivityActualizarCapitulo extends ActivityBase {
         nombreSerie = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         idCapitulo = b.getInt(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_ID);
         nombreCapitulo = b.getString(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE);
-        setTitle(nombreSerie+": Temporada "+Integer.toString(idTemporada));
 
         numero.setText(Integer.toString(idCapitulo));
         nombre.setText(nombreCapitulo);
 
+        setTitlePersonalizado();
         setSpecialFonts();
+    }
+
+    private void setTitlePersonalizado(){
+        String numTemp = Integer.toString(idTemporada);
+        String numCap = Integer.toString(idCapitulo);
+        if (numTemp.length()==1) numTemp = "0"+numTemp;
+        if (numCap.length()==1) numCap = "0"+numCap;
+        setTitle(nombreSerie + "-T" + numTemp + ": E" + numCap);
     }
 
     private void setSpecialFonts(){

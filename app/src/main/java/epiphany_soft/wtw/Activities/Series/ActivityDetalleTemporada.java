@@ -37,9 +37,14 @@ public class ActivityDetalleTemporada extends ActivityBase {
         idTemporada = b.getInt(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID);
         nombreSerie = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
 
-        setTitle(nombreSerie + ": Temporada " + Integer.toString(idTemporada));
-
+        setTitlePersonalizado();
         crearRecycledViewCapitulos();
+    }
+
+    private void setTitlePersonalizado(){
+        String numTemp = Integer.toString(idTemporada);
+        if (numTemp.length()==1) numTemp = "0"+numTemp;
+        setTitle(nombreSerie + "-T" + numTemp +": Capítulos");
     }
 
     @Override

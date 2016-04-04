@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.Series.ActivityActualizarSerie;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.TemporadaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
@@ -43,7 +42,7 @@ public class ActivityDetalleSerie extends ActivityBase {
         String nombreSerie = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         setTitle(nombreSerie);
         this.llenarInfo(nombreSerie);
-        crearRecycledView(getContenidoTemporadas());
+        crearRecycledViewTemporadas();
         setSpecialFonts();
     }
 
@@ -74,21 +73,23 @@ public class ActivityDetalleSerie extends ActivityBase {
 
     }
 
-    private String[] getContenidoTemporadas(){
-        DataBaseConnection db = new DataBaseConnection(this);
+    private void crearRecycledViewTemporadas(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.getTemporadasDeSerie(idSerie);
-            if (c!=null) {
-                String[] nombres = new String[c.getCount()];
-                int i = 0;
-                while (c.moveToNext()) {
-                    nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID));
-                    i++;
-                }
-                return nombres;
-            } else return null;
+        if (c!=null) {
+            String[] numerosTemp=new String[c.getCount()];
+            String[] numerosCap=new String[c.getCount()];
+            int i=0;
+            while (c.moveToNext()){
+                numerosTemp[i]=c.getString(c.getColumnIndex(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID));
+                numerosCap[i]="Capítulos: "+c.getString(c.getColumnIndex("cuenta"));
+                i++;
+            }
+            this.crearRecycledView(numerosTemp,numerosCap);
+        }
     }
 
-    private void crearRecycledView(String[] contenido){
+    private void crearRecycledView(String[] contenido,String[] cantTemp){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutTempRV);
         Float height = getResources().getDimension(R.dimen.size_temporada)*(contenido.length);
         TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
@@ -101,7 +102,7 @@ public class ActivityDetalleSerie extends ActivityBase {
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Se especifica el adaptador
         if (contenido!=null) {
-            mAdapter = new TemporadaAdapter(contenido);
+            mAdapter = new TemporadaAdapter(contenido,cantTemp);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
@@ -147,6 +148,17 @@ public class ActivityDetalleSerie extends ActivityBase {
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO,anio);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    public void onClickRegistrarTemporada(View v){
+
+        Intent i = new Intent(this, ActivityAgregarTemporada.class);
+        Bundle b = new Bundle();
+        b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        i.putExtras(b);
+        startActivity(i);
+
     }
 
     public int getIdSerie(){

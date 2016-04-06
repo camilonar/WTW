@@ -78,7 +78,7 @@ public class ActivityActualizarPelicula extends ActivityBase {
     public void onClickActualizarPelicula(View v){
 
         if (anio.getText().toString().equals("")){
-            createToast("Introduzca un año");
+            anio.setError("Introduzca un año");
             return;
         }
         String sinopsisS = sinopsis.getText().toString();

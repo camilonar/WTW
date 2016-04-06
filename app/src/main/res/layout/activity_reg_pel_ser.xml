@@ -181,10 +181,6 @@
                 android:layout_height="1dp"
                 android:background="@color/colorLine"/>
 
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -204,6 +200,11 @@
                     android:layout_gravity="left|center_vertical"
                     android:text="" />
             </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
 
             <TableRow
                 android:layout_width="match_parent"

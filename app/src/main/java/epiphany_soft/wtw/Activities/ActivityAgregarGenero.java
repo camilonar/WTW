@@ -31,6 +31,10 @@ public class ActivityAgregarGenero extends ActivityBase {
 
     public void onClickAgregarGenero(View v){
         String text = txtAgregar.getText().toString();
+        if (text.equals("")){
+            txtAgregar.setError("Introduzca un género");
+            return;
+        }
         //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.insertarGenero(text);

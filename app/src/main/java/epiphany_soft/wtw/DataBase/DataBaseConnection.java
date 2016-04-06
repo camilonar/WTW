@@ -369,8 +369,12 @@ public class DataBaseConnection {
                     +CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
                     +CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
             String[] compare = new String[]{Integer.toString(id_ser),Integer.toString(id_temp),Integer.toString(id_cap_old)};
-            int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
-            if (rowid>0) return true;
+            try{
+                int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
+                if (rowid>0) return true;
+            } catch (Exception e){
+                //No se hace nada, y luego retorna falso
+            }
         }
         return false;
     }

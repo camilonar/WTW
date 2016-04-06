@@ -62,11 +62,11 @@ public class ActivityActualizarCapitulo extends ActivityBase {
 
     public void onClickActualizarCapitulo(View v) {
         if (nombre.getText().toString().equals("")) {
-            createToast("Introduzca un nombre");
+            nombre.setError("Introduzca un nombre");
             return;
         }
         if (numero.getText().toString().equals("")){
-            createToast("Introduzca un numero");
+            numero.setError("Introduzca un numero");
             return;
         }
         String nombreCap=nombre.getText().toString();

@@ -68,11 +68,11 @@ public class ActivityRegistrarPrograma extends ActivityBase{
         public void onClickRegistrar(View v)
         {
             if (name.getText().toString().equals("")) {
-                createToast("Introduzca un nombre");
+                name.setError("Introduzca un nombre");
                 return;
             }
             if (anio.getText().toString().equals("")){
-                createToast("Introduzca un año");
+                anio.setError("Introduzca un año");
                 return;
             }
             String nombre=name.getText().toString();

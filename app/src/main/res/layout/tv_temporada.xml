@@ -17,17 +17,23 @@
         >
         <TextView
             android:id="@+id/textCard"
-            android:layout_width="222dp"
+            android:layout_width="190dp"
             android:layout_height="match_parent"
             android:textSize="@dimen/font_size_consulta_temporada"
             android:textColor="@color/colorNormalText"
             xmlns:android="http://schemas.android.com/apk/res/android" />
         <TextView
             android:id="@+id/textCardCantidadCapitulo"
-            android:layout_width="259dp"
+            android:layout_width="136dp"
             android:layout_height="match_parent"
             android:textSize="@dimen/font_size_consulta_temporada"
             android:textColor="@color/colorNormalText"
             xmlns:android="http://schemas.android.com/apk/res/android" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:background="@drawable/ic_arrow_right" />
     </LinearLayout>
 </android.support.v7.widget.CardView>

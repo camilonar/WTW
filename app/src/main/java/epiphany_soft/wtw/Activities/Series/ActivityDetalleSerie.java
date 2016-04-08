@@ -82,7 +82,7 @@ public class ActivityDetalleSerie extends ActivityBase {
             int i=0;
             while (c.moveToNext()){
                 numerosTemp[i]=c.getString(c.getColumnIndex(DataBaseContract.TemporadaContract.COLUMN_NAME_TEMPORADA_ID));
-                numerosCap[i]="Capítulos: "+c.getString(c.getColumnIndex("cuenta"));
+                numerosCap[i]="#Capítulos: "+c.getString(c.getColumnIndex("cuenta"));
                 i++;
             }
             this.crearRecycledView(numerosTemp,numerosCap);

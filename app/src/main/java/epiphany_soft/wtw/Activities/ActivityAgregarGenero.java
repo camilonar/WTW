@@ -30,7 +30,7 @@ public class ActivityAgregarGenero extends ActivityBase {
     }
 
     public void onClickAgregarGenero(View v){
-        String text = txtAgregar.getText().toString();
+        String text = txtAgregar.getText().toString().trim();
         if (text.equals("")){
             txtAgregar.setError("Introduzca un género");
             return;

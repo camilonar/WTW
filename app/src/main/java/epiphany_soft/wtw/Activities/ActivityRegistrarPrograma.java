@@ -67,18 +67,18 @@ public class ActivityRegistrarPrograma extends ActivityBase{
 
     public void onClickRegistrar(View v)
     {
-        if (name.getText().toString().equals("")) {
+        if (name.getText().toString().trim().equals("")) {
             name.setError("Introduzca un nombre");
             return;
         }
-        if (anio.getText().toString().equals("")){
+        if (anio.getText().toString().trim().equals("")){
             anio.setError("Introduzca un año");
             return;
         }
-        String nombre=name.getText().toString();
-        String sinopsisS=sinopsis.getText().toString();
+        String nombre=name.getText().toString().trim();
+        String sinopsisS=sinopsis.getText().toString().trim();
         int anioEstreno=Integer.parseInt(anio.getText().toString());
-        String paisOrigen=pais.getText().toString();
+        String paisOrigen=pais.getText().toString().trim();
         int idGen=((Genero)spnGenero.getSelectedItem()).getId();
         if (pel.isChecked()==true) {
             DataBaseConnection db=new DataBaseConnection(this.getBaseContext());

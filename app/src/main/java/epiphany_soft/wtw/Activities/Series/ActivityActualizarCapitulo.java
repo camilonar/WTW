@@ -61,16 +61,16 @@ public class ActivityActualizarCapitulo extends ActivityBase {
     }
 
     public void onClickActualizarCapitulo(View v) {
-        if (nombre.getText().toString().equals("")) {
+        if (nombre.getText().toString().trim().equals("")) {
             nombre.setError("Introduzca un nombre");
             return;
         }
-        if (numero.getText().toString().equals("")){
+        if (numero.getText().toString().trim().equals("")){
             numero.setError("Introduzca un numero");
             return;
         }
-        String nombreCap=nombre.getText().toString();
-        int numeroCap=Integer.parseInt(numero.getText().toString());
+        String nombreCap=nombre.getText().toString().trim();
+        int numeroCap=Integer.parseInt(numero.getText().toString().trim());
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.actualizarCapitulo(idCapitulo, numeroCap, nombreCap, idTemporada, idSerie);
         if (success) {

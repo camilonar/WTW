@@ -43,7 +43,7 @@ public class ActivityAgregarTemporada extends ActivityBase {
 
     public void onClickAgregarTemporada(View v) {
 
-        if (numeroDeTemporada.getText().toString().equals("")) {
+        if (numeroDeTemporada.getText().toString().trim().equals("")) {
             numeroDeTemporada.setError("Introduzca el numero de la temporada");
             return;
         }

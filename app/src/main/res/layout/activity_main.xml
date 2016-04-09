@@ -80,7 +80,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,6 +88,21 @@
         android:nestedScrollingEnabled="true"
         android:textColor="@color/colorButtonText"
         android:onClick="onClickIniciarSesion"
+        android:layout_alignTop="@+id/btnCerrarSesion"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesión"
+        android:id="@+id/btnCerrarSesion"
+        android:enabled="false"
+        android:nestedScrollingEnabled="true"
+        android:textColor="@android:color/darker_gray"
+        android:onClick="onClickCerrarSesion"
+        android:layout_toRightOf="@+id/btnInicioSesion"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

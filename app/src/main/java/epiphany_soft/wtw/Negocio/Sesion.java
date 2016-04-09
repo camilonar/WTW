@@ -28,4 +28,17 @@ public class Sesion {
     public void setActiva(boolean activa){
         this.ourInstance.isActiva=activa;
     }
+    public boolean isActiva(){
+        return isActiva;
+    }
+    //Regresa a la instancia a sus valores por defecto
+    public void refresh(){
+        ourInstance = new Sesion();
+    }
+    public String getNombreUsuario(){
+        return nombreUsuario;
+    }
+    public int getIdUsuario(){
+        return idUsuario;
+    }
 }

@@ -438,4 +438,24 @@ public class DataBaseConnection {
         }
         return false;
     }
+
+    public Cursor consultarSesion(String nombreUsu, String password){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + UsuarioContract.COLUMN_NAME_USUARIO_ID +","+
+                    UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+" ";
+            query +=
+                    "FROM " + UsuarioContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE "+UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+"=? AND "
+                            + UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD+"=?";
+            Cursor c = db.rawQuery(query, new String[]{nombreUsu, password});
+            return c;
+        }
+        else return null;
+    }
 }

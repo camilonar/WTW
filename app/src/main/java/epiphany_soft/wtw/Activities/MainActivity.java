@@ -40,4 +40,9 @@ public class MainActivity extends AppCompatActivity{
         Intent i = new Intent(this,ActivityEliminarGenero.class);
         startActivity(i);
     }
+
+    public void onClickIniciarSesion(View v){
+        Intent i = new Intent(this, ActivityInicioSesion.class);
+        startActivity(i);
+    }
 }

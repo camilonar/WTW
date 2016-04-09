@@ -18,6 +18,8 @@
 
             </TableRow>
 
+
+
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
@@ -29,7 +31,7 @@
                 android:background="@color/colorTable">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:textStyle="bold"
@@ -78,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text="Agregar"
                     android:id="@+id/BtnAgregarTemporada"
-                    android:layout_gravity="right|top"
+                    android:layout_gravity="right|bottom"
                     android:onClick="onClickAgregarTemporada"
                     android:textColor="@color/colorButtonText"
                     android:enabled="true" />

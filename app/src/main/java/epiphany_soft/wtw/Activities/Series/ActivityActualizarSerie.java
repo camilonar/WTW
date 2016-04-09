@@ -75,12 +75,12 @@ public class ActivityActualizarSerie extends ActivityBase {
 
     public void onClickActualizarSerie(View v){
 
-        if (anio.getText().toString().equals("")){
-            createToast("Introduzca un año");
+        if (anio.getText().toString().trim().equals("")){
+            anio.setError("Introduzca un año");
             return;
         }
-        String sinopsisS = sinopsis.getText().toString();
-        String paisS=pais.getText().toString();
+        String sinopsisS = sinopsis.getText().toString().trim();
+        String paisS=pais.getText().toString().trim();
         int anioS=Integer.parseInt(anio.getText().toString());
         int idGen=((Genero)spnGenero.getSelectedItem()).getId();
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());

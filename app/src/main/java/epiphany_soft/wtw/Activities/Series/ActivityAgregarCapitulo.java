@@ -55,16 +55,16 @@ public class ActivityAgregarCapitulo extends ActivityBase {
     }
 
     public void onClickAgregarCapitulo(View v) {
-        if (nombre.getText().toString().equals("")) {
-            createToast("Introduzca un nombre");
+        if (nombre.getText().toString().trim().equals("")) {
+           nombre.setError("Introduzca un nombre");
             return;
         }
-        if (numero.getText().toString().equals("")){
-            createToast("Introduzca un numero");
+        if (numero.getText().toString().trim().equals("")){
+            numero.setError("Introduzca un numero");
             return;
         }
-        String nombreCap=nombre.getText().toString();
-        int numeroCap=Integer.parseInt(numero.getText().toString());
+        String nombreCap=nombre.getText().toString().trim();
+        int numeroCap=Integer.parseInt(numero.getText().toString().trim());
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.insertarCapitulo(numeroCap,nombreCap,idTemporada,idSerie);
         if (success) {

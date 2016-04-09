@@ -369,8 +369,12 @@ public class DataBaseConnection {
                     +CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
                     +CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
             String[] compare = new String[]{Integer.toString(id_ser),Integer.toString(id_temp),Integer.toString(id_cap_old)};
-            int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
-            if (rowid>0) return true;
+            try{
+                int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
+                if (rowid>0) return true;
+            } catch (Exception e){
+                //No se hace nada, y luego retorna falso
+            }
         }
         return false;
     }
@@ -433,5 +437,25 @@ public class DataBaseConnection {
             if (rowide > 0) return true;
         }
         return false;
+    }
+
+    public Cursor consultarSesion(String nombreUsu, String password){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + UsuarioContract.COLUMN_NAME_USUARIO_ID +","+
+                    UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+" ";
+            query +=
+                    "FROM " + UsuarioContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE "+UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+"=? AND "
+                            + UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD+"=?";
+            Cursor c = db.rawQuery(query, new String[]{nombreUsu, password});
+            return c;
+        }
+        else return null;
     }
 }

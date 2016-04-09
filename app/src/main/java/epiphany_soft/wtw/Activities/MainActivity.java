@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity{
             b = (Button) findViewById(R.id.btnCerrarSesion);
             b.setEnabled(true);
             b.setTextColor(this.getResources().getColor(R.color.colorButtonText));
+            b= (Button) findViewById(R.id.btnModificarUsuario);
+            b.setEnabled(true);
+            b.setTextColor(this.getResources().getColor(R.color.colorButtonText));
         }
     }
 
@@ -70,5 +73,10 @@ public class MainActivity extends AppCompatActivity{
         b = (Button) findViewById(R.id.btnCerrarSesion);
         b.setEnabled(false);
         b.setTextColor(Color.GRAY);
+    }
+
+    public void onClickModificarUsuario(View v){
+        Intent i = new Intent(this, ActivityModificarUsuario.class);
+        startActivity(i);
     }
 }

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -29,6 +30,8 @@ public class ActivityModificarUsuario extends ActivityBase {
         nombre = (EditText) findViewById(R.id.txtNombreUsuario);
         password = (EditText) findViewById(R.id.txtContrasenia);
         passwordConf = (EditText) findViewById(R.id.txtConfirmarContrasenia);
+
+        nombre.setText(Sesion.getInstance().getNombreUsuario());
 
         this.setSpecialFonts();
     }
@@ -65,8 +68,12 @@ public class ActivityModificarUsuario extends ActivityBase {
             nombre.setError("Introduzca un nombre de usuario");
             return;
         }
-        if (password.getText().toString().trim().equals("")) {
+        if (password.getText().toString().equals("")) {
             password.setError("Introduzca una contraseña");
+            return;
+        }
+        if (passwordConf.getText().toString().equals("")) {
+            passwordConf.setError("Confirme su contraseña");
             return;
         }
         if (!emailValid(password.getText().toString())) {

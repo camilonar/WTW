@@ -90,9 +90,7 @@
         android:onClick="onClickIniciarSesion"
         android:layout_alignTop="@+id/btnCerrarSesion"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginStart="50dp" />
+        android:layout_alignParentStart="true" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,6 +101,18 @@
         android:textColor="@android:color/darker_gray"
         android:onClick="onClickCerrarSesion"
         android:layout_toRightOf="@+id/btnInicioSesion"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actualizar usuario"
+        android:id="@+id/btnModificarUsuario"
+        android:enabled="false"
+        android:nestedScrollingEnabled="true"
+        android:textColor="@android:color/darker_gray"
+        android:onClick="onClickModificarUsuario"
+        android:layout_toRightOf="@+id/btnCerrarSesion"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

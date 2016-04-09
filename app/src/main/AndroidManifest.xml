@@ -55,7 +55,9 @@
 
         <activity android:name=".Activities.ActivityInicioSesion"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.Series.ActivityConfigurarCuenta"
+        <activity android:name=".Activities.ActivityModificarUsuario"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.ActivityGestionUsuario"
             android:screenOrientation="portrait" />
     </application>
 

@@ -78,6 +78,12 @@ public class ActivityModificarUsuario extends ActivityBase {
         }
         if (!emailValid(password.getText().toString())) {
             nombre.setError("Correo incorrecto");
+            return;
+        }
+        if (!password.getText().toString().equals(passwordConf.getText().toString())){
+            password.setError("Las contraseñas no coinciden");
+            passwordConf.setError("Las contraseñas no coinciden");
+            return;
         }
         //TODO implementar la lógica de actualización
     }

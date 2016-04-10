@@ -3,6 +3,7 @@ package epiphany_soft.wtw.Activities.Series;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +12,7 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.CapituloAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -91,6 +93,20 @@ public class ActivityDetalleTemporada extends ActivityBase {
         if (numCapitulos!=null && nombreCapitulos!=null) {
             mAdapter = new CapituloAdapter(numCapitulos,nombreCapitulos);
             mRecyclerView.setAdapter(mAdapter);
+        }
+    }
+
+    protected void hideWhenNoSession(){
+        if (!Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            hide(b);
+        }
+    }
+
+    protected void showWhenSession(){
+        if (Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            show(b);
         }
     }
 

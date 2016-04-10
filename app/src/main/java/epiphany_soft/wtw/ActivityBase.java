@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 /**
  * Created by Camilo on 2/04/2016.
  */
-public class ActivityBase extends AppCompatActivity{
+public abstract class ActivityBase extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class ActivityBase extends AppCompatActivity{
         CharSequence text = message;
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
-        toast.setGravity(Gravity.TOP,0,350);
+        toast.setGravity(Gravity.TOP, 0, 350);
         toast.show();
     }
 
@@ -39,5 +40,26 @@ public class ActivityBase extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    /**
+     * Patrón plantilla!!!
+     */
+    public void onResume(){
+        super.onResume();
+        hideWhenNoSession();
+        showWhenSession();
+    }
+
+    protected void hideWhenNoSession(){};
+    protected void showWhenSession(){};
+
+    protected void hide(View v){
+        v.setVisibility(View.GONE);
+    }
+
+    protected void show(View v){
+        v.setVisibility(View.VISIBLE);
     }
 }

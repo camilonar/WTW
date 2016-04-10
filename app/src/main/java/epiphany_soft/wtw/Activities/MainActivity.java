@@ -1,6 +1,7 @@
 package epiphany_soft.wtw.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getUserInfo();
     }
 
     @Override
@@ -24,6 +26,16 @@ public class MainActivity extends AppCompatActivity{
         super.onResume();
         hideWhenNoSesion();
         showWhenSesion();
+    }
+
+    private void getUserInfo(){
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.file_user_info), MODE_PRIVATE);
+        int idUsuario = sharedPref.getInt(getString(R.string.key_id_usuario_session), -1);
+        String nombreUsuario = sharedPref.getString(getString(R.string.key_nombre_usuario_session),null);
+        boolean isActiva=sharedPref.getBoolean(getString(R.string.key_active_session),false);
+        Sesion.getInstance().setIdUsuario(idUsuario);
+        Sesion.getInstance().setNombreUsuario(nombreUsuario);
+        Sesion.getInstance().setActiva(isActiva);
     }
 
     public void hideWhenNoSesion(){

@@ -1,6 +1,7 @@
 package epiphany_soft.wtw.Activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -53,6 +54,16 @@ public class ActivityGestionUsuario extends ActivityBase {
         b = (Button) findViewById(R.id.btnModificarUsuario);
         b.setEnabled(false);
         b.setTextColor(Color.GRAY);
+        deleteUserInfo();
+    }
+
+    private void deleteUserInfo(){
+        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.file_user_info),MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(getString(R.string.key_id_usuario_session),-1);
+        editor.putString(getString(R.string.key_nombre_usuario_session),null);
+        editor.putBoolean(getString(R.string.key_active_session), false);
+        editor.commit();
     }
 
     public void onClickModificarUsuario(View v){

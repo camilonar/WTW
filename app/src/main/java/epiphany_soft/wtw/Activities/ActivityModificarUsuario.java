@@ -1,5 +1,6 @@
 package epiphany_soft.wtw.Activities;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -9,8 +10,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Genero;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
@@ -20,6 +24,7 @@ import epiphany_soft.wtw.R;
 public class ActivityModificarUsuario extends ActivityBase {
 
     private EditText nombre,password, passwordConf;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +35,8 @@ public class ActivityModificarUsuario extends ActivityBase {
         nombre = (EditText) findViewById(R.id.txtNombreUsuario);
         password = (EditText) findViewById(R.id.txtContrasenia);
         passwordConf = (EditText) findViewById(R.id.txtConfirmarContrasenia);
-
+       // aqui toma el valor del nombre de user coon el que inicio sesiòn
         nombre.setText(Sesion.getInstance().getNombreUsuario());
-
         this.setSpecialFonts();
     }
 
@@ -76,16 +80,38 @@ public class ActivityModificarUsuario extends ActivityBase {
             passwordConf.setError("Confirme su contraseña");
             return;
         }
-        if (!emailValid(password.getText().toString())) {
+        /*if (!emailValid(password.getText().toString())) {
             nombre.setError("Correo incorrecto");
             return;
-        }
+        }*/
         if (!password.getText().toString().equals(passwordConf.getText().toString())){
             password.setError("Las contraseñas no coinciden");
             passwordConf.setError("Las contraseñas no coinciden");
             return;
         }
-        //TODO implementar la lógica de actualización
+
+        String name = nombre.getText().toString();
+        boolean res= emailValid(name);
+        String paswword = password.getText().toString();
+       // int idUser=Sesion.getInstance().getIdUsuario();
+        DataBaseConnection db = new DataBaseConnection(this.getBaseContext());
+      /*Cursor c=db.consultarNombreUser(name);
+        if (c.moveToNext()==true){
+            createToast("El correo  ya se encuentra registrado");
+         } */
+
+        if (res==true) {
+            boolean success = db.actualizarUsuario(name, paswword);
+            if (success) createToast("El Usuario se Actualizò Exitosamente");
+            else createToast("El usuario no se pudo  Actualizar");
+       }
+       else{
+            nombre.setError("Correo incorrecto");
+         }
     }
 
-}
+
+
+    }
+
+

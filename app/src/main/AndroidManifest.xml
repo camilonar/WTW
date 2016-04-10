@@ -59,6 +59,12 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.ActivityGestionUsuario"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".Activities.ActivityAgregarUsuario"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible"/>
+
+
     </application>
 
 </manifest>

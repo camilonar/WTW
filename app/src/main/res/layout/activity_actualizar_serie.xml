@@ -50,7 +50,8 @@
                     android:textColorHint="@color/colorHintText"
                     android:textColor="@color/colorNormalText"
                     android:ems="10"
-                    android:id="@+id/txtNombreSerie" />
+                    android:id="@+id/txtNombreSerie"
+                    />
 
             </TableRow>
 

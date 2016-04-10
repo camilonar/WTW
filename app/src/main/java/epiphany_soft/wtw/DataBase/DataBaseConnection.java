@@ -458,4 +458,78 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
+
+
+    public boolean AgregarUsuario(String nombre, String Contrasenia){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE, nombre);
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD, Contrasenia);
+            long rowid=db.insert(UsuarioContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+
+    public boolean actualizarUsuario(String nombre, String contrasenia){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE, nombre);
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD,contrasenia);
+            String query= UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+"=?";
+            int rowid=db.update(UsuarioContract.TABLE_NAME, values, query, new String[]{nombre});
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+  /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_ID, id);
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE, nombre);
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD,contrasenia);
+            String query= UsuarioContract.COLUMN_NAME_USUARIO_ID+"=?";
+            int rowid=db.update(UsuarioContract.TABLE_NAME, values, query, new String[]{nombre});
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+    public Cursor consultarNombreUser(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+" ";
+
+            query+= "FROM "+ UsuarioContract.TABLE_NAME;
+            query +=
+                    "WHERE " + UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE +nombre;
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+    */
 }

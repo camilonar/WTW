@@ -59,4 +59,10 @@ public class ActivityGestionUsuario extends ActivityBase {
         Intent i = new Intent(this, ActivityModificarUsuario.class);
         startActivity(i);
     }
+
+    public void onClickAgregarUsuario(View v){
+        Intent i = new Intent(this, ActivityAgregarUsuario.class);
+        startActivity(i);
+    }
+
 }

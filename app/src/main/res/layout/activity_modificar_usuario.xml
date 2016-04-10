@@ -50,7 +50,9 @@
                     android:textColorHint="@color/colorHintText"
                     android:textColor="@color/colorNormalText"
                     android:ems="10"
-                    android:id="@+id/txtNombreUsuario" />
+                    android:id="@+id/txtNombreUsuario"
+                    android:singleLine="true"
+                    android:enabled="false" />
 
             </TableRow>
 

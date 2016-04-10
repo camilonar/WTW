@@ -81,6 +81,7 @@ public class ActivityAgregarUsuario extends ActivityBase {
                 TxtConfirmarContraseniaU.setError("Las contraseñas no coinciden");
                // createToast("Por favor verifique su contrasenia");
                 return;
+                
             }
 
         }

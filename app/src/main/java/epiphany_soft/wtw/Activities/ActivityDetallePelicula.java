@@ -3,6 +3,7 @@ package epiphany_soft.wtw.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
@@ -99,5 +101,19 @@ public class ActivityDetallePelicula extends ActivityBase {
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO,anio);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    protected void hideWhenNoSession(){
+        if (!Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            hide(b);
+        }
+    }
+
+    protected void showWhenSession(){
+        if (Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            show(b);
+        }
     }
 }

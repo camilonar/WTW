@@ -3,6 +3,7 @@ package epiphany_soft.wtw.Activities.Series;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CapituloContract;
@@ -92,8 +94,22 @@ public class ActivityDetalleCapitulo extends ActivityBase {
         b.putInt(CapituloContract.COLUMN_NAME_SERIE_ID,idSerie);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombreSerie);
         b.putInt(CapituloContract.COLUMN_NAME_CAPITULO_ID, idCapitulo);
-        b.putString(CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE,nombreCapitulo);
+        b.putString(CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE, nombreCapitulo);
         i.putExtras(b);
         startActivity(i);
+    }
+
+    protected void hideWhenNoSession(){
+        if (!Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            hide(b);
+        }
+    }
+
+    protected void showWhenSession(){
+        if (Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            show(b);
+        }
     }
 }

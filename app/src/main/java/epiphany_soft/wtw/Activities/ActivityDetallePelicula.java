@@ -23,10 +23,10 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
  * Created by Camilo on 26/03/2016.
  */
 public class ActivityDetallePelicula extends ActivityBase {
-    String nombre,sinopsis,genero,pais;
-    int anio,idPrograma;
-    public static boolean actualizado=false;
+    private String nombre,sinopsis,genero,pais;
+    private int anio,idPrograma;
     private boolean calificado;
+    public static boolean actualizado=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

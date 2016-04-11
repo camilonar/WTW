@@ -144,9 +144,9 @@ public class ActivityDetallePelicula extends ActivityBase {
             hide(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
             hide(txt);
-            View v = (View) findViewById(R.id.v1);
+            View v = findViewById(R.id.v1);
             hide(v);
-            v = (View) findViewById(R.id.v2);
+            v = findViewById(R.id.v2);
             hide(v);
         }
     }
@@ -159,9 +159,9 @@ public class ActivityDetallePelicula extends ActivityBase {
             show(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
             show(txt);
-            View v = (View) findViewById(R.id.v1);
+            View v = findViewById(R.id.v1);
             show(v);
-            v = (View) findViewById(R.id.v2);
+            v = findViewById(R.id.v2);
             show(v);
         }
     }

@@ -69,7 +69,7 @@
                     android:layout_margin="5dp"
                     android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="CALIFICACION:"
+                    android:text="TU CALIFICACION:"
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblCalificacion" />
             </TableRow>
@@ -92,7 +92,7 @@
                     android:layout_gravity="left|bottom"
                     android:numStars="5"
                     android:rating="0"
-                    android:onClick="onClickRatingBar"
+                    style="@android:style/Widget.Holo.RatingBar"
                     android:stepSize="1" />
             </TableRow>
 

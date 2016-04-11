@@ -495,6 +495,67 @@ public class DataBaseConnection {
         return false;
     }
 
+    public Cursor consultarCalificacion(int idUsuario, int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION+" ";
+            query +=
+                    "FROM " + CalificacionContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE "+CalificacionContract.COLUMN_NAME_USUARIO_ID+"=? AND "
+                            + CalificacionContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario),Integer.toString(idPrograma)});
+            return c;
+        }
+        else return null;
+    }
+
+    public boolean insertarCalificacion(int idUsuario, int idPrograma, float calificacion){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CalificacionContract.COLUMN_NAME_USUARIO_ID, idUsuario);
+            values.put(CalificacionContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
+            values.put(CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION,calificacion);
+            long rowid=db.insert(CalificacionContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+    public boolean actualizarCalificacion(int idUsuario, int idPrograma, float calificacion){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CalificacionContract.COLUMN_NAME_USUARIO_ID, idUsuario);
+            values.put(CalificacionContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
+            values.put(CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION, calificacion);
+
+            String query = CalificacionContract.COLUMN_NAME_USUARIO_ID+"=? AND "
+                    + CalificacionContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
+            String[] compare = new String[]{Integer.toString(idUsuario), Integer.toString(idPrograma)};
+            try {
+                int rowid = db.update(CalificacionContract.TABLE_NAME, values, query, compare);
+                if (rowid > 0) return true;
+            } catch (Exception e) {
+                //No se hace nada, y luego retorna falso
+            }
+        }
+        return false;
+    }
+
   /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
         try {
             miDBHelper.createDataBase();

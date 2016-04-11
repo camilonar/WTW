@@ -52,8 +52,9 @@ public abstract class ActivityBase extends AppCompatActivity{
         showWhenSession();
     }
 
-    protected void hideWhenNoSession(){};
-    protected void showWhenSession(){};
+    protected void hideWhenNoSession(){}
+
+    protected void showWhenSession(){}
 
     protected void hide(View v){
         v.setVisibility(View.GONE);

@@ -20,13 +20,13 @@ public class Sesion {
     }
 
     public void setNombreUsuario(String nombre){
-        this.ourInstance.nombreUsuario=nombre;
+        ourInstance.nombreUsuario=nombre;
     }
     public void setIdUsuario(int id){
-        this.ourInstance.idUsuario=id;
+        ourInstance.idUsuario=id;
     }
     public void setActiva(boolean activa){
-        this.ourInstance.isActiva=activa;
+        ourInstance.isActiva=activa;
     }
     public boolean isActiva(){
         return isActiva;

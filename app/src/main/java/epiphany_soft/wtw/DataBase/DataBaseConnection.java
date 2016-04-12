@@ -573,6 +573,37 @@ public class DataBaseConnection {
         else return null;
     }
 
+    public boolean insertarCanal(String nombreCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CanalContract.COLUMN_NAME_CANAL_ID,nombreCanal);
+            long rowid=db.insert(CanalContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+    public boolean insertarEmite(String nombreCanal,int idEmisor, int numCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(EmiteContract.COLUMN_NAME_CANAL_ID,nombreCanal);
+            values.put(EmiteContract.COLUMN_NAME_EMISORA_ID,idEmisor);
+            values.put(EmiteContract.COLUMN_NAME_CANAL_NUMERO,numCanal);
+            long rowid=db.insert(EmiteContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
   /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
         try {
             miDBHelper.createDataBase();

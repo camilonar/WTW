@@ -26,6 +26,7 @@ public class ActivityAgregarCanal extends ActivityBase {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    TextView nombreTxt;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +44,28 @@ public class ActivityAgregarCanal extends ActivityBase {
         TextView emisorasLabel=(TextView) findViewById(R.id.lblEmisoras);
         emisorasLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         //Los textos
-        TextView nombreTxt=(TextView) findViewById(R.id.txtNombreCanal);
+        nombreTxt=(TextView) findViewById(R.id.txtNombreCanal);
         nombreTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
     public void onClickRegistrarCanal(View v) {
-
+        if (nombreTxt.getText().toString().trim().equals("")) {
+            nombreTxt.setError("Introduzca un nombre");
+            return;
+        }
+        this.registrarInfoCanal();
     }
+
+    private void registrarInfoCanal(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        boolean success=db.insertarCanal(nombreTxt.getText().toString());
+        if (success) {
+            createToast("Canal creado");
+        }
+        else createToast("El canal ya existe");
+    }
+
+
 
     private void crearRecycledView(Emisora[] contenido){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);

@@ -73,7 +73,7 @@
                     android:layout_margin="5dp"
                     android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="EMISORAS:"
+                    android:text="OPERADORES DE TV:"
                     android:textColor="@color/colorLabelText"
                     android:id="@+id/lblEmisoras" />
             </TableRow>

@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.EmisoraAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
@@ -60,12 +62,32 @@ public class ActivityAgregarCanal extends ActivityBase {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         boolean success=db.insertarCanal(nombreTxt.getText().toString());
         if (success) {
+            registrarEmite();
             createToast("Canal creado");
         }
         else createToast("El canal ya existe");
     }
 
-
+    private boolean registrarEmite(){
+        EmisoraAdapter e = (EmisoraAdapter) mAdapter;
+        ArrayList<EmisoraAdapter.ViewHolder> listHolder = e.getMisViewHolder();
+        String nombreCanal = nombreTxt.getText().toString();
+        int idEmisora;
+        Integer numCanal;
+        for (int i=0;i<listHolder.size();i++){
+            EmisoraAdapter.ViewHolder ev = listHolder.get(i);
+            if (ev.ck.isChecked()){
+                idEmisora = ev.idEmisora;
+                if (!ev.numCanalEdit.getText().toString().equals(""))
+                    numCanal = new Integer(ev.numCanalEdit.getText().toString());
+                else
+                    numCanal = null;
+                DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+                db.insertarEmite(nombreCanal,idEmisora,numCanal);
+            }
+        }
+        return true;
+    }
 
     private void crearRecycledView(Emisora[] contenido){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);

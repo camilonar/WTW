@@ -588,7 +588,7 @@ public class DataBaseConnection {
         return false;
     }
 
-    public boolean insertarEmite(String nombreCanal,int idEmisor, int numCanal){
+    public boolean insertarEmite(String nombreCanal,int idEmisor, Integer numCanal){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {

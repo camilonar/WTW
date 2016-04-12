@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Emisora;
 import epiphany_soft.wtw.R;
@@ -16,16 +18,19 @@ import epiphany_soft.wtw.R;
 
 public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHolder> {
     private Emisora[] misEmisoras;
+    /*TODO revisar si se puede hacer de una mejor manera*/
+    private ArrayList<EmisoraAdapter.ViewHolder> misViewHolder;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public CardView mCardView;
         public TextView mTextView;
         public EditText numCanalEdit;
         public CheckBox ck;
+        public int idEmisora;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
@@ -52,6 +57,7 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
     // Provide a suitable constructor (depends on the kind of dataset)
     public EmisoraAdapter(Emisora[] myDataset) {
         misEmisoras = myDataset;
+        misViewHolder = new ArrayList<ViewHolder>();
     }
 
     // Create new views (invoked by the layout manager)
@@ -62,6 +68,7 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tv_emisora, parent, false);
         ViewHolder vh = new ViewHolder(v);
+        misViewHolder.add(vh);
         return vh;
     }
 
@@ -71,12 +78,17 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(misEmisoras[position].toString());
+        holder.idEmisora=misEmisoras[position].getId();
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return misEmisoras.length;
+    }
+
+    public ArrayList<EmisoraAdapter.ViewHolder> getMisViewHolder(){
+        return misViewHolder;
     }
 
 }

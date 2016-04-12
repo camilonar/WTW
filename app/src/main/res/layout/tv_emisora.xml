@@ -35,6 +35,7 @@
             android:hint="Numero de canal"
             android:visibility="gone"
             android:gravity="center_vertical"
+            android:inputType="number"
             android:textSize="@dimen/font_size_consulta_temporada"
             android:textColor="@color/colorNormalText"
             xmlns:android="http://schemas.android.com/apk/res/android"

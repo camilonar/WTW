@@ -64,6 +64,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
 
+        <activity android:name=".Activities.ActivityAgregarCanal"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible"/>
+
 
     </application>
 

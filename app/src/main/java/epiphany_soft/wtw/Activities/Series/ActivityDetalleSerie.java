@@ -74,7 +74,6 @@ public class ActivityDetalleSerie extends ActivityBase {
         paisTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
         TextView generoTxt=(TextView) findViewById(R.id.txtGeneroSe);
         generoTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
-
     }
 
     private void crearRecycledViewTemporadas(){

@@ -5,4 +5,5 @@
     <dimen name="font_size_consulta_pelicula">20sp</dimen>
     <dimen name="font_size_consulta_temporada">15sp</dimen>
     <dimen name="size_temporada">48dp</dimen>
+    <dimen name="size_emisora">64dp</dimen>
 </resources>

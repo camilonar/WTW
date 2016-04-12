@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity{
             hide(b);
             b = (Button) findViewById(R.id.btnAgregarPrograma);
             hide(b);
+            b = (Button) findViewById(R.id.btnAgregarCanal);
+            hide(b);
         }
     }
 
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity{
             b= (Button) findViewById(R.id.btnEliminarGenero);
             show(b);
             b = (Button) findViewById(R.id.btnAgregarPrograma);
+            show(b);
+            b = (Button) findViewById(R.id.btnAgregarCanal);
             show(b);
         }
     }
@@ -97,6 +101,11 @@ public class MainActivity extends AppCompatActivity{
 
     public void onClickGestionUsuario(View v){
         Intent i = new Intent(this, ActivityGestionUsuario.class);
+        startActivity(i);
+    }
+
+    public void onClickAgregarCanal(View v){
+        Intent i = new Intent(this, ActivityAgregarCanal.class);
         startActivity(i);
     }
 }

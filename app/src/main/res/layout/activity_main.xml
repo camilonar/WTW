@@ -92,5 +92,16 @@
         android:layout_below="@+id/btnEliminarGenero"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar canal"
+        android:id="@+id/button3"
+        android:nestedScrollingEnabled="true"
+        android:onClick="onClickAgregarCanal"
+        android:textColor="@color/colorButtonText"
+        android:layout_below="@+id/btnAgregarPrograma"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

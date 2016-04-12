@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -32,9 +33,8 @@ public class ActivityDetalleSerie extends ActivityBase {
 
     private String nombre,sinopsis,genero,pais;
     private int anio, idSerie;
+    private boolean calificado;
     public static boolean actualizado=false;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class ActivityDetalleSerie extends ActivityBase {
         setTitle(nombreSerie);
         this.llenarInfo(nombreSerie);
         crearRecycledViewTemporadas();
+        this.configurarRatingBar();
         setSpecialFonts();
     }
 
@@ -164,12 +165,45 @@ public class ActivityDetalleSerie extends ActivityBase {
 
     }
 
+    private void configurarRatingBar(){
+        final RatingBar calificacion = (RatingBar) findViewById(R.id.ratingBar);
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        Cursor c=db.consultarCalificacion(Sesion.getInstance().getIdUsuario(),idSerie);
+        calificado=false;
+        if (c!=null && c.getCount()==1){
+            c.moveToNext();
+            float rating = c.getFloat(c.getColumnIndex(DataBaseContract.CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION));
+            calificacion.setRating(rating);
+            calificado=true;
+        }
+        calificacion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                DataBaseConnection db = new DataBaseConnection(ratingBar.getContext());
+                if (calificado) {
+                    db.actualizarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie, calificacion.getRating());
+                } else {
+                    db.insertarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie, calificacion.getRating());
+                }
+            }
+        });
+    }
+
     protected void hideWhenNoSession(){
         if (!Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
             hide(btn);
+            RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
+            hide(rb);
+            TextView txt = (TextView) findViewById(R.id.lblCalificacion);
+            hide(txt);
+            View v = (View) findViewById(R.id.v1);
+            hide(v);
+            v = (View) findViewById(R.id.v2);
+            hide(v);
         }
     }
 
@@ -179,6 +213,14 @@ public class ActivityDetalleSerie extends ActivityBase {
             show(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
             show(btn);
+            RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
+            show(rb);
+            TextView txt = (TextView) findViewById(R.id.lblCalificacion);
+            show(txt);
+            View v = (View) findViewById(R.id.v1);
+            show(v);
+            v = (View) findViewById(R.id.v2);
+            show(v);
         }
     }
 

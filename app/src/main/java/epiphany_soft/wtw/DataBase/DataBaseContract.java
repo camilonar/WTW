@@ -29,12 +29,6 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_SERIE_ID = "Ser_Id";
     }
 
-    public static abstract class CanalContract implements BaseColumns {
-        public static final String TABLE_NAME = "Canal";
-        public static final String COLUMN_NAME_CANAL_ID = "Can_Numero";
-        public static final String COLUMN_NAME_CANAL_NOMBRE = "Can_Nombre";
-    }
-
     public static abstract class CapituloContract implements BaseColumns {
         public static final String TABLE_NAME = "Capitulo";
         public static final String COLUMN_NAME_TEMPORADA_ID = "Tem_Identificador";
@@ -49,19 +43,24 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_GENERO_NOMBRE = "Gen_Nombre";
     }
 
-    public static abstract class HorarioContract implements BaseColumns {
-        public static final String TABLE_NAME = "Horario";
-        public static final String COLUMN_NAME_RELACION_ID = "Rel_Identificador";
-        public static final String COLUMN_NAME_PROGRAMA_ID = "Pro_Identificador";
-        public static final String COLUMN_NAME_CANAL_ID = "Can_Nombre";
-        public static final String COLUMN_NAME_RELACION_FECHA = "Rel_Fecha";
-        public static final String COLUMN_NAME_RELACION_HORA = "Rel_Hora";
-    }
-
     public static abstract class TemporadaContract implements BaseColumns {
         public static final String TABLE_NAME = "Temporada";
         public static final String COLUMN_NAME_PROGRAMA_ID = "Ser_Id";
         public static final String COLUMN_NAME_TEMPORADA_ID = "Tem_Identificador";
+    }
+
+    public static abstract class UsuarioContract implements BaseColumns {
+        public static final String TABLE_NAME = "Usuario";
+        public static final String COLUMN_NAME_USUARIO_ID = "Usu_Identificador";
+        public static final String COLUMN_NAME_USUARIO_NOMBRE = "Usu_Nombre";
+        public static final String COLUMN_NAME_USUARIO_PASSWORD = "Usu_Contrasenia";
+    }
+
+    public static abstract class CalificacionContract implements BaseColumns {
+        public static final String TABLE_NAME = "Calificacion";
+        public static final String COLUMN_NAME_USUARIO_ID = "Usu_Identificador";
+        public static final String COLUMN_NAME_PROGRAMA_ID = "Pro_Identificador";
+        public static final String COLUMN_NAME_VALOR_CALIFICACION = "Cal_Valor";
     }
 
     /*TODO: Implementarlo en la BD. Todavía no se pueden usar. La definición puede variar*/
@@ -80,17 +79,19 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_RECORDATORIO_HORA = "Rec_Hora";
     }
 
-    public static abstract class CalificacionContract implements BaseColumns {
-        public static final String TABLE_NAME = "Calificacion";
-        public static final String COLUMN_NAME_USUARIO_ID = "Usu_Identificador";
+
+    public static abstract class HorarioContract implements BaseColumns {
+        public static final String TABLE_NAME = "Horario";
+        public static final String COLUMN_NAME_RELACION_ID = "Rel_Identificador";
         public static final String COLUMN_NAME_PROGRAMA_ID = "Pro_Identificador";
-        public static final String COLUMN_NAME_VALOR_CALIFICACION = "Cal_Valor";
+        public static final String COLUMN_NAME_CANAL_ID = "Can_Nombre";
+        public static final String COLUMN_NAME_RELACION_FECHA = "Rel_Fecha";
+        public static final String COLUMN_NAME_RELACION_HORA = "Rel_Hora";
     }
 
-    public static abstract class UsuarioContract implements BaseColumns {
-        public static final String TABLE_NAME = "Usuario";
-        public static final String COLUMN_NAME_USUARIO_ID = "Usu_Identificador";
-        public static final String COLUMN_NAME_USUARIO_NOMBRE = "Usu_Nombre";
-        public static final String COLUMN_NAME_USUARIO_PASSWORD = "Usu_Contrasenia";
+    public static abstract class CanalContract implements BaseColumns {
+        public static final String TABLE_NAME = "Canal";
+        public static final String COLUMN_NAME_CANAL_ID = "Can_Numero";
+        public static final String COLUMN_NAME_CANAL_NOMBRE = "Can_Nombre";
     }
 }

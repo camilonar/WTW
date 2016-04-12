@@ -14,7 +14,7 @@
         android:id="@+id/txtNombreUsuario"
         android:hint="Nombre de usuario"
         android:textColor="@color/colorNormalText"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textColorHint="@color/colorHintText" />
 
     <EditText

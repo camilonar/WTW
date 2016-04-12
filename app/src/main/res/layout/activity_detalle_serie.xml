@@ -54,6 +54,51 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
+                android:id="@+id/v1"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:layout_margin="5dp"
+                    android:paddingTop="20dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="TU CALIFICACION:"
+                    android:textColor="@color/colorLabelText"
+                    android:id="@+id/lblCalificacion" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:id="@+id/v2"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp">
+
+                <RatingBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ratingBar"
+                    android:layout_gravity="left|bottom"
+                    android:numStars="5"
+                    android:rating="0"
+                    style="@android:style/Widget.Holo.RatingBar"
+                    android:stepSize="1" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
                 android:background="@color/colorLine"/>
 
             <TableRow

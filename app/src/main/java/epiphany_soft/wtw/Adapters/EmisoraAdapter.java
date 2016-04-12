@@ -10,11 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Fonts.RobotoFont;
+import epiphany_soft.wtw.Negocio.Emisora;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
 public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHolder> {
-    private String[] nombreEmisora;
+    private Emisora[] misEmisoras;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -49,8 +50,8 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EmisoraAdapter(String[] myDataset) {
-        nombreEmisora = myDataset;
+    public EmisoraAdapter(Emisora[] myDataset) {
+        misEmisoras = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
@@ -69,13 +70,13 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(nombreEmisora[position]);
+        holder.mTextView.setText(misEmisoras[position].toString());
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return nombreEmisora.length;
+        return misEmisoras.length;
     }
 
 }

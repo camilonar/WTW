@@ -563,7 +563,8 @@ public class DataBaseConnection {
         }
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
-            String query = "SELECT " + EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
+            String query = "SELECT " + EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+","
+                    +EmisoraContract.COLUMN_NAME_EMISORA_ID+" ";
             query +=
                     "FROM " + EmisoraContract.TABLE_NAME+" ";
             Cursor c = db.rawQuery(query, null);
@@ -571,6 +572,7 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
   /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
         try {
             miDBHelper.createDataBase();

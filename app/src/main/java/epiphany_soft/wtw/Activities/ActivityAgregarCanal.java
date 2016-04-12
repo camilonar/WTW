@@ -15,6 +15,7 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Emisora;
 import epiphany_soft.wtw.R;
 
 /**
@@ -50,7 +51,7 @@ public class ActivityAgregarCanal extends ActivityBase {
 
     }
 
-    private void crearRecycledView(String[] contenido){
+    private void crearRecycledView(Emisora[] contenido){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);
         Float height = getResources().getDimension(R.dimen.size_emisora)*(contenido.length);
         TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
@@ -71,13 +72,15 @@ public class ActivityAgregarCanal extends ActivityBase {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.consultarAllEmisoras();
         if (c!=null) {
-            String[] nombres=new String[c.getCount()];
+            Emisora[] emisoras=new Emisora[c.getCount()];
             int i=0;
             while (c.moveToNext()) {
-                nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
+                String nombre = c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
+                int id = c.getInt(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_ID));
+                emisoras[i] = new Emisora(id,nombre);
                 i++;
             }
-            this.crearRecycledView(nombres);
+            this.crearRecycledView(emisoras);
         } else this.crearRecycledView(null);
     }
 }

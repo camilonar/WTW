@@ -5,8 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -24,14 +24,15 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
         public CardView mCardView;
         public TextView mTextView;
         public EditText numCanalEdit;
-        public RadioButton rb;
+        public CheckBox ck;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             numCanalEdit = (EditText)v.findViewById(R.id.textCardNumeroCanal);
-            rb = (RadioButton) v.findViewById(R.id.textCardRB);
+            ck = (CheckBox) v.findViewById(R.id.textCardCK);
+            ck.setOnClickListener(this);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
             numCanalEdit.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
@@ -39,8 +40,10 @@ public class EmisoraAdapter extends RecyclerView.Adapter<EmisoraAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            if (mTextView.getText()!="") {
-
+            if (ck.isChecked()) {
+                numCanalEdit.setVisibility(View.VISIBLE);
+            } else {
+                numCanalEdit.setVisibility(View.GONE);
             }
         }
     }

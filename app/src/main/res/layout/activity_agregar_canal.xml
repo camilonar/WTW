@@ -73,9 +73,9 @@
                     android:layout_margin="5dp"
                     android:paddingTop="20dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="NUMERO DE CANAL:"
+                    android:text="EMISORAS:"
                     android:textColor="@color/colorLabelText"
-                    android:id="@+id/lblNumeroCanal" />
+                    android:id="@+id/lblEmisoras" />
             </TableRow>
 
             <View

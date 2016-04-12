@@ -15,11 +15,11 @@
         android:padding="5dp"
         android:layout_margin="4dp"
         android:weightSum="1">
-        <RadioButton
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:id="@+id/textCardRB"/>
+            android:id="@+id/textCardCK"/>
         <TextView
             android:id="@+id/textCard"
             android:layout_width="156dp"
@@ -33,6 +33,7 @@
             android:layout_width="136dp"
             android:layout_height="wrap_content"
             android:hint="Numero de canal"
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:textSize="@dimen/font_size_consulta_temporada"
             android:textColor="@color/colorNormalText"

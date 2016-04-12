@@ -39,8 +39,8 @@ public class ActivityAgregarCanal extends ActivityBase {
     private void setSpecialFonts(){
         TextView nombreLabel=(TextView) findViewById(R.id.lblNombreCanal);
         nombreLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
-        TextView numeroLabel=(TextView) findViewById(R.id.lblNumeroCanal);
-        numeroLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView emisorasLabel=(TextView) findViewById(R.id.lblEmisoras);
+        emisorasLabel.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         //Los textos
         TextView nombreTxt=(TextView) findViewById(R.id.txtNombreCanal);
         nombreTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());

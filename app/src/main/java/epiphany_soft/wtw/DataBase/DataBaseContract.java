@@ -66,7 +66,19 @@ public final class DataBaseContract {
     public static abstract class CanalContract implements BaseColumns {
         public static final String TABLE_NAME = "Canal";
         public  static final String COLUMN_NAME_CANAL_ID = "Can_Nombre";
+    }
+
+    public static abstract class EmiteContract implements BaseColumns {
+        public static final String TABLE_NAME = "Emite";
+        public  static final String COLUMN_NAME_EMISORA_ID = "Emisora_Id";
+        public  static final String COLUMN_NAME_CANAL_ID = "Can_Nombre";
         public static final String COLUMN_NAME_CANAL_NUMERO = "Can_Numero";
+    }
+
+    public static abstract class EmisoraContract implements BaseColumns {
+        public static final String TABLE_NAME = "Emisora";
+        public  static final String COLUMN_NAME_EMISORA_ID = "Emisora_Id";
+        public  static final String COLUMN_NAME_EMISORA_NOMBRE = "Emisora_Nombre";
     }
 
     /*TODO: Implementarlo en la BD. Todavía no se pueden usar. La definición puede variar*/

@@ -87,19 +87,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:width="130dp"
-                    android:layout_margin="5dp"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/txtNumeroCanal"
-                    android:hint="Numero canal"
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/layoutCanalRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_consulta_emisoras"
+                    android:scrollbars="vertical"
                     android:textColor="@color/colorNormalText"
-                    android:textColorHint="@color/colorHintText"
-                    android:layout_gravity="left|center_vertical"
-                    android:text="" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
+
             </TableRow>
 
             <View

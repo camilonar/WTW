@@ -556,6 +556,21 @@ public class DataBaseConnection {
         return false;
     }
 
+    public Cursor consultarAllEmisoras(){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
+            query +=
+                    "FROM " + EmisoraContract.TABLE_NAME+" ";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
   /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
         try {
             miDBHelper.createDataBase();

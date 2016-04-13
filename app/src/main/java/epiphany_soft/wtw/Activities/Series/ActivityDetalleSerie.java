@@ -63,6 +63,8 @@ public class ActivityDetalleSerie extends ActivityBase {
         lblAnio.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView lblPais=(TextView) findViewById(R.id.lblPaisOrigen);
         lblPais.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView lblCanales=(TextView) findViewById(R.id.lblCanales);
+        lblCanales.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         //Los textos
         TextView nombreTxt=(TextView) findViewById(R.id.txtNombreSe);
         nombreTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());

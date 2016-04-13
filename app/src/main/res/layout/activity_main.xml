@@ -24,7 +24,8 @@
         android:background="@color/colorLine"
         android:layout_above="@+id/btnAgregarPrograma"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:id="@+id/view" />
 
     <Button
         android:layout_width="wrap_content"
@@ -101,6 +102,17 @@
         android:onClick="onClickAgregarCanal"
         android:textColor="@color/colorButtonText"
         android:layout_below="@+id/btnAgregarPrograma"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consultar Canal"
+        android:id="@+id/btn_ConsultarCanal"
+        android:nestedScrollingEnabled="true"
+        android:onClick="onClickConsultarCanal"
+        android:textColor="@color/colorButtonText"
+        android:layout_above="@+id/view"
         android:layout_centerHorizontal="true" />
 
 

@@ -108,4 +108,9 @@ public class MainActivity extends AppCompatActivity{
         Intent i = new Intent(this, ActivityAgregarCanal.class);
         startActivity(i);
     }
+
+    public void onClickConsultarCanal(View v){
+        Intent i = new Intent(this, ActivityConsultarCanal.class);
+        startActivity(i);
+    }
 }

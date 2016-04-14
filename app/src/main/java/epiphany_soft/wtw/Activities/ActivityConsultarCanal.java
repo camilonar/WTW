@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.Adapters.CanalAdapter;
 import epiphany_soft.wtw.Adapters.SerieAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -42,7 +43,7 @@ public class ActivityConsultarCanal extends ActivityBase {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         if (contenido!=null) {
-            mAdapter = new SerieAdapter(contenido);
+            mAdapter = new CanalAdapter(contenido);
             mRecyclerView.setAdapter(mAdapter);
         }
     }

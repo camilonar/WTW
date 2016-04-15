@@ -686,4 +686,25 @@ public class DataBaseConnection {
         else return null;
     }
     */
+
+    public Cursor consultarCanalLikeNombre(String nombre){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + CanalContract.COLUMN_NAME_CANAL_ID + " ";
+            query +=
+                    "FROM " + CanalContract.TABLE_NAME + " ";
+            query +=
+                    "WHERE " + CanalContract.COLUMN_NAME_CANAL_ID + "=\'" + nombre + "\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+
+
 }

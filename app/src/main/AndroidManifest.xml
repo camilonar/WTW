@@ -68,6 +68,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
 
+        <activity android:name=".Activities.ActivityConsultarCanal"
+            android:screenOrientation="portrait"/>
+
 
     </application>
 

@@ -699,7 +699,7 @@ public class DataBaseConnection {
             query +=
                     "FROM " + CanalContract.TABLE_NAME + " ";
             query +=
-                    "WHERE " + CanalContract.COLUMN_NAME_CANAL_ID + "=\'" + nombre + "\'";
+                    "WHERE " + CanalContract.COLUMN_NAME_CANAL_ID + " LIKE \'%"+nombre+"%\'";
             Cursor c = db.rawQuery(query, null);
             return c;
         }

@@ -7,7 +7,20 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.IOException;
 
-import static epiphany_soft.wtw.DataBase.DataBaseContract.*;
+import epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
+import epiphany_soft.wtw.Negocio.Horario;
+
+import static epiphany_soft.wtw.DataBase.DataBaseContract.CalificacionContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.CapituloContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.EmisoraContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.EmiteContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.PeliculaContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.SerieContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.TemporadaContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.UsuarioContract;
 
 /**
  * Created by Camilo on 23/03/2016.
@@ -600,6 +613,38 @@ public class DataBaseConnection {
             values.put(EmiteContract.COLUMN_NAME_EMISORA_ID,idEmisor);
             values.put(EmiteContract.COLUMN_NAME_CANAL_NUMERO,numCanal);
             long rowid=db.insert(EmiteContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+    public Cursor consultarCanalesDePrograma(int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + HorarioContract.COLUMN_NAME_CANAL_ID+" ";
+            query +=
+                    "FROM " + HorarioContract.TABLE_NAME+" ";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+
+    public boolean insertarHorario(Horario h){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(HorarioContract.COLUMN_NAME_CANAL_ID,h.getNombreCanal());
+            values.put(HorarioContract.COLUMN_NAME_PROGRAMA_ID,h.getIdPrograma());
+            long rowid=db.insert(HorarioContract.TABLE_NAME, null, values);
             if (rowid>0) return true;
         }
         return false;

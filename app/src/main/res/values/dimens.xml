@@ -4,6 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="font_size_consulta_pelicula">20sp</dimen>
     <dimen name="font_size_consulta_temporada">15sp</dimen>
+    <dimen name="font_size_consulta_canal">17sp</dimen>
     <dimen name="size_temporada">48dp</dimen>
     <dimen name="size_emisora">64dp</dimen>
+    <dimen name="size_canal">55dp</dimen>
 </resources>

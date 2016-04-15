@@ -14,6 +14,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.Adapters.CanalAdapter;
 import epiphany_soft.wtw.Adapters.TemporadaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -27,9 +28,9 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 
 // se supone que esta clase con ss metodos ya esta bn .. :)
 public class ActivityDetalleSerie extends ActivityBase {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private RecyclerView recyclerViewTemp, recyclerViewCanal;
+    private RecyclerView.Adapter adapterTemp, adapterCanal;
+    private RecyclerView.LayoutManager layoutManagerTemp, layoutManagerCanal;
 
     private String nombre,sinopsis,genero,pais;
     private int anio, idSerie;
@@ -45,7 +46,8 @@ public class ActivityDetalleSerie extends ActivityBase {
         String nombreSerie = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         setTitle(nombreSerie);
         this.llenarInfo(nombreSerie);
-        crearRecycledViewTemporadas();
+        crearRecyclerViewTemporadas();
+        crearRecyclerViewCanales();
         this.configurarRatingBar();
         setSpecialFonts();
     }
@@ -63,6 +65,8 @@ public class ActivityDetalleSerie extends ActivityBase {
         lblAnio.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         TextView lblPais=(TextView) findViewById(R.id.lblPaisOrigen);
         lblPais.setTypeface(SpecialFont.getInstance(this).getTypeFace());
+        TextView lblCanales=(TextView) findViewById(R.id.lblCanales);
+        lblCanales.setTypeface(SpecialFont.getInstance(this).getTypeFace());
         //Los textos
         TextView nombreTxt=(TextView) findViewById(R.id.txtNombreSe);
         nombreTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
@@ -76,7 +80,7 @@ public class ActivityDetalleSerie extends ActivityBase {
         generoTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
-    private void crearRecycledViewTemporadas(){
+    private void crearRecyclerViewTemporadas(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.getTemporadasDeSerie(idSerie);
         if (c!=null) {
@@ -88,25 +92,57 @@ public class ActivityDetalleSerie extends ActivityBase {
                 numerosCap[i]="#Capítulos: "+c.getString(c.getColumnIndex("cuenta"));
                 i++;
             }
-            this.crearRecycledView(numerosTemp,numerosCap);
+            this.crearRecyclerViewTemporadas(numerosTemp, numerosCap);
         }
     }
 
-    private void crearRecycledView(String[] contenido,String[] cantTemp){
+    private void crearRecyclerViewTemporadas(String[] contenido, String[] cantTemp){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutTempRV);
         Float height = getResources().getDimension(R.dimen.size_temporada)*(contenido.length);
         TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
         layoutRV.setLayoutParams(params);
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_temporadas);
+        recyclerViewTemp = (RecyclerView) findViewById(R.id.rv_temporadas);
         // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
-        mRecyclerView.setHasFixedSize(false);
+        recyclerViewTemp.setHasFixedSize(false);
         // Se usa un layout manager lineal para el recycler view
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        layoutManagerTemp = new LinearLayoutManager(this);
+        recyclerViewTemp.setLayoutManager(layoutManagerTemp);
         // Se especifica el adaptador
         if (contenido!=null) {
-            mAdapter = new TemporadaAdapter(contenido,cantTemp);
-            mRecyclerView.setAdapter(mAdapter);
+            adapterTemp = new TemporadaAdapter(contenido,cantTemp);
+            recyclerViewTemp.setAdapter(adapterTemp);
+        }
+    }
+
+    private void crearRecyclerViewCanales(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        Cursor c=db.consultarCanalesDePrograma(idSerie);
+        if (c!=null) {
+            String[] canales=new String[c.getCount()];
+            int i=0;
+            while (c.moveToNext()){
+                canales[i]=c.getString(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_ID));
+                i++;
+            }
+            this.crearRecyclerViewCanales(canales);
+        }
+    }
+
+    private void crearRecyclerViewCanales(String[] contenido){
+        LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);
+        Float height = getResources().getDimension(R.dimen.size_canal)*(contenido.length);
+        TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
+        layoutRV.setLayoutParams(params);
+        recyclerViewCanal = (RecyclerView) findViewById(R.id.rv_canales);
+        // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
+        recyclerViewCanal.setHasFixedSize(false);
+        // Se usa un layout manager lineal para el recycler view
+        layoutManagerCanal = new LinearLayoutManager(this);
+        recyclerViewCanal.setLayoutManager(layoutManagerCanal);
+        // Se especifica el adaptador
+        if (contenido!=null) {
+            adapterCanal = new CanalAdapter(contenido);
+            recyclerViewCanal.setAdapter(adapterCanal);
         }
     }
 

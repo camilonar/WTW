@@ -521,7 +521,7 @@ public class DataBaseConnection {
             query +=
                     "WHERE "+CalificacionContract.COLUMN_NAME_USUARIO_ID+"=? AND "
                             + CalificacionContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
-            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario),Integer.toString(idPrograma)});
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario), Integer.toString(idPrograma)});
             return c;
         }
         else return null;
@@ -650,6 +650,29 @@ public class DataBaseConnection {
             if (rowid>0) return true;
         }
         return false;
+    }
+
+    public int getHorarioId(int idPrograma, String idCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + HorarioContract.COLUMN_NAME_RELACION_ID+" ";
+            query +=
+                    "FROM " + HorarioContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE " + HorarioContract.COLUMN_NAME_PROGRAMA_ID+"=? AND "+
+            HorarioContract.COLUMN_NAME_CANAL_ID+"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma),idCanal});
+            int count = c.getCount();
+            if (count>0) {
+                c.moveToNext();
+                return c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_ID));
+            }
+        }
+        return 0;
     }
 
     public boolean eliminarHorario(int idHorario){

@@ -25,6 +25,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:id="@+id/imageButton"
+            android:scaleType="fitXY"
             android:background="@drawable/ic_add"
             android:layout_alignTop="@+id/textCard"
             android:layout_alignParentRight="true"

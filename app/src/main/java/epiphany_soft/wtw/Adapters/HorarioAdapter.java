@@ -1,7 +1,5 @@
 package epiphany_soft.wtw.Adapters;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityDetalleCanal;
-import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
+import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
@@ -19,6 +18,7 @@ import epiphany_soft.wtw.R;
 
 public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHolder> {
     private Horario[] mDataset;
+    private int idPrograma;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -28,31 +28,48 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         public CardView mCardView;
         public TextView mTextView;
         public ImageButton mButton;
+        public Horario mHorario;
+        public int idPrograma;
         public ViewHolder(View v) {
             super(v);
-            v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             mButton = (ImageButton)v.findViewById(R.id.imageButton);
+            mButton.setOnClickListener(this);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
         @Override
         public void onClick(View v) {
-            if (mTextView.getText()!="") {
-                Intent i = new Intent(v.getContext(), ActivityDetalleCanal.class);
-                //Se manda el nombre del programa para saber que información debe mostrarse
-                Bundle b = new Bundle();
-                b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID, mTextView.getText().toString());
-                i.putExtras(b);
-                v.getContext().startActivity(i);
+            boolean success;
+            DataBaseConnection db = new DataBaseConnection(v.getContext());
+            if (mHorario.getId()!=0){
+                success=db.eliminarHorario(mHorario.getId());
+                if (success) {
+                    mButton.setBackgroundResource(R.drawable.ic_remove);
+                    mHorario.setId(0);
+                    mHorario.setIdPrograma(0);
+                    ActivityDetalleSerie.actualizado=true;
+                    ActivityDetallePelicula.actualizado=true;
+                }
+            } else {
+                mHorario.setIdPrograma(idPrograma);
+                success=db.insertarHorario(mHorario);
+                if (success) {
+                    mButton.setBackgroundResource(R.drawable.ic_add);
+                    mHorario.setId(db.getHorarioId(mHorario.getIdPrograma(),mHorario.getNombreCanal()));
+                    ActivityDetalleSerie.actualizado=true;
+                    ActivityDetallePelicula.actualizado=true;
+                }
             }
+            mButton.refreshDrawableState();
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public HorarioAdapter(Horario[] myDataset) {
+    public HorarioAdapter(Horario[] myDataset, int idPrograma) {
         mDataset = myDataset;
+        this.idPrograma = idPrograma;
     }
 
     // Create new views (invoked by the layout manager)
@@ -62,7 +79,6 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.tv_horario, parent, false);
-        v.setClickable(true);
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -73,8 +89,11 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position].toString());
-        if (mDataset[position].getIdPrograma()==0){
-            holder.mTextView.setText("No disponible");
+        holder.mHorario = mDataset[position];
+        holder.idPrograma = idPrograma;
+        holder.mButton.setBackgroundResource(R.drawable.ic_remove);
+        if (mDataset[position].getId()==0){
+            holder.mButton.setBackgroundResource(R.drawable.ic_add);
         }
     }
 

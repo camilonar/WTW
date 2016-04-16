@@ -672,8 +672,7 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " + HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_CANAL_ID + ","
-                    + HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
+                    "SELECT " + HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
                             HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_RELACION_ID+","+
                             CanalContract.TABLE_NAME+"."+CanalContract.COLUMN_NAME_CANAL_ID+" ";
             query +=

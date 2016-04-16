@@ -6,11 +6,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import epiphany_soft.wtw.ActivityBase;
-import epiphany_soft.wtw.Adapters.CanalAdapter;
+import epiphany_soft.wtw.Adapters.HorarioAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
-import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
+import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
+
+import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
 
 /**
  * Created by Camilo on 15/04/2016.
@@ -39,23 +42,26 @@ public class ActivityAsociarCanal extends ActivityBase {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.getHorariosPrograma(idPrograma);
         if (c!=null) {
-            String[] nombres=new String[c.getCount()];
+            Horario[] horarios=new Horario[c.getCount()];
             int i=0;
             while (c.moveToNext()) {
-                nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID));
+                String nombreCanal = c.getString(c.getColumnIndex(CanalContract.COLUMN_NAME_CANAL_ID));
+                int idPrograma = c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_PROGRAMA_ID));
+                int idRel = c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_ID));
+                horarios[i] = new Horario(idRel,nombreCanal,idPrograma);
                 i++;
             }
-            this.crearRecyclerViewCanales(nombres);
+            this.crearRecyclerViewCanales(horarios);
         } else this.crearRecyclerViewCanales(null);
     }
 
-    private void crearRecyclerViewCanales(String[] contenido){
+    private void crearRecyclerViewCanales(Horario[] contenido){
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_consulta_canal);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         if (contenido!=null) {
-            mAdapter = new CanalAdapter(contenido);
+            mAdapter = new HorarioAdapter(contenido);
             mRecyclerView.setAdapter(mAdapter);
         }
     }

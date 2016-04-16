@@ -628,7 +628,9 @@ public class DataBaseConnection {
             String query = "SELECT " + HorarioContract.COLUMN_NAME_CANAL_ID+" ";
             query +=
                     "FROM " + HorarioContract.TABLE_NAME+" ";
-            Cursor c = db.rawQuery(query, null);
+            query +=
+                    "WHERE " + HorarioContract.COLUMN_NAME_PROGRAMA_ID+"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
             return c;
         }
         else return null;

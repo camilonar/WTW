@@ -204,7 +204,7 @@ public class ActivityDetalleSerie extends ActivityBase {
 
         Intent i = new Intent(this, ActivityAsociarCanal.class);
         Bundle b = new Bundle();
-        b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
+        b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
         i.putExtras(b);
         startActivity(i);

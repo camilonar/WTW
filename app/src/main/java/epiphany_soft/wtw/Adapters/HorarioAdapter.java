@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetalleCanal;
@@ -26,11 +27,13 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         // each data item is just a string in this case
         public CardView mCardView;
         public TextView mTextView;
+        public ImageButton mButton;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
+            mButton = (ImageButton)v.findViewById(R.id.imageButton);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
@@ -69,8 +72,10 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position].getNombreCanal());
-
+        holder.mTextView.setText(mDataset[position].toString());
+        if (mDataset[position].getIdPrograma()==0){
+            holder.mTextView.setText("No disponible");
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

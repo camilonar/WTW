@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
@@ -27,15 +27,15 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         // each data item is just a string in this case
         public CardView mCardView;
         public TextView mTextView;
-        public ImageButton mButton;
+        public CheckBox ck;
         public Horario mHorario;
         public int idPrograma;
         public ViewHolder(View v) {
             super(v);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
-            mButton = (ImageButton)v.findViewById(R.id.imageButton);
-            mButton.setOnClickListener(this);
+            ck = (CheckBox)v.findViewById(R.id.textCardCK);
+            ck.setOnClickListener(this);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
@@ -46,7 +46,7 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
             if (mHorario.getId()!=0){
                 success=db.eliminarHorario(mHorario.getId());
                 if (success) {
-                    mButton.setBackgroundResource(R.drawable.ic_remove);
+                    ck.setChecked(false);
                     mHorario.setId(0);
                     mHorario.setIdPrograma(0);
                     ActivityDetalleSerie.actualizado=true;
@@ -56,13 +56,12 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
                 mHorario.setIdPrograma(idPrograma);
                 success=db.insertarHorario(mHorario);
                 if (success) {
-                    mButton.setBackgroundResource(R.drawable.ic_add);
+                   ck.setChecked(true);
                     mHorario.setId(db.getHorarioId(mHorario.getIdPrograma(),mHorario.getNombreCanal()));
                     ActivityDetalleSerie.actualizado=true;
                     ActivityDetallePelicula.actualizado=true;
                 }
             }
-            mButton.refreshDrawableState();
         }
     }
 
@@ -91,9 +90,9 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         holder.mTextView.setText(mDataset[position].toString());
         holder.mHorario = mDataset[position];
         holder.idPrograma = idPrograma;
-        holder.mButton.setBackgroundResource(R.drawable.ic_remove);
-        if (mDataset[position].getId()==0){
-            holder.mButton.setBackgroundResource(R.drawable.ic_add);
+        holder.ck.setChecked(false);
+        if (mDataset[position].getId()!=0){
+            holder.ck.setChecked(true);
         }
     }
 

@@ -21,12 +21,11 @@
             android:textColor="@color/colorNormalText"
             xmlns:android="http://schemas.android.com/apk/res/android" />
 
-        <ImageButton
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/imageButton"
-            android:scaleType="fitXY"
-            android:background="@drawable/ic_add"
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:id="@+id/textCardCK"
             android:layout_alignTop="@+id/textCard"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />

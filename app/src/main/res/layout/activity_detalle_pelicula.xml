@@ -54,6 +54,71 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorTable">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_marginTop="60dp"
+                    android:paddingTop="20dp"
+                    android:textStyle="bold"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="CANALES:"
+                    android:textColor="@color/colorLabelText"
+                    android:gravity="bottom"
+                    android:id="@+id/lblCanales" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLine"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/layoutCanalRV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="center_horizontal">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_canales"
+                        android:scrollbars="vertical"
+                        android:textColor="@color/colorNormalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Editar"
+                    android:id="@+id/btn_AsociarCanal"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:onClick="onClickAsociarCanal"
+                    android:textColor="@color/colorButtonText" />
+            </TableRow>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
                 android:id="@+id/v1"
                 android:background="@color/colorLine"/>
 

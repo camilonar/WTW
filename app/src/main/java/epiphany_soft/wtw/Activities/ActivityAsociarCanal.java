@@ -37,7 +37,7 @@ public class ActivityAsociarCanal extends ActivityBase {
 
     private void crearRecyclerViewCanales(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarCanalLikeNombre("");
+        Cursor c=db.getHorariosPrograma(idPrograma);
         if (c!=null) {
             String[] nombres=new String[c.getCount()];
             int i=0;

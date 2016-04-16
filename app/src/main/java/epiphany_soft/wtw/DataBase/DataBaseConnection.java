@@ -649,6 +649,44 @@ public class DataBaseConnection {
         }
         return false;
     }
+
+    public boolean eliminarHorario(int idHorario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= HorarioContract.COLUMN_NAME_RELACION_ID+"=?";
+            int numDel=db.delete(HorarioContract.TABLE_NAME, query, new String[]{Integer.toString(idHorario)});
+            if (numDel>0) return true;
+        }
+        return false;
+    }
+
+    public Cursor getHorariosPrograma(int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_CANAL_ID + ","
+                    + HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
+                            HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_RELACION_ID+","+
+                            CanalContract.TABLE_NAME+"."+CanalContract.COLUMN_NAME_CANAL_ID+" ";
+            query +=
+                    "FROM " + CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
+                    HorarioContract.TABLE_NAME+" ON "+ CanalContract.TABLE_NAME+"."+
+                    CanalContract.COLUMN_NAME_CANAL_ID+"="+
+                    HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_CANAL_ID+
+                    " AND "+HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
+            return c;
+        }
+        else return null;
+    }
   /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
         try {
             miDBHelper.createDataBase();

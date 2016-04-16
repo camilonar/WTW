@@ -130,6 +130,7 @@ public class ActivityDetallePelicula extends ActivityBase {
                     db.actualizarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma, calificacion.getRating());
                 } else {
                     db.insertarCalificacion(Sesion.getInstance().getIdUsuario(),idPrograma,calificacion.getRating());
+                    calificado = true;
                 }
             }
         });

@@ -230,6 +230,7 @@ public class ActivityDetalleSerie extends ActivityBase {
                     db.actualizarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie, calificacion.getRating());
                 } else {
                     db.insertarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie, calificacion.getRating());
+                    calificado = true;
                 }
             }
         });

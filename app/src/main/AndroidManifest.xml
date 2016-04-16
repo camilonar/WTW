@@ -74,6 +74,8 @@
         <activity android:name=".Activities.ActivityDetalleCanal"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".Activities.ActivityAsociarCanal"
+            android:screenOrientation="portrait"/>
 
     </application>
 

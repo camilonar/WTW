@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.ActivityAsociarCanal;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.CanalAdapter;
 import epiphany_soft.wtw.Adapters.TemporadaAdapter;
@@ -197,7 +198,16 @@ public class ActivityDetalleSerie extends ActivityBase {
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
         i.putExtras(b);
         startActivity(i);
+    }
 
+    public void onClickAsociarCanal(View v){
+
+        Intent i = new Intent(this, ActivityAsociarCanal.class);
+        Bundle b = new Bundle();
+        b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        i.putExtras(b);
+        startActivity(i);
     }
 
     private void configurarRatingBar(){
@@ -231,6 +241,8 @@ public class ActivityDetalleSerie extends ActivityBase {
             hide(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
             hide(btn);
+            btn = (Button) findViewById(R.id.btn_AsociarCanal);
+            hide(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             hide(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
@@ -247,6 +259,8 @@ public class ActivityDetalleSerie extends ActivityBase {
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
+            show(btn);
+            btn = (Button) findViewById(R.id.btn_AsociarCanal);
             show(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             show(rb);

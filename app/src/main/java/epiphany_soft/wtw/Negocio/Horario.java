@@ -4,21 +4,33 @@ package epiphany_soft.wtw.Negocio;
  * Created by Camilo on 11/04/2016.
  */
 public class Horario {
-    private int id;
-    private String nombreCanal;
-    private int idPrograma;
 
-    public Horario(int id, String nombre, int idPrograma){
+    private Integer id;
+
+    private String nombreCanal;
+    private Integer idPrograma;
+
+    public Horario(Integer id, String nombre, Integer idPrograma){
         this.id=id;
         this.nombreCanal=nombre;
         this.idPrograma=idPrograma;
     }
 
-    public int getId(){
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public void setNombreCanal(String nombreCanal) {
+        this.nombreCanal = nombreCanal;
+    }
+    public void setIdPrograma(Integer idPrograma) {
+        this.idPrograma = idPrograma;
+    }
+
+    public Integer getId(){
         return id;
     }
 
-    public int getIdPrograma(){
+    public Integer getIdPrograma(){
         return idPrograma;
     }
 

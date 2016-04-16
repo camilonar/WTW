@@ -521,7 +521,7 @@ public class DataBaseConnection {
             query +=
                     "WHERE "+CalificacionContract.COLUMN_NAME_USUARIO_ID+"=? AND "
                             + CalificacionContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
-            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario),Integer.toString(idPrograma)});
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario), Integer.toString(idPrograma)});
             return c;
         }
         else return null;
@@ -628,7 +628,9 @@ public class DataBaseConnection {
             String query = "SELECT " + HorarioContract.COLUMN_NAME_CANAL_ID+" ";
             query +=
                     "FROM " + HorarioContract.TABLE_NAME+" ";
-            Cursor c = db.rawQuery(query, null);
+            query +=
+                    "WHERE " + HorarioContract.COLUMN_NAME_PROGRAMA_ID+"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
             return c;
         }
         else return null;
@@ -648,6 +650,66 @@ public class DataBaseConnection {
             if (rowid>0) return true;
         }
         return false;
+    }
+
+    public int getHorarioId(int idPrograma, String idCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT " + HorarioContract.COLUMN_NAME_RELACION_ID+" ";
+            query +=
+                    "FROM " + HorarioContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE " + HorarioContract.COLUMN_NAME_PROGRAMA_ID+"=? AND "+
+            HorarioContract.COLUMN_NAME_CANAL_ID+"=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma),idCanal});
+            int count = c.getCount();
+            if (count>0) {
+                c.moveToNext();
+                return c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_ID));
+            }
+        }
+        return 0;
+    }
+
+    public boolean eliminarHorario(int idHorario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= HorarioContract.COLUMN_NAME_RELACION_ID+"=?";
+            int numDel=db.delete(HorarioContract.TABLE_NAME, query, new String[]{Integer.toString(idHorario)});
+            if (numDel>0) return true;
+        }
+        return false;
+    }
+
+    public Cursor getHorariosPrograma(int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
+                            HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_RELACION_ID+","+
+                            CanalContract.TABLE_NAME+"."+CanalContract.COLUMN_NAME_CANAL_ID+" ";
+            query +=
+                    "FROM " + CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
+                    HorarioContract.TABLE_NAME+" ON "+ CanalContract.TABLE_NAME+"."+
+                    CanalContract.COLUMN_NAME_CANAL_ID+"="+
+                    HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_CANAL_ID+
+                    " AND "+HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
+            return c;
+        }
+        else return null;
     }
   /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
         try {

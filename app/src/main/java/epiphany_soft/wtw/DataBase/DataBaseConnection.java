@@ -807,18 +807,17 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " +EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
+                    "SELECT " + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
                             +EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_CANAL_ID + ","
                     +EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_CANAL_NUMERO+ ","
-                            +EmiteContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
+                            +EmisoraContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
             query +=
-                    "FROM " + EmiteContract.TABLE_NAME+"  RIGHT OUTER  JOIN "+
-                            EmisoraContract.TABLE_NAME+ " "+
-                            " ON "+EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID
-                            +"="+EmisoraContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_ID+" ";
+                    "FROM " + EmisoraContract.TABLE_NAME+"  LEFT OUTER  JOIN "+ EmiteContract.TABLE_NAME+
+                            " ON "+EmisoraContract.TABLE_NAME+"."+ EmisoraContract.COLUMN_NAME_EMISORA_ID
+                            +"="+EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_EMISORA_ID+" ";
             query +=
-                    "WHERE " + EmiteContract.COLUMN_NAME_CANAL_ID+"=?";
-            Cursor c = db.rawQuery(query, new String[]{nombre_canal}); // es aqui el error..
+                    "WHERE " +EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_CANAL_ID +"=? ";
+            Cursor c = db.rawQuery(query, new String[]{nombre_canal});
             return c;
         }
         else return null;

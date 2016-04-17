@@ -3,6 +3,7 @@ package epiphany_soft.wtw.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,6 +18,7 @@ import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Emisora;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -107,6 +109,19 @@ public class ActivityDetalleCanal extends ActivityBase {
         startActivity(i);
     }
 
+    protected void hideWhenNoSession(){
+        if (!Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            hide(b);
+        }
+    }
+
+    protected void showWhenSession(){
+        if (Sesion.getInstance().isActiva()){
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            show(b);
+        }
+    }
 
 
 

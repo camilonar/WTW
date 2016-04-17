@@ -68,14 +68,19 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
 
-        <activity android:name=".Activities.ActivityConsultarCanal"
-            android:screenOrientation="portrait"/>
-
         <activity android:name=".Activities.ActivityDetalleCanal"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".Activities.ActivityConsultarCanal"
+        android:screenOrientation="portrait"/>
+
         <activity android:name=".Activities.ActivityAsociarCanal"
             android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activities.ActivityActualizarCanal"
+            android:screenOrientation="portrait"/>
+
+
 
     </application>
 

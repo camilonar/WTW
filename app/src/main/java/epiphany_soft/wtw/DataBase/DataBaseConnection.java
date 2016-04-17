@@ -768,5 +768,154 @@ public class DataBaseConnection {
         else return null;
     }
 
+    // todas las consultas  de canal
+
+
+    // consultar datos del canal
+
+    public Cursor consultarNombreEmisoras(String nombre_canal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + EmiteContract.COLUMN_NAME_EMISORA_ID + "," +
+                            EmiteContract.COLUMN_NAME_CANAL_ID + "," +
+                            EmiteContract.COLUMN_NAME_CANAL_NUMERO+ ","+
+                            EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
+            query +=
+                    "FROM " + EmiteContract.TABLE_NAME+" NATURAL JOIN "+
+                            EmisoraContract.TABLE_NAME+ " ";
+
+            query +=
+                    "WHERE " + EmiteContract.COLUMN_NAME_CANAL_ID +"=\'"+nombre_canal+"\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+
+
+
+    public Cursor consultarEmisorasDeCanal(String  nombre_canal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " +EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
+                            +EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_CANAL_ID + ","
+                    +EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_CANAL_NUMERO+ ","
+                            +EmiteContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
+            query +=
+                    "FROM " + EmiteContract.TABLE_NAME+"  RIGHT OUTER  JOIN "+
+                            EmisoraContract.TABLE_NAME+ " "+
+                            " ON "+EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID
+                            +"="+EmisoraContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_ID+" ";
+            query +=
+                    "WHERE " + EmiteContract.COLUMN_NAME_CANAL_ID+"=?";
+            Cursor c = db.rawQuery(query, new String[]{nombre_canal}); // es aqui el error..
+            return c;
+        }
+        else return null;
+    }
+
+    // if  COLUMN_NAME_CANAL_ID
+
+
+    //eliminar de la tabla canal   y de la tabla emite
+
+    public boolean eliminarCanal(String  NombreCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= CanalContract.COLUMN_NAME_CANAL_ID+"=?";
+            int numDel=db.delete(CanalContract.TABLE_NAME, query, new String[]{(NombreCanal)});
+            if (numDel>0) return true;
+        }
+        return false;
+    }
+
+    public boolean eliminarEmite(String  NombreCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=?";
+            int numDel=db.delete(EmiteContract.TABLE_NAME, query, new String[]{(NombreCanal)});
+            if (numDel>0) return true;
+        }
+        return false;
+    }
+
+
+// actualizar canal
+
+
+    public boolean actualizarCanal(String  NombreCanal_old, String NombreCanal_new){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CanalContract.COLUMN_NAME_CANAL_ID, NombreCanal_new) ;
+
+            String query= CanalContract.COLUMN_NAME_CANAL_ID+"=?";
+            String[] compare = new String[]{(NombreCanal_old)};
+            try{
+                int rowid=db.update(CanalContract.TABLE_NAME, values, query, compare);
+                if (rowid>0) return true;
+            } catch (Exception e){
+                //No se hace nada, y luego retorna falso
+            }
+        }
+        return false;
+    }
+
+
+
+
+//actualizar emite
+
+    public boolean actualizarEmite(String nombrecanal_old, String nombrecanal_new, int idEmisor, int numCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(EmiteContract.COLUMN_NAME_CANAL_ID,nombrecanal_new);
+            values.put(EmiteContract.COLUMN_NAME_EMISORA_ID,idEmisor);
+            values.put(EmiteContract.COLUMN_NAME_CANAL_NUMERO,numCanal);
+
+            String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=? AND "
+                    +EmiteContract.COLUMN_NAME_EMISORA_ID+"=? AND "
+                    +EmiteContract.COLUMN_NAME_CANAL_NUMERO+"=?";
+            String[] compare = new String[]{(nombrecanal_old),Integer.toString(idEmisor),Integer.toString(numCanal)};
+            try{
+                int rowid=db.update(EmiteContract.TABLE_NAME, values, query, compare);
+                if (rowid>0) return true;
+            } catch (Exception e){
+                //No se hace nada, y luego retorna falso
+            }
+        }
+        return false;
+    }
+
+
+
+
 
 }

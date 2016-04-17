@@ -1,11 +1,10 @@
 package epiphany_soft.wtw.Activities;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -22,29 +21,32 @@ import epiphany_soft.wtw.R;
 /**
  * Created by Camilo on 11/04/2016.
  */
-public class ActivityDetalleCanal extends ActivityBase {
+public class ActivityActualizarCanal extends ActivityBase {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     TextView nombreTxt;
+   private  EditText name;
     private String nombreCanal;
     private int id_canal, id_emisora;
     public static boolean actualizado=false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detalle_canal);
+        setContentView(R.layout.activity_actualizar_canal);
 
         setTitle("INFORMACIÒN CANAL");
+        name=(EditText)findViewById(R.id.txtNombreCanal);
+
         Bundle b = getIntent().getExtras();
         nombreCanal = b.getString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID);
         setTitle(nombreCanal);
-
-        ((TextView) findViewById(R.id.txtNombreCanal)).setText(nombreCanal);
+        name.setText(nombreCanal);
+        //((TextView) findViewById(R.id.txtNombreCanal)).setText(nombreCanal);
 
         this.setSpecialFonts();
-       this.crearRecyclerViewEmisora();
+      // this.crearRecyclerViewEmisora();
      }
 
     private void setSpecialFonts(){
@@ -99,13 +101,7 @@ public class ActivityDetalleCanal extends ActivityBase {
     }
 
 
-    public void onClickActualizarCanal(View v){
-        Intent i = new Intent(this, ActivityActualizarCanal.class);
-        Bundle b = new Bundle();
-        b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID, nombreCanal);
-        i.putExtras(b);
-        startActivity(i);
-    }
+
 
 
 

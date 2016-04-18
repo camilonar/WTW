@@ -1,5 +1,6 @@
 package epiphany_soft.wtw.Activities;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -109,7 +110,7 @@ public class ActivityActualizarCanal extends ActivityBase {
     }
 
  // metodos para actualizar ...... (aun no se terminan. )
-    public void onClickActualizarCanal(View v) {
+    public void onClickActualizarC(View v) {
             if (nombreTxt.getText().toString().trim().equals("")) {
                 nombreTxt.setError("Introduzca el nombre del canal");
                 return;
@@ -159,6 +160,25 @@ public class ActivityActualizarCanal extends ActivityBase {
             }
             return true;
         }
+
+
+
+    public void onClickEliminar(View v) {
+
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        boolean success = db.eliminarCanal(nombreCanal);
+        if (success) {
+            createToast("El Canal se Elimino Exitosamente");
+            //ActivityConsultarCanal.actualizado=true;
+
+            Intent i = new Intent(this, ActivityConsultarCanal.class);
+            startActivity(i);
+            ActivityDetalleCanal.actualizado=true;
+            ActivityConsultarCanal.actualizado=true;
+           // this.finish();
+
+        } else createToast("Ocurrió un error al Eliminar");
+    }
 
 
 }

@@ -120,7 +120,23 @@
                     android:id="@+id/btnActualizar"
                     android:layout_gravity="center"
                     android:textColor="@color/colorButtonText"
-                    android:onClick="onClickActualizarCanal" />
+                    android:onClick="onClickActualizarC" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Eliminar"
+                    android:id="@+id/BtnEliminar"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorButtonText"
+                    android:onClick="onClickEliminar" />
             </TableRow>
 
         </TableLayout>

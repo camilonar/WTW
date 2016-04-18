@@ -887,7 +887,7 @@ public class DataBaseConnection {
 
 //actualizar emite
 
-    public boolean actualizarEmite(String nombrecanal_old, String nombrecanal_new, int idEmisor, int numCanal){
+    public boolean actualizarEmite(String nombrecanal_old, String nombrecanal_new, int idEmisor, Integer numCanal){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {

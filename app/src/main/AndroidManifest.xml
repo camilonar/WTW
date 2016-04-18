@@ -73,7 +73,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>/>
 
         <activity android:name=".Activities.ActivityConsultarCanal"
-        android:screenOrientation="portrait"/>
+        android:screenOrientation="portrait" />
 
         <activity android:name=".Activities.ActivityAsociarCanal"
             android:screenOrientation="portrait"/>

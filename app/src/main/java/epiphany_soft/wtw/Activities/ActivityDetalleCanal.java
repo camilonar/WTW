@@ -34,6 +34,7 @@ public class ActivityDetalleCanal extends ActivityBase {
 
     private int id_canal, id_emisora;
     public static boolean actualizado=false;
+    public static boolean eliminado=false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,11 @@ public class ActivityDetalleCanal extends ActivityBase {
     @Override
     public void onResume(){
         super.onResume();
+        if (eliminado){
+            actualizado=false;
+            eliminado=false;
+            this.finish();
+        }
         if (actualizado) {
             ((TextView) findViewById(R.id.txtNombreCanal)).setText(Canal.getInstance().getNombreCanal());
             this.recreate();

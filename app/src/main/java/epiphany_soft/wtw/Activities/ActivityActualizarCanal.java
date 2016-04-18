@@ -1,6 +1,5 @@
 package epiphany_soft.wtw.Activities;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.EmisoraActualizarAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
@@ -170,12 +170,11 @@ public class ActivityActualizarCanal extends ActivityBase {
         if (success) {
             createToast("El Canal se Elimino Exitosamente");
             //ActivityConsultarCanal.actualizado=true;
-
-            Intent i = new Intent(this, ActivityConsultarCanal.class);
-            startActivity(i);
-            ActivityDetalleCanal.actualizado=true;
+            ActivityDetalleCanal.eliminado=true;
+            ActivityDetalleSerie.actualizado=true;
+            ActivityDetallePelicula.actualizado=true;
             ActivityConsultarCanal.actualizado=true;
-           // this.finish();
+           this.finish();
 
         } else createToast("Ocurrió un error al Eliminar");
     }

@@ -807,7 +807,7 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
+                    "SELECT " + EmisoraContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
                             + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_CANAL_ID + ","
                     + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_CANAL_NUMERO+ ","
                             + EmisoraContract.TABLE_NAME+"."+ EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
@@ -841,15 +841,16 @@ public class DataBaseConnection {
         return false;
     }
 
-    public boolean eliminarEmite(String  NombreCanal){
+    public boolean eliminarEmite(String  nombreCanal, int idEmisora){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
         }
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
-            String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=?";
-            int numDel=db.delete(EmiteContract.TABLE_NAME, query, new String[]{(NombreCanal)});
+            String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=? AND "+
+                    EmiteContract.COLUMN_NAME_EMISORA_ID+"=?";
+            int numDel=db.delete(EmiteContract.TABLE_NAME, query, new String[]{nombreCanal,Integer.toString(idEmisora)});
             if (numDel>0) return true;
         }
         return false;
@@ -899,9 +900,8 @@ public class DataBaseConnection {
             values.put(EmiteContract.COLUMN_NAME_CANAL_NUMERO,numCanal);
 
             String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=? AND "
-                    + EmiteContract.COLUMN_NAME_EMISORA_ID+"=? AND "
-                    + EmiteContract.COLUMN_NAME_CANAL_NUMERO+"=?";
-            String[] compare = new String[]{(nombrecanal_old),Integer.toString(idEmisor),Integer.toString(numCanal)};
+                    + EmiteContract.COLUMN_NAME_EMISORA_ID+"=? ";
+            String[] compare = new String[]{(nombrecanal_old),Integer.toString(idEmisor)};
             try{
                 int rowid=db.update(EmiteContract.TABLE_NAME, values, query, compare);
                 if (rowid>0) return true;

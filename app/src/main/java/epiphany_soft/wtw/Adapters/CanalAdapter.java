@@ -1,7 +1,6 @@
 package epiphany_soft.wtw.Adapters;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetalleCanal;
-import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
+import epiphany_soft.wtw.Negocio.Canal;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
@@ -38,9 +37,7 @@ public class CanalAdapter extends RecyclerView.Adapter<CanalAdapter.ViewHolder> 
             if (mTextView.getText()!="") {
                 Intent i = new Intent(v.getContext(), ActivityDetalleCanal.class);
                 //Se manda el nombre del programa para saber que información debe mostrarse
-                Bundle b = new Bundle();
-                b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID, mTextView.getText().toString());
-                i.putExtras(b);
+                Canal.getInstance().setNombreCanal(this.mTextView.getText().toString());
                 v.getContext().startActivity(i);
             }
         }

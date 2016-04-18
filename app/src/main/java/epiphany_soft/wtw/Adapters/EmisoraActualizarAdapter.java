@@ -30,7 +30,7 @@ public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActual
         public TextView mTextView, nombre;
         public EditText numCanalEdit;
         public CheckBox ck;
-        public int idEmite;
+        public int idEmisora;
         public int numero_canal;
         public String nombre_canal;
         public String nombre_emisora;
@@ -90,8 +90,9 @@ public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActual
         //holder.mTextView.setText(misEmisiones[position].toString());
         holder.nombre.setText(misEmisiones[position].getNombre_Emisora());
         holder.numCanalEdit.setText(Integer.toString(misEmisiones[position].getNumero_canal()));
-        holder.idEmite = misEmisiones[position].getId_Emite();
-        if (misEmisiones[position].getId_Emite()!=0){
+        holder.idEmisora = misEmisiones[position].getIdEmisora();
+        holder.nombre_canal = misEmisiones[position].getNombre_canal();
+        if (misEmisiones[position].getNombre_canal()!=null){
             holder.ck.setChecked(true);
             holder.numCanalEdit.setVisibility(View.VISIBLE);
          } else {

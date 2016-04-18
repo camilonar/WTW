@@ -17,6 +17,7 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Canal;
 import epiphany_soft.wtw.Negocio.Emisora;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
@@ -30,7 +31,7 @@ public class ActivityDetalleCanal extends ActivityBase {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     TextView nombreTxt;
-    private String nombreCanal;
+
     private int id_canal, id_emisora;
     public static boolean actualizado=false;
 
@@ -39,14 +40,11 @@ public class ActivityDetalleCanal extends ActivityBase {
         setContentView(R.layout.activity_detalle_canal);
 
         setTitle("INFORMACIÒN CANAL");
-        Bundle b = getIntent().getExtras();
-        nombreCanal = b.getString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID);
-        setTitle(nombreCanal);
-
-        ((TextView) findViewById(R.id.txtNombreCanal)).setText(nombreCanal);
+        setTitle(Canal.getInstance().getNombreCanal());
+        ((TextView) findViewById(R.id.txtNombreCanal)).setText(Canal.getInstance().getNombreCanal());
 
         this.setSpecialFonts();
-       this.crearRecyclerViewEmisora();
+        this.crearRecyclerViewEmisora();
      }
 
     private void setSpecialFonts(){
@@ -62,7 +60,10 @@ public class ActivityDetalleCanal extends ActivityBase {
     @Override
     public void onResume(){
         super.onResume();
-        if (actualizado) this.recreate();
+        if (actualizado) {
+            ((TextView) findViewById(R.id.txtNombreCanal)).setText(Canal.getInstance().getNombreCanal());
+            this.recreate();
+        }
         actualizado=false;
     }
 
@@ -70,7 +71,7 @@ public class ActivityDetalleCanal extends ActivityBase {
 
     private void crearRecyclerViewEmisora(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarNombreEmisoras(nombreCanal);
+        Cursor c=db.consultarNombreEmisoras(Canal.getInstance().getNombreCanal());
         if (c!=null) {
             Emisora[] emisoras=new Emisora[c.getCount()];
             int i=0;
@@ -103,9 +104,6 @@ public class ActivityDetalleCanal extends ActivityBase {
 
     public void onClickActualizarCanal(View v){
         Intent i = new Intent(this, ActivityActualizarCanal.class);
-        Bundle b = new Bundle();
-        b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID, nombreCanal);
-        i.putExtras(b);
         startActivity(i);
     }
 

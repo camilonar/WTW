@@ -18,6 +18,7 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Canal;
 import epiphany_soft.wtw.Negocio.Emite;
 import epiphany_soft.wtw.R;
 
@@ -42,8 +43,7 @@ public class ActivityActualizarCanal extends ActivityBase {
         setTitle("INFORMACIÒN CANAL");
         name=(EditText)findViewById(R.id.txtNombreCanal);
 
-        Bundle b = getIntent().getExtras();
-        nombreCanal = b.getString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID);
+        nombreCanal = Canal.getInstance().getNombreCanal();
         setTitle(nombreCanal);
         name.setText(nombreCanal);
         //((TextView) findViewById(R.id.txtNombreCanal)).setText(nombreCanal);
@@ -80,10 +80,10 @@ public class ActivityActualizarCanal extends ActivityBase {
             while (c.moveToNext()){
                  String nombre_emisora=c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
                 int numero_canal=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_NUMERO));
-                int id_emite=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_EMISORA_ID));
+                int id_emisora=c.getInt(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_ID));
                 String nombre_canal =c.getString(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_ID));
 
-                emites[i] = new Emite(id_emite,nombre_canal, numero_canal,nombre_emisora);
+                emites[i] = new Emite(id_emisora,nombre_canal, numero_canal,nombre_emisora);
                 
 
                 i++;
@@ -120,12 +120,16 @@ public class ActivityActualizarCanal extends ActivityBase {
         private void ActualizarInfoCanal(){
             DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
             // el actualizar esta mal , toca cambiar el parametro para nuevo y viejo ojo.. por ahora lo ppongo asi
-            boolean success=db.actualizarCanal(nombreTxt.getText().toString(), nombreTxt.getText().toString() );
+            boolean success=db.actualizarCanal(nombreCanal, nombreTxt.getText().toString() );
             if (success) {
+                nombreCanal =  nombreTxt.getText().toString();
                 ActualizarEmite();
                 createToast("Canal Actualizado");
+                ActivityDetalleCanal.actualizado=true;
+                Canal.getInstance().setNombreCanal(nombreCanal);
+                ActivityConsultarCanal.actualizado=true;
             }
-            else createToast("El Canal No se Puede Actualizar");
+            else createToast("El nombre ya existe");
         }
 
         private boolean ActualizarEmite(){
@@ -136,15 +140,21 @@ public class ActivityActualizarCanal extends ActivityBase {
             Integer numCanal;
             for (int i=0;i<listHolder.size();i++){
                 EmisoraActualizarAdapter.ViewHolder ev = listHolder.get(i);
+                idEmisora = ev.idEmisora;
+                if (!ev.numCanalEdit.getText().toString().equals(""))
+                    numCanal = new Integer(ev.numCanalEdit.getText().toString());
+                else
+                    numCanal = null;
+                DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
                 if (ev.ck.isChecked()){
-                    idEmisora = ev.idEmite;
-                    if (!ev.numCanalEdit.getText().toString().equals(""))
-                        numCanal = new Integer(ev.numCanalEdit.getText().toString());
-                    else
-                        numCanal = null;
-                    DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
                     // esto esta mal toca actualizar el viejo  y el nuevo
-                    db.actualizarEmite(nombreCanal,nombreCanal,idEmisora,numCanal);
+                    if (ev.nombre_canal!=null)
+                        db.actualizarEmite(nombreCanal,nombreTxt.getText().toString(),idEmisora,numCanal);
+                    else
+                        db.insertarEmite(nombreTxt.getText().toString(),idEmisora,numCanal);
+                } else{
+                    if (ev.nombre_canal!=null)
+                        db.eliminarEmite(nombreCanal,idEmisora);
                 }
             }
             return true;

@@ -5,20 +5,20 @@ package epiphany_soft.wtw.Negocio;
  */
 public class Emite {
 
-    private int id_Emite;
+    private int idEmisora;
     private String nombre_canal;
     private int numero_canal;
     private String nombre_Emisora;
 
-    public Emite(int id_Emite, String nombre_canal, int numero_canal, String nombre_Emisora) {
-        this.id_Emite = id_Emite;
+    public Emite(int idEmisora, String nombre_canal, int numero_canal, String nombre_Emisora) {
+        this.idEmisora = idEmisora;
         this.nombre_canal = nombre_canal;
         this.numero_canal = numero_canal;
         this.nombre_Emisora = nombre_Emisora;
     }
 
-    public int getId_Emite() {
-        return id_Emite;
+    public int getIdEmisora() {
+        return idEmisora;
     }
 
     public String getNombre_canal() {

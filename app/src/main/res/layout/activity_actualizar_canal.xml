@@ -120,7 +120,7 @@
                     android:id="@+id/btnActualizar"
                     android:layout_gravity="center"
                     android:textColor="@color/colorButtonText"
-                    android:onClick="onClickRegistrarCanal" />
+                    android:onClick="onClickActualizarCanal" />
             </TableRow>
 
         </TableLayout>

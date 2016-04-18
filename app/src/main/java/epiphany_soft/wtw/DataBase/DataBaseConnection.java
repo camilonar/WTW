@@ -27,7 +27,7 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.UsuarioContract;
  */
 public class DataBaseConnection {
     DataBaseHelper miDBHelper;
-    public DataBaseConnection (Context context){
+    public DataBaseConnection(Context context){
         miDBHelper = new DataBaseHelper(context);
     }
 
@@ -346,18 +346,18 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " +TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID + ","
-                    +"COUNT("+CapituloContract.TABLE_NAME+"."+ CapituloContract.COLUMN_NAME_TEMPORADA_ID+") AS cuenta ";
+                    "SELECT " + TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID + ","
+                    +"COUNT("+ CapituloContract.TABLE_NAME+"."+ CapituloContract.COLUMN_NAME_TEMPORADA_ID+") AS cuenta ";
             query +=
-                    "FROM " + TemporadaContract.TABLE_NAME+" LEFT OUTER JOIN "+CapituloContract.TABLE_NAME +
-                            " ON "+TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID
-                            +"="+CapituloContract.TABLE_NAME+"."+CapituloContract.COLUMN_NAME_TEMPORADA_ID+" AND "
-                            +TemporadaContract.TABLE_NAME+"."+TemporadaContract.COLUMN_NAME_PROGRAMA_ID+"="
-                            +CapituloContract.TABLE_NAME+"."+CapituloContract.COLUMN_NAME_SERIE_ID+" ";
+                    "FROM " + TemporadaContract.TABLE_NAME+" LEFT OUTER JOIN "+ CapituloContract.TABLE_NAME +
+                            " ON "+ TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID
+                            +"="+ CapituloContract.TABLE_NAME+"."+ CapituloContract.COLUMN_NAME_TEMPORADA_ID+" AND "
+                            + TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_PROGRAMA_ID+"="
+                            + CapituloContract.TABLE_NAME+"."+ CapituloContract.COLUMN_NAME_SERIE_ID+" ";
             query +=
-                    "WHERE " +TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
+                    "WHERE " + TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
             query+=
-                    "GROUP BY "+TemporadaContract.TABLE_NAME+"."+TemporadaContract.COLUMN_NAME_TEMPORADA_ID;
+                    "GROUP BY "+ TemporadaContract.TABLE_NAME+"."+ TemporadaContract.COLUMN_NAME_TEMPORADA_ID;
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idSerie)});
             return c;
         }
@@ -379,8 +379,8 @@ public class DataBaseConnection {
             values.put(CapituloContract.COLUMN_NAME_SERIE_ID, id_ser);
 
             String query= CapituloContract.COLUMN_NAME_SERIE_ID+"=? AND "
-                    +CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
-                    +CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
+                    + CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
+                    + CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
             String[] compare = new String[]{Integer.toString(id_ser),Integer.toString(id_temp),Integer.toString(id_cap_old)};
             try{
                 int rowid=db.update(CapituloContract.TABLE_NAME, values, query, compare);
@@ -404,8 +404,8 @@ public class DataBaseConnection {
             query +=
                     "FROM " + CapituloContract.TABLE_NAME+" ";
             query +=
-                    "WHERE "+CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND " + CapituloContract.COLUMN_NAME_SERIE_ID +"=? ";
-            query += "ORDER BY "+CapituloContract.COLUMN_NAME_CAPITULO_ID;
+                    "WHERE "+ CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND " + CapituloContract.COLUMN_NAME_SERIE_ID +"=? ";
+            query += "ORDER BY "+ CapituloContract.COLUMN_NAME_CAPITULO_ID;
 
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idTemporada),Integer.toString(idSerie)});
             return c;
@@ -425,7 +425,7 @@ public class DataBaseConnection {
             query +=
                     "FROM " + CapituloContract.TABLE_NAME+" ";
             query +=
-                    "WHERE "+CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
+                    "WHERE "+ CapituloContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "
                             + CapituloContract.COLUMN_NAME_SERIE_ID +"=? AND "
                             + CapituloContract.COLUMN_NAME_CAPITULO_ID+"=?";
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idTemporada),Integer.toString(idSerie),
@@ -464,7 +464,7 @@ public class DataBaseConnection {
             query +=
                     "FROM " + UsuarioContract.TABLE_NAME+" ";
             query +=
-                    "WHERE "+UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+"=? AND "
+                    "WHERE "+ UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+"=? AND "
                             + UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD+"=?";
             Cursor c = db.rawQuery(query, new String[]{nombreUsu, password});
             return c;
@@ -519,7 +519,7 @@ public class DataBaseConnection {
             query +=
                     "FROM " + CalificacionContract.TABLE_NAME+" ";
             query +=
-                    "WHERE "+CalificacionContract.COLUMN_NAME_USUARIO_ID+"=? AND "
+                    "WHERE "+ CalificacionContract.COLUMN_NAME_USUARIO_ID+"=? AND "
                             + CalificacionContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario), Integer.toString(idPrograma)});
             return c;
@@ -577,7 +577,7 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query = "SELECT " + EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+","
-                    +EmisoraContract.COLUMN_NAME_EMISORA_ID+" ";
+                    + EmisoraContract.COLUMN_NAME_EMISORA_ID+" ";
             query +=
                     "FROM " + EmisoraContract.TABLE_NAME+" ";
             Cursor c = db.rawQuery(query, null);
@@ -697,15 +697,15 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " + HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
-                            HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_RELACION_ID+","+
-                            CanalContract.TABLE_NAME+"."+CanalContract.COLUMN_NAME_CANAL_ID+" ";
+                    "SELECT " + HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
+                            HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_RELACION_ID+","+
+                            CanalContract.TABLE_NAME+"."+ CanalContract.COLUMN_NAME_CANAL_ID+" ";
             query +=
                     "FROM " + CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
                     HorarioContract.TABLE_NAME+" ON "+ CanalContract.TABLE_NAME+"."+
                     CanalContract.COLUMN_NAME_CANAL_ID+"="+
-                    HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_CANAL_ID+
-                    " AND "+HorarioContract.TABLE_NAME+"."+HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=?";
+                    HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_CANAL_ID+
+                    " AND "+ HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=?";
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
             return c;
         }
@@ -807,18 +807,16 @@ public class DataBaseConnection {
         if(miDBHelper.checkDataBase()) {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
-                    "SELECT " +EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
-                            +EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_CANAL_ID + ","
-                    +EmiteContract.TABLE_NAME+"."+EmiteContract.COLUMN_NAME_CANAL_NUMERO+ ","
-                            +EmiteContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
+                    "SELECT " + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID + ","
+                            + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_CANAL_ID + ","
+                    + EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_CANAL_NUMERO+ ","
+                            + EmisoraContract.TABLE_NAME+"."+ EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE+" ";
             query +=
-                    "FROM " + EmiteContract.TABLE_NAME+"  RIGHT OUTER  JOIN "+
-                            EmisoraContract.TABLE_NAME+ " "+
-                            " ON "+EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID
-                            +"="+EmisoraContract.TABLE_NAME+"."+EmisoraContract.COLUMN_NAME_EMISORA_ID+" ";
-            query +=
-                    "WHERE " + EmiteContract.COLUMN_NAME_CANAL_ID+"=?";
-            Cursor c = db.rawQuery(query, new String[]{nombre_canal}); // es aqui el error..
+                    "FROM " + EmisoraContract.TABLE_NAME+"  LEFT OUTER  JOIN "+ EmiteContract.TABLE_NAME+
+                            " ON "+ EmisoraContract.TABLE_NAME+"."+ EmisoraContract.COLUMN_NAME_EMISORA_ID
+                            +"="+ EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_EMISORA_ID+" AND "+
+                            EmiteContract.TABLE_NAME+"."+ EmiteContract.COLUMN_NAME_CANAL_ID +"=? ";
+            Cursor c = db.rawQuery(query, new String[]{nombre_canal});
             return c;
         }
         else return null;
@@ -901,8 +899,8 @@ public class DataBaseConnection {
             values.put(EmiteContract.COLUMN_NAME_CANAL_NUMERO,numCanal);
 
             String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=? AND "
-                    +EmiteContract.COLUMN_NAME_EMISORA_ID+"=? AND "
-                    +EmiteContract.COLUMN_NAME_CANAL_NUMERO+"=?";
+                    + EmiteContract.COLUMN_NAME_EMISORA_ID+"=? AND "
+                    + EmiteContract.COLUMN_NAME_CANAL_NUMERO+"=?";
             String[] compare = new String[]{(nombrecanal_old),Integer.toString(idEmisor),Integer.toString(numCanal)};
             try{
                 int rowid=db.update(EmiteContract.TABLE_NAME, values, query, compare);

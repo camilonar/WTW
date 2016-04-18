@@ -4,18 +4,21 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import epiphany_soft.wtw.ActivityBase;
-import epiphany_soft.wtw.Adapters.DetalleCanalAdapter;
+import epiphany_soft.wtw.Adapters.EmisoraActualizarAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
-import epiphany_soft.wtw.Negocio.Emisora;
+import epiphany_soft.wtw.Negocio.Emite;
 import epiphany_soft.wtw.R;
 
 /**
@@ -46,7 +49,7 @@ public class ActivityActualizarCanal extends ActivityBase {
         //((TextView) findViewById(R.id.txtNombreCanal)).setText(nombreCanal);
 
         this.setSpecialFonts();
-      // this.crearRecyclerViewEmisora();
+      this.crearRecyclerViewEmisora();
      }
 
     private void setSpecialFonts(){
@@ -70,21 +73,26 @@ public class ActivityActualizarCanal extends ActivityBase {
 
     private void crearRecyclerViewEmisora(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarNombreEmisoras(nombreCanal);
+        Cursor c=db.consultarEmisorasDeCanal(nombreCanal);
         if (c!=null) {
-            Emisora[] emisoras=new Emisora[c.getCount()];
+            Emite[] emites=new Emite[c.getCount()];
             int i=0;
             while (c.moveToNext()){
-                 String nombreemisoras=c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
-                int numerocanal=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_NUMERO));
-                emisoras[i] = new Emisora(numerocanal,nombreemisoras);
+                 String nombre_emisora=c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
+                int numero_canal=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_NUMERO));
+                int id_emite=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_EMISORA_ID));
+                String nombre_canal =c.getString(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_ID));
+
+                emites[i] = new Emite(id_emite,nombre_canal, numero_canal,nombre_emisora);
+                
+
                 i++;
             }
-            this.crearRecyclerViewEmisora(emisoras);
+            this.crearRecyclerViewEmisora(emites);
         }
     }
 
-    private void crearRecyclerViewEmisora(Emisora[] contenido){
+    private void crearRecyclerViewEmisora(Emite[] contenido){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);
         Float height = getResources().getDimension(R.dimen.size_emisora)*(contenido.length);
         TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
@@ -95,42 +103,19 @@ public class ActivityActualizarCanal extends ActivityBase {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         if (contenido!=null) {
-            mAdapter = new DetalleCanalAdapter(contenido);
+            mAdapter = new EmisoraActualizarAdapter(contenido);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
 
-
-
-
-
-
-
-    /*
-    private void crearRecyclerViewEmisora(){
-        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-    Cursor c=db.consultarNombreEmisoras(nombreCanal);
-    if (c!=null) {
-        String[] nombreemisoras=new String[c.getCount()];
-        String[] numerocanal=new String[c.getCount()];
-        int i=0;
-        while (c.moveToNext()){
-            nombreemisoras[i]=c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
-            numerocanal[i]="#Canal: "+c.getString(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_NUMERO));
-            i++;
-        }
-        this.crearRecyclerViewEmisora(nombreemisoras, numerocanal);
-    }
-}*/
-
- /* esto es para  los metodos actualizar de la clase ActivityActualizarCanal
+ // metodos para actualizar ...... (aun no se terminan. )
     public void onClickActualizarCanal(View v) {
             if (nombreTxt.getText().toString().trim().equals("")) {
                 nombreTxt.setError("Introduzca el nombre del canal");
                 return;
             }
             this.ActualizarInfoCanal();
-        }
+    }
 
         private void ActualizarInfoCanal(){
             DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
@@ -144,15 +129,15 @@ public class ActivityActualizarCanal extends ActivityBase {
         }
 
         private boolean ActualizarEmite(){
-            EmisoraAdapter e = (EmisoraAdapter) mAdapter;
-            ArrayList<EmisoraAdapter.ViewHolder> listHolder = e.getMisViewHolder();
+            EmisoraActualizarAdapter e = (EmisoraActualizarAdapter) mAdapter;
+            ArrayList<EmisoraActualizarAdapter.ViewHolder> listHolder = e.getMisViewHolder();
             String nombreCanal = nombreTxt.getText().toString();
             int idEmisora;
             Integer numCanal;
             for (int i=0;i<listHolder.size();i++){
-                EmisoraAdapter.ViewHolder ev = listHolder.get(i);
+                EmisoraActualizarAdapter.ViewHolder ev = listHolder.get(i);
                 if (ev.ck.isChecked()){
-                    idEmisora = ev.idEmisora;
+                    idEmisora = ev.idEmite;
                     if (!ev.numCanalEdit.getText().toString().equals(""))
                         numCanal = new Integer(ev.numCanalEdit.getText().toString());
                     else
@@ -164,6 +149,6 @@ public class ActivityActualizarCanal extends ActivityBase {
             }
             return true;
         }
-aqui termina lo de actualizar canal*/
+
 
 }

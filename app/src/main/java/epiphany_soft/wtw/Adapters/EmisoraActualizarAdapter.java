@@ -12,13 +12,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import epiphany_soft.wtw.Fonts.RobotoFont;
-import epiphany_soft.wtw.Negocio.Emisora;
+import epiphany_soft.wtw.Negocio.Emite;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
 public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActualizarAdapter.ViewHolder> {
-    private Emisora[] misEmisoras;
-    /*TODO revisar si se puede hacer de una mejor manera*/
+    private Emite[] misEmisiones;
+
     private ArrayList<ViewHolder> misViewHolder;
 
     // Provide a reference to the views for each data item
@@ -27,14 +27,18 @@ public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActual
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public CardView mCardView;
-        public TextView mTextView;
+        public TextView mTextView, nombre;
         public EditText numCanalEdit;
         public CheckBox ck;
-        public int idEmisora;
+        public int idEmite;
+        public int numero_canal;
+        public String nombre_canal;
+        public String nombre_emisora;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
+            nombre= (TextView)v.findViewById(R.id.textCard);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             numCanalEdit = (EditText)v.findViewById(R.id.textCardNumeroCanal);
             ck = (CheckBox) v.findViewById(R.id.textCardCK);
@@ -46,6 +50,8 @@ public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActual
 
         @Override
         public void onClick(View v) {
+
+
             if (ck.isChecked()) {
                 numCanalEdit.setVisibility(View.VISIBLE);
             } else {
@@ -55,8 +61,8 @@ public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActual
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public EmisoraActualizarAdapter(Emisora[] myDataset) {
-        misEmisoras = myDataset;
+    public EmisoraActualizarAdapter(Emite[] myDataset) {
+        misEmisiones = myDataset;
         misViewHolder = new ArrayList<ViewHolder>();
     }
 
@@ -81,19 +87,25 @@ public class EmisoraActualizarAdapter extends RecyclerView.Adapter<EmisoraActual
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(misEmisoras[position].toString());
-        holder.idEmisora=misEmisoras[position].getId();
-        //if (misEmisoras [position].getCanalId()==null){
-        // holder.ck.setChecked(true);
-        //holder.numCanalEdit.setText(misEmisoras[position].toString());
-        // }
+        //holder.mTextView.setText(misEmisiones[position].toString());
+        holder.nombre.setText(misEmisiones[position].getNombre_Emisora());
+        holder.numCanalEdit.setText(Integer.toString(misEmisiones[position].getNumero_canal()));
+        holder.idEmite = misEmisiones[position].getId_Emite();
+        if (misEmisiones[position].getId_Emite()!=0){
+            holder.ck.setChecked(true);
+            holder.numCanalEdit.setVisibility(View.VISIBLE);
+         } else {
+            holder.ck.setChecked(false);
+            holder.numCanalEdit.setVisibility(View.GONE);
+            holder.numCanalEdit.setText("");
+        }
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return misEmisoras.length;
+        return misEmisiones.length;
     }
 
     public ArrayList<ViewHolder> getMisViewHolder(){

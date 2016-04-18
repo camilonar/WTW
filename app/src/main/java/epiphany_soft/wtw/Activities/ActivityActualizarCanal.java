@@ -13,13 +13,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import epiphany_soft.wtw.ActivityBase;
-import epiphany_soft.wtw.Adapters.DetalleCanalAdapter;
 import epiphany_soft.wtw.Adapters.EmisoraActualizarAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
-import epiphany_soft.wtw.Negocio.Emisora;
+import epiphany_soft.wtw.Negocio.Canal;
+import epiphany_soft.wtw.Negocio.Emite;
 import epiphany_soft.wtw.R;
 
 /**
@@ -43,8 +43,7 @@ public class ActivityActualizarCanal extends ActivityBase {
         setTitle("INFORMACIÒN CANAL");
         name=(EditText)findViewById(R.id.txtNombreCanal);
 
-        Bundle b = getIntent().getExtras();
-        nombreCanal = b.getString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID);
+        nombreCanal = Canal.getInstance().getNombreCanal();
         setTitle(nombreCanal);
         name.setText(nombreCanal);
         //((TextView) findViewById(R.id.txtNombreCanal)).setText(nombreCanal);
@@ -76,19 +75,24 @@ public class ActivityActualizarCanal extends ActivityBase {
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.consultarEmisorasDeCanal(nombreCanal);
         if (c!=null) {
-            Emisora[] emisoras=new Emisora[c.getCount()];
+            Emite[] emites=new Emite[c.getCount()];
             int i=0;
             while (c.moveToNext()){
-                 String nombreemisoras=c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
-                int numerocanal=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_NUMERO));
-                emisoras[i] = new Emisora(numerocanal,nombreemisoras);
+                 String nombre_emisora=c.getString(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_NOMBRE));
+                int numero_canal=c.getInt(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_NUMERO));
+                int id_emisora=c.getInt(c.getColumnIndex(DataBaseContract.EmisoraContract.COLUMN_NAME_EMISORA_ID));
+                String nombre_canal =c.getString(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_ID));
+
+                emites[i] = new Emite(id_emisora,nombre_canal, numero_canal,nombre_emisora);
+                
+
                 i++;
             }
-            this.crearRecyclerViewEmisora(emisoras);
+            this.crearRecyclerViewEmisora(emites);
         }
     }
 
-    private void crearRecyclerViewEmisora(Emisora[] contenido){
+    private void crearRecyclerViewEmisora(Emite[] contenido){
         LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);
         Float height = getResources().getDimension(R.dimen.size_emisora)*(contenido.length);
         TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
@@ -104,28 +108,28 @@ public class ActivityActualizarCanal extends ActivityBase {
         }
     }
 
-
-
-
-
  // metodos para actualizar ...... (aun no se terminan. )
-    public void onClickActualizar(View v) {
+    public void onClickActualizarCanal(View v) {
             if (nombreTxt.getText().toString().trim().equals("")) {
                 nombreTxt.setError("Introduzca el nombre del canal");
                 return;
             }
             this.ActualizarInfoCanal();
-        }
+    }
 
         private void ActualizarInfoCanal(){
             DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
             // el actualizar esta mal , toca cambiar el parametro para nuevo y viejo ojo.. por ahora lo ppongo asi
-            boolean success=db.actualizarCanal(nombreTxt.getText().toString(), nombreTxt.getText().toString() );
+            boolean success=db.actualizarCanal(nombreCanal, nombreTxt.getText().toString() );
             if (success) {
+                nombreCanal =  nombreTxt.getText().toString();
                 ActualizarEmite();
                 createToast("Canal Actualizado");
+                ActivityDetalleCanal.actualizado=true;
+                Canal.getInstance().setNombreCanal(nombreCanal);
+                ActivityConsultarCanal.actualizado=true;
             }
-            else createToast("El Canal No se Puede Actualizar");
+            else createToast("El nombre ya existe");
         }
 
         private boolean ActualizarEmite(){
@@ -136,15 +140,21 @@ public class ActivityActualizarCanal extends ActivityBase {
             Integer numCanal;
             for (int i=0;i<listHolder.size();i++){
                 EmisoraActualizarAdapter.ViewHolder ev = listHolder.get(i);
+                idEmisora = ev.idEmisora;
+                if (!ev.numCanalEdit.getText().toString().equals(""))
+                    numCanal = new Integer(ev.numCanalEdit.getText().toString());
+                else
+                    numCanal = null;
+                DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
                 if (ev.ck.isChecked()){
-                    idEmisora = ev.idEmisora;
-                    if (!ev.numCanalEdit.getText().toString().equals(""))
-                        numCanal = new Integer(ev.numCanalEdit.getText().toString());
-                    else
-                        numCanal = null;
-                    DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
                     // esto esta mal toca actualizar el viejo  y el nuevo
-                    db.actualizarEmite(nombreCanal,nombreCanal,idEmisora,numCanal);
+                    if (ev.nombre_canal!=null)
+                        db.actualizarEmite(nombreCanal,nombreTxt.getText().toString(),idEmisora,numCanal);
+                    else
+                        db.insertarEmite(nombreTxt.getText().toString(),idEmisora,numCanal);
+                } else{
+                    if (ev.nombre_canal!=null)
+                        db.eliminarEmite(nombreCanal,idEmisora);
                 }
             }
             return true;

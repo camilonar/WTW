@@ -78,6 +78,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON");
+    }
+
     public void copyDataBase() throws IOException {
 
         //Open your local db as the input stream
@@ -107,6 +113,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         try{
             String myPath = DB_PATH + DB_NAME;
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
+
         }catch(SQLiteException e){
             //database doesn't exist yet.
         }

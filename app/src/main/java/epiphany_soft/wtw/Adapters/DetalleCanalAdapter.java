@@ -45,8 +45,6 @@ public class DetalleCanalAdapter extends RecyclerView.Adapter<DetalleCanalAdapte
         @Override
         public void onClick(View v) {
 
-
-
         }
     }
 

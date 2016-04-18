@@ -9,7 +9,6 @@ import android.widget.EditText;
 
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.CanalAdapter;
-import epiphany_soft.wtw.Adapters.SerieAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -23,6 +22,7 @@ public class ActivityConsultarCanal extends ActivityBase {
     private RecyclerView.LayoutManager mLayoutManager;
     private EditText txtBuscar;
 
+    public static boolean actualizado=false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +35,13 @@ public class ActivityConsultarCanal extends ActivityBase {
 
     private void setSpecialFonts(){
         txtBuscar.setTypeface(RobotoFont.getInstance(this).getTypeFace());
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (actualizado) this.recreate();
+        actualizado=false;
     }
 
     private void crearRecycledView(String[] contenido){

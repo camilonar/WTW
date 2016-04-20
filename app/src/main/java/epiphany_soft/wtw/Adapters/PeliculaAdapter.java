@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
@@ -27,14 +28,35 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         // each data item is just a string in this case
         public CardView mCardView;
         public TextView mTextView;
+        public ImageButton btnImg;
+        private boolean favorito=false;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
+            configurarImageButton(v);
         }
 
+        private void configurarImageButton(View v){
+            btnImg = (ImageButton)v.findViewById(R.id.btnImg);
+            btnImg.setBackgroundColor(mCardView.getSolidColor());
+            btnImg.setImageResource(R.drawable.ic_add);
+            btnImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (favorito) {
+                        btnImg.setImageResource(R.drawable.ic_add);
+                        favorito = false;
+                    }
+                    else {
+                        btnImg.setImageResource(R.drawable.ic_remove);
+                        favorito = true;
+                    }
+                }
+            });
+        }
 
         @Override
         public void onClick(View v) {

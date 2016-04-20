@@ -70,8 +70,6 @@ public class ActivityActualizarCanal extends ActivityBase {
         actualizado=false;
     }
 
-
-
     private void crearRecyclerViewEmisora(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.consultarEmisorasDeCanal(nombreCanal);
@@ -129,6 +127,7 @@ public class ActivityActualizarCanal extends ActivityBase {
                 ActivityDetalleCanal.actualizado=true;
                 Canal.getInstance().setNombreCanal(nombreCanal);
                 ActivityConsultarCanal.actualizado=true;
+                this.finish();
             }
             else createToast("El nombre ya existe");
         }

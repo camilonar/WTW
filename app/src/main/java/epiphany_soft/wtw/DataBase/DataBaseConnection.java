@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.io.IOException;
 
+import epiphany_soft.wtw.DataBase.DataBaseContract.AgendaContract;
 import epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
 import epiphany_soft.wtw.Negocio.Horario;
 
@@ -472,9 +473,7 @@ public class DataBaseConnection {
         else return null;
     }
 
-
-
-    public boolean AgregarUsuario(String nombre, String Contrasenia){
+    public boolean AgregarUsuario(String nombre, String contrasenia){
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -483,7 +482,7 @@ public class DataBaseConnection {
             SQLiteDatabase db = miDBHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE, nombre);
-            values.put(UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD, Contrasenia);
+            values.put(UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD, contrasenia);
             long rowid=db.insert(UsuarioContract.TABLE_NAME, null, values);
             if (rowid>0) return true;
         }
@@ -821,10 +820,6 @@ public class DataBaseConnection {
         }
         else return null;
     }
-
-    // if  COLUMN_NAME_CANAL_ID
-
-
     //eliminar de la tabla canal   y de la tabla emite
 
     public boolean eliminarCanal(String  NombreCanal){
@@ -882,11 +877,7 @@ public class DataBaseConnection {
         return false;
     }
 
-
-
-
 //actualizar emite
-
     public boolean actualizarEmite(String nombrecanal_old, String nombrecanal_new, int idEmisor, Integer numCanal){
         try {
             miDBHelper.createDataBase();
@@ -912,8 +903,97 @@ public class DataBaseConnection {
         return false;
     }
 
+    public boolean insertarFavorito(int idUsuario, int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(AgendaContract.COLUMN_NAME_USUARIO_ID, idUsuario);
+            values.put(AgendaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
+            long rowid=db.insert(AgendaContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
 
+    public boolean eliminarFavorito(int idUsuario, int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= AgendaContract.COLUMN_NAME_USUARIO_ID+"=? AND "+
+                    AgendaContract.COLUMN_NAME_PROGRAMA_ID+"=?";
+            int numDel=db.delete(AgendaContract.TABLE_NAME, query,
+                    new String[]{Integer.toString(idUsuario), Integer.toString(idPrograma)});
+            if (numDel>0) return true;
+        }
+        return false;
+    }
 
+    public Cursor consultarPeliculasAndFavoritos(String nombre, int idUsuario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + ","+
+                    AgendaContract.COLUMN_NAME_USUARIO_ID+" ";
+            query +=
+                    "FROM " + ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " LEFT OUTER JOIN "+
+                            AgendaContract.TABLE_NAME+" ON "+AgendaContract.TABLE_NAME+"."+
+                            AgendaContract.COLUMN_NAME_PROGRAMA_ID+"="+ ProgramaContract.TABLE_NAME+"."+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ID+" AND "+AgendaContract.TABLE_NAME+"."+
+                            AgendaContract.COLUMN_NAME_USUARIO_ID+"=? ";
+            query +=
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario)});
+            return c;
+        }
+        else return null;
+    }
 
-
+    public Cursor consultarSeriesAndFavoritos(String nombre, int idUsuario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + ","+
+                            AgendaContract.COLUMN_NAME_USUARIO_ID+" ";
+            query +=
+                    "FROM " + ProgramaContract.TABLE_NAME + " JOIN " +
+                            SerieContract.TABLE_NAME +
+                            " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " LEFT OUTER JOIN "+
+                            AgendaContract.TABLE_NAME+" ON "+AgendaContract.TABLE_NAME+"."+
+                            AgendaContract.COLUMN_NAME_PROGRAMA_ID+"="+ ProgramaContract.TABLE_NAME+"."+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ID+" AND "+AgendaContract.TABLE_NAME+"."+
+                            AgendaContract.COLUMN_NAME_USUARIO_ID+"=? ";
+            query +=
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario)});
+            return c;
+        }
+        else return null;
+    }
 }

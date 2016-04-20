@@ -8,10 +8,12 @@ import android.view.View;
 import android.widget.EditText;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.Adapters.PeliculaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
-import epiphany_soft.wtw.Adapters.PeliculaAdapter;
+import epiphany_soft.wtw.Negocio.Programa;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -38,7 +40,7 @@ public class ActivityConsultarPelicula extends ActivityBase {
         txtBuscar.setTypeface(RobotoFont.getInstance(this).getTypeFace());
     }
 
-    private void crearRecycledView(String[] contenido){
+    private void crearRecycledView(Programa[] contenido){
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_consulta_pelicula);
         // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
         mRecyclerView.setHasFixedSize(true);
@@ -57,15 +59,25 @@ public class ActivityConsultarPelicula extends ActivityBase {
         //TODO: Revisar si es mejor usar v.getContext()
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         if (!text.equals("")){
-            Cursor c=db.consultarPeliculaLikeNombre(text);
+            Cursor c;
+            if (Sesion.getInstance().isActiva()){
+                c=db.consultarPeliculasAndFavoritos(text, Sesion.getInstance().getIdUsuario());
+            }
+            else {
+                c = db.consultarPeliculaLikeNombre(text);
+            }
             if (c!=null) {
-                String[] nombres=new String[c.getCount()];
+                Programa[] programas=new Programa[c.getCount()];
                 int i=0;
                 while (c.moveToNext()) {
-                    nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                    programas[i] = new Programa();
+                    String nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                    boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))!=0;
+                    programas[i].setNombre(nombre);
+                    programas[i].setFavorito(isFavorito);
                     i++;
                 }
-                this.crearRecycledView(nombres);
+                this.crearRecycledView(programas);
                 if (c.getCount()==0) createToast("No se encontraron resultados");
             }
         }
@@ -73,15 +85,25 @@ public class ActivityConsultarPelicula extends ActivityBase {
 
     private void llenarRecyclerOnCreate(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarPeliculaLikeNombre("");
+        Cursor c;
+        if (Sesion.getInstance().isActiva()){
+            c=db.consultarPeliculasAndFavoritos("", Sesion.getInstance().getIdUsuario());
+        }
+        else {
+            c = db.consultarPeliculaLikeNombre("");
+        }
         if (c!=null) {
-            String[] nombres=new String[c.getCount()];
+            Programa[] programas=new Programa[c.getCount()];
             int i=0;
             while (c.moveToNext()) {
-                nombres[i] = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                programas[i] = new Programa();
+                String nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))!=0;
+                programas[i].setNombre(nombre);
+                programas[i].setFavorito(isFavorito);
                 i++;
             }
-            this.crearRecycledView(nombres);
+            this.crearRecycledView(programas);
         } else this.crearRecycledView(null);
     }
 }

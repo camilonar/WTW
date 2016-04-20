@@ -929,9 +929,39 @@ public class DataBaseConnection {
             String query= AgendaContract.COLUMN_NAME_USUARIO_ID+"=? AND "+
                     AgendaContract.COLUMN_NAME_PROGRAMA_ID+"=?";
             int numDel=db.delete(AgendaContract.TABLE_NAME, query,
-                    new String[]{Integer.toString(idUsuario),Integer.toString(idPrograma)});
+                    new String[]{Integer.toString(idUsuario), Integer.toString(idPrograma)});
             if (numDel>0) return true;
         }
         return false;
+    }
+
+    public Cursor consultarPeliculasAndFavoritos(String nombre, int idUsuario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + ","+
+                    AgendaContract.COLUMN_NAME_USUARIO_ID+" ";
+            query +=
+                    "FROM " + ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " LEFT OUTER JOIN "+
+                            AgendaContract.TABLE_NAME+" ON "+AgendaContract.TABLE_NAME+"."+
+                            AgendaContract.COLUMN_NAME_PROGRAMA_ID+"="+ ProgramaContract.TABLE_NAME+"."+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ID+" ";
+            query +=
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
     }
 }

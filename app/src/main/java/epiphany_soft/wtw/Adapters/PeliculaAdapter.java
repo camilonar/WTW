@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Programa;
@@ -31,33 +32,37 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         public CardView mCardView;
         public TextView mTextView;
         public ImageButton btnImg;
-        public boolean favorito;
+        public Programa miPrograma;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
-            configurarImageButton(v);
+            btnImg = (ImageButton)v.findViewById(R.id.btnImg);
         }
 
-        private void configurarImageButton(View v){
-            btnImg = (ImageButton)v.findViewById(R.id.btnImg);
+        public void configurarImageButton(){
             if (Sesion.getInstance().isActiva()) {
                 btnImg.setBackgroundColor(mCardView.getSolidColor());
-                if (favorito)
+                if (miPrograma.isFavorito())
                     btnImg.setImageResource(R.drawable.ic_remove);
                 else
                     btnImg.setImageResource(R.drawable.ic_add);
                 btnImg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (favorito) {
-                            btnImg.setImageResource(R.drawable.ic_add);
-                            favorito = false;
+                        DataBaseConnection db = new DataBaseConnection(v.getContext());
+                        if (miPrograma.isFavorito()) {
+                            if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(),miPrograma.getIdPrograma())) {
+                                btnImg.setImageResource(R.drawable.ic_add);
+                                miPrograma.setFavorito(false);
+                            }
                         } else {
-                            btnImg.setImageResource(R.drawable.ic_remove);
-                            favorito = true;
+                            if (db.insertarFavorito(Sesion.getInstance().getIdUsuario(), miPrograma.getIdPrograma())) {
+                                btnImg.setImageResource(R.drawable.ic_remove);
+                                miPrograma.setFavorito(true);
+                            }
                         }
                     }
                 });
@@ -102,7 +107,8 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position].getNombre());
-        holder.favorito=mDataset[position].isFavorito();
+        holder.miPrograma=mDataset[position];
+        holder.configurarImageButton();
     }
 
     // Return the size of your dataset (invoked by the layout manager)

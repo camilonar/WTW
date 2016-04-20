@@ -72,8 +72,10 @@ public class ActivityConsultarPelicula extends ActivityBase {
                 while (c.moveToNext()) {
                     programas[i] = new Programa();
                     String nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                    int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
                     boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))!=0;
                     programas[i].setNombre(nombre);
+                    programas[i].setIdPrograma(idPrograma);
                     programas[i].setFavorito(isFavorito);
                     i++;
                 }
@@ -98,9 +100,13 @@ public class ActivityConsultarPelicula extends ActivityBase {
             while (c.moveToNext()) {
                 programas[i] = new Programa();
                 String nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
-                boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))!=0;
+                int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+                if (Sesion.getInstance().isActiva()) {
+                    boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))!=0;
+                    programas[i].setFavorito(isFavorito);
+                }
                 programas[i].setNombre(nombre);
-                programas[i].setFavorito(isFavorito);
+                programas[i].setIdPrograma(idPrograma);
                 i++;
             }
             this.crearRecycledView(programas);

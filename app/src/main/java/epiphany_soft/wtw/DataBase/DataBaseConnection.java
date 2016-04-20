@@ -956,10 +956,11 @@ public class DataBaseConnection {
                             + ProgramaContract.TABLE_NAME+"."+ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " LEFT OUTER JOIN "+
                             AgendaContract.TABLE_NAME+" ON "+AgendaContract.TABLE_NAME+"."+
                             AgendaContract.COLUMN_NAME_PROGRAMA_ID+"="+ ProgramaContract.TABLE_NAME+"."+
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_ID+" ";
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ID+" AND "+AgendaContract.TABLE_NAME+"."+
+                            AgendaContract.COLUMN_NAME_USUARIO_ID+"=? ";
             query +=
                     "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + " LIKE \'%"+nombre+"%\'";
-            Cursor c = db.rawQuery(query, null);
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idUsuario)});
             return c;
         }
         else return null;

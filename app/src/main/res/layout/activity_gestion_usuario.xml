@@ -27,8 +27,9 @@
         android:nestedScrollingEnabled="true"
         android:textColor="@android:color/darker_gray"
         android:onClick="onClickCerrarSesion"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/btnModificarUsuario"
+        android:layout_alignLeft="@+id/button2"
+        android:layout_alignStart="@+id/button2" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,8 +52,29 @@
         android:textColor="@color/colorButtonText"
         android:onClick="onClickAgregarUsuario"
         android:layout_below="@+id/btnCerrarSesion"
-        android:layout_alignLeft="@+id/btnCerrarSesion"
-        android:layout_alignStart="@+id/btnCerrarSesion"
-        android:layout_marginTop="61dp" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consultar Peliculas Agenda"
+        android:id="@+id/btn_consulta_pelicula"
+        android:nestedScrollingEnabled="true"
+        android:textColor="@color/colorButtonText"
+        android:onClick="onClickConsultarPeliculasAgenda"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Consultar series Agenda"
+        android:id="@+id/btn_ConsultarSeriesAgenda"
+        android:nestedScrollingEnabled="true"
+        android:textColor="@color/colorButtonText"
+        android:onClick="onClickConsultarSeriesAgenda"
+        android:layout_below="@+id/btn_consulta_pelicula"
+        android:layout_alignRight="@+id/btn_consulta_pelicula"
+        android:layout_alignEnd="@+id/btn_consulta_pelicula" />
 
 </RelativeLayout>

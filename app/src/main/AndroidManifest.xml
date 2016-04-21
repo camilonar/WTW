@@ -81,6 +81,12 @@
         <activity android:name=".Activities.ActivityActualizarCanal"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".Activities.ActivityConsultarPeliculaDeAgenda"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activities.Series.ActivityConsultarSerieDeAgenda"
+            android:screenOrientation="portrait"/>
+
 
 
     </application>

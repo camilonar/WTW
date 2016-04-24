@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityConsultarPelicula;
-import epiphany_soft.wtw.Activities.ActivityConsultarPeliculaDeAgenda;
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
-import epiphany_soft.wtw.Activities.ActivityGestionUsuario;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -60,13 +57,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
                             if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(),miPrograma.getIdPrograma())) {
                                 btnImg.setImageResource(R.drawable.ic_add);
                                 miPrograma.setFavorito(false);
-                               // ActivityConsultarPeliculaDeAgenda.actualizado=true;
-                               // ___________________________________________
-
-                                    /*Intent i = new Intent(v.getContext(), ActivityConsultarPeliculaDeAgenda.class);
-                                    v.getContext().startActivity(i);
-                                */
-
+                                /*mCardView.removeAllViews();*/
                             }
                         } else {
                             if (db.insertarFavorito(Sesion.getInstance().getIdUsuario(), miPrograma.getIdPrograma())) {

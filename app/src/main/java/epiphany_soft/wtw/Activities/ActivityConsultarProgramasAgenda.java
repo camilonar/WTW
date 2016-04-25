@@ -18,6 +18,14 @@ public class ActivityConsultarProgramasAgenda extends ActivityBase implements
     // Tab titles
     private String[] tabs = {"Peliculas", "Series"};
 
+    public static boolean actualizado=false;
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (actualizado) this.recreate();
+        actualizado=false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

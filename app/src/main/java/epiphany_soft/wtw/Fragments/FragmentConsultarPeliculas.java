@@ -22,7 +22,14 @@ import epiphany_soft.wtw.R;
 /**
  * Created by Camilo on 24/04/2016.
  */
-public class FragmentConsultarPeliculas extends Fragment implements View.OnClickListener{
+public class FragmentConsultarPeliculas extends Fragment implements View.OnClickListener
+{
+
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private EditText txtBuscar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,11 +46,6 @@ public class FragmentConsultarPeliculas extends Fragment implements View.OnClick
         llenarRecyclerOnCreate();
         setSpecialFonts();
     }
-
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private EditText txtBuscar;
 
     private void setSpecialFonts(){
         txtBuscar.setTypeface(RobotoFont.getInstance(this.getActivity()).getTypeFace());

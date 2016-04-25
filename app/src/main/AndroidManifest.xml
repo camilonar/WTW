@@ -59,8 +59,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.ActivityModificarUsuario"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.ActivityGestionUsuario"
-            android:screenOrientation="portrait" />
 
         <activity android:name=".Activities.ActivityAgregarUsuario"
             android:screenOrientation="portrait"
@@ -83,13 +81,7 @@
         <activity android:name=".Activities.ActivityActualizarCanal"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.ActivityConsultarPeliculaDeAgenda"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".Activities.Series.ActivityConsultarSerieDeAgenda"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".Activities.ActivityPrueba"
+        <activity android:name=".Activities.ActivityConsultarProgramasAgenda"
             android:screenOrientation="portrait"/>
 
     </application>

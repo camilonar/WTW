@@ -42,10 +42,7 @@
         <menu>
             <item
                 android:id="@+id/nav_consultar_peliculas_agenda"
-                android:title="Consultar peliculas" />
-            <item
-                android:id="@+id/nav_consultar_series_agenda"
-                android:title="Consultar series" />
+                android:title="Consultar programas" />
         </menu>
     </item>
 

@@ -3,7 +3,6 @@ package epiphany_soft.wtw.Activities;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerie;
-import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerieDeAgenda;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
@@ -90,11 +85,7 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(i);
         }
         else if (id == R.id.nav_consultar_series) {
-            Intent i = new Intent(this.getBaseContext(), ActivityConsultarSerie.class);
-            this.startActivity(i);
-        }
-        else if (id == R.id.nav_consultar_peliculas) {
-            Intent i = new Intent(this.getBaseContext(), ActivityConsultarPelicula.class);
+            Intent i = new Intent(this.getBaseContext(), ActivityConsultarPrograma.class);
             this.startActivity(i);
         }
         else if (id == R.id.nav_registrar_canal) {
@@ -113,20 +104,12 @@ public class MainActivity extends AppCompatActivity
             Intent i = new Intent(this.getBaseContext(), ActivityEliminarGenero.class);
             this.startActivity(i);
         }
-        else if (id == R.id.nav_agregar_user) {
-            Intent i = new Intent(this.getBaseContext(), ActivityAgregarUsuario.class);
-            this.startActivity(i);
-        }
         else if (id == R.id.nav_actualizar_user) {
             Intent i = new Intent(this.getBaseContext(), ActivityModificarUsuario.class);
             this.startActivity(i);
         }
         else if (id == R.id.nav_consultar_peliculas_agenda) {
-            Intent i = new Intent(this.getBaseContext(), ActivityConsultarPeliculaDeAgenda.class);
-            this.startActivity(i);
-        }
-        else if (id == R.id.nav_consultar_series_agenda) {
-            Intent i = new Intent(this.getBaseContext(), ActivityConsultarSerieDeAgenda.class);
+            Intent i = new Intent(this.getBaseContext(), ActivityConsultarProgramasAgenda.class);
             this.startActivity(i);
         }
         else if (id == R.id.nav_cerrar) {

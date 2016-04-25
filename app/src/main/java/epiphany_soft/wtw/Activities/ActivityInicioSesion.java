@@ -1,6 +1,7 @@
 package epiphany_soft.wtw.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class ActivityInicioSesion extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
-        this.getSupportActionBar().hide();
+        //this.getSupportActionBar().hide();
 
         txtNombre = (EditText) findViewById(R.id.txtNombreUsuario);
         txtPassword = (EditText) findViewById(R.id.txtContrasenia);
@@ -74,6 +75,11 @@ public class ActivityInicioSesion extends AppCompatActivity {
         editor.putString(getString(R.string.key_nombre_usuario_session),nombreCur);
         editor.putBoolean(getString(R.string.key_active_session),isActiva);
         editor.commit();
+    }
+
+    public void onClickRegistrarUsuario(View v){
+        Intent i = new Intent(this.getBaseContext(), ActivityAgregarUsuario.class);
+        this.startActivity(i);
     }
 
     public void createToast(String message){

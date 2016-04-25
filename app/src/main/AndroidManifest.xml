@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ActivityConsultarPelicula"
+        <activity android:name=".Activities.ActivityConsultarPrograma"
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityDetallePelicula"
             android:screenOrientation="portrait"/>
@@ -59,8 +59,6 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.ActivityModificarUsuario"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.ActivityGestionUsuario"
-            android:screenOrientation="portrait" />
 
         <activity android:name=".Activities.ActivityAgregarUsuario"
             android:screenOrientation="portrait"
@@ -83,13 +81,8 @@
         <activity android:name=".Activities.ActivityActualizarCanal"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.ActivityConsultarPeliculaDeAgenda"
+        <activity android:name=".Activities.ActivityConsultarProgramasAgenda"
             android:screenOrientation="portrait"/>
-
-        <activity android:name=".Activities.Series.ActivityConsultarSerieDeAgenda"
-            android:screenOrientation="portrait"/>
-
-
 
     </application>
 

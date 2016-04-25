@@ -8,10 +8,7 @@
                 android:title="Registrar Programa" />
             <item
                 android:id="@+id/nav_consultar_series"
-                android:title="Consultar Series" />
-            <item
-                android:id="@+id/nav_consultar_peliculas"
-                android:title="Consultar Películas" />
+                android:title="Consultar Programas" />
         </menu>
     </item>
     

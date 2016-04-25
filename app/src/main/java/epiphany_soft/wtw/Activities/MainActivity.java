@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerie;
 import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerieDeAgenda;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
@@ -87,11 +86,7 @@ public class MainActivity extends AppCompatActivity
             this.startActivity(i);
         }
         else if (id == R.id.nav_consultar_series) {
-            Intent i = new Intent(this.getBaseContext(), ActivityConsultarSerie.class);
-            this.startActivity(i);
-        }
-        else if (id == R.id.nav_consultar_peliculas) {
-            Intent i = new Intent(this.getBaseContext(), ActivityConsultarPelicula.class);
+            Intent i = new Intent(this.getBaseContext(), ActivityConsultarPrograma.class);
             this.startActivity(i);
         }
         else if (id == R.id.nav_registrar_canal) {

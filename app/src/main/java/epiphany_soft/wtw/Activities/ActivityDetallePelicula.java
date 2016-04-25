@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TableRow;
@@ -195,6 +196,8 @@ public class ActivityDetallePelicula extends ActivityBase {
         if (!Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
+            Button btn = (Button) findViewById(R.id.btn_AsociarCanal);
+            hide(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             hide(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
@@ -210,6 +213,8 @@ public class ActivityDetallePelicula extends ActivityBase {
         if (Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
+            Button btn = (Button) findViewById(R.id.btn_AsociarCanal);
+            show(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             show(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);

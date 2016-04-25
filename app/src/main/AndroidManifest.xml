@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.ActivityConsultarPelicula"
+        <activity android:name=".Activities.ActivityConsultarPrograma"
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityDetallePelicula"
             android:screenOrientation="portrait"/>
@@ -89,7 +89,8 @@
         <activity android:name=".Activities.Series.ActivityConsultarSerieDeAgenda"
             android:screenOrientation="portrait"/>
 
-
+        <activity android:name=".Activities.ActivityPrueba"
+            android:screenOrientation="portrait"/>
 
     </application>
 

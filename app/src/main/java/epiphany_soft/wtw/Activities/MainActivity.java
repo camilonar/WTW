@@ -3,7 +3,6 @@ package epiphany_soft.wtw.Activities;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,8 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerie;
 import epiphany_soft.wtw.Activities.Series.ActivityConsultarSerieDeAgenda;
@@ -111,10 +108,6 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_eliminar_genero) {
             Intent i = new Intent(this.getBaseContext(), ActivityEliminarGenero.class);
-            this.startActivity(i);
-        }
-        else if (id == R.id.nav_agregar_user) {
-            Intent i = new Intent(this.getBaseContext(), ActivityAgregarUsuario.class);
             this.startActivity(i);
         }
         else if (id == R.id.nav_actualizar_user) {

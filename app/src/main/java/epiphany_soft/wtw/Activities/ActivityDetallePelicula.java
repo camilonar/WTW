@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TableRow;
@@ -36,8 +37,10 @@ public class ActivityDetallePelicula extends ActivityBase {
 
     private String nombre,sinopsis,genero,pais;
     private int anio,idPrograma;
-    private boolean calificado;
+    private boolean calificado, isFavorito;
     public static boolean actualizado=false;
+
+    private ImageButton btnImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,12 @@ public class ActivityDetallePelicula extends ActivityBase {
         //Se recibe el nombre del programa
         Bundle b = getIntent().getExtras();
         String nombrePelicula = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
+        btnImg = (ImageButton)findViewById(R.id.btnImg);
         setTitle(nombrePelicula);
         this.llenarInfo(nombrePelicula);
         this.configurarRatingBar();
         this.crearRecyclerViewCanales();
+        this.configurarImageButton();
         this.setSpecialFonts();
     }
 
@@ -100,6 +105,9 @@ public class ActivityDetallePelicula extends ActivityBase {
         anio = c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO));
         pais = c.getString(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN));
         idPrograma = c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+        if (c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))==Sesion.getInstance().getIdUsuario()){
+            isFavorito=true;
+        } else isFavorito=false;
         if (!nombre.equals("")) ((TextView) findViewById(R.id.txtNombrePelicula)).setText(nombre);
         else ((TextView) findViewById(R.id.txtNombrePelicula)).setText("Película sin nombre");
         if (!sinopsis.equals("")) ((TextView) findViewById(R.id.txtSinopsis)).setText(sinopsis);
@@ -223,6 +231,40 @@ public class ActivityDetallePelicula extends ActivityBase {
             show(v);
             v = findViewById(R.id.v2);
             show(v);
+        }
+    }
+
+    public void configurarImageButton(){
+        if (Sesion.getInstance().isActiva()) {
+            btnImg.setBackgroundColor(getResources().getColor(R.color.colorTable));
+            if (this.isFavorito)
+                btnImg.setImageResource(R.drawable.ic_remove);
+            else
+                btnImg.setImageResource(R.drawable.ic_add);
+            btnImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DataBaseConnection db = new DataBaseConnection(v.getContext());
+                    if (isFavorito) {
+                        if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(),idPrograma)) {
+                            btnImg.setImageResource(R.drawable.ic_add);
+                            isFavorito = false;
+                            ActivityConsultarProgramasAgenda.actualizado=true;
+                            ActivityConsultarPrograma.actualizado=true;
+                                /*mCardView.removeAllViews();*/
+                        }
+                    } else {
+                        if (db.insertarFavorito(Sesion.getInstance().getIdUsuario(), idPrograma)) {
+                            btnImg.setImageResource(R.drawable.ic_remove);
+                            isFavorito=true;
+                            ActivityConsultarProgramasAgenda.actualizado=true;
+                            ActivityConsultarPrograma.actualizado=true;
+                        }
+                    }
+                }
+            });
+        } else {
+            btnImg.setVisibility(View.GONE);
         }
     }
 }

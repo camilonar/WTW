@@ -16,7 +16,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/colorTable">
-
+            <RelativeLayout android:orientation="horizontal">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -29,6 +29,20 @@
                     android:textColor="@color/colorLabelText"
                     android:gravity="bottom"
                     android:id="@+id/lblNombrePrograma" />
+
+                <ImageButton
+                    android:layout_width="@dimen/size_add_btn"
+                    android:layout_height="@dimen/size_add_btn"
+                    android:scaleType="fitCenter"
+                    android:scaleX="3"
+                    android:scaleY="3"
+                    android:id="@+id/btnImg"
+                    android:layout_alignBottom="@+id/lblNombrePrograma"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="42dp"
+                    android:layout_marginEnd="42dp" />
+            </RelativeLayout>
             </TableRow>
 
             <View

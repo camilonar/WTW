@@ -85,4 +85,5 @@ public class ActivityConsultarProgramasAgenda extends ActivityBase implements
     public void onTabReselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
 
     }
+    public int valor(){int dato=1; return  dato;}
 }

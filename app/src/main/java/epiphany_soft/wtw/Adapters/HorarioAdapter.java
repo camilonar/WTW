@@ -1,16 +1,28 @@
 package epiphany_soft.wtw.Adapters;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.TimePicker;
+
+import java.io.Serializable;
+import java.util.Calendar;
 
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
 import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
@@ -24,29 +36,37 @@ import epiphany_soft.wtw.R;
 public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHolder> {
     private Horario[] mDataset;
     private int idPrograma;
+    private Context context;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            Serializable, TimePickerDialog.OnTimeSetListener{
         // each data item is just a string in this case
         RecyclerView mRecyclerView;
         RecyclerView.Adapter mAdapter;
         RecyclerView.LayoutManager mLayoutManager;
 
         public CardView mCardView;
-        public TextView mTextView;
+        public TextView mTextView,horaTxt;
         public LinearLayout mLayout;
         public CheckBox ck;
         public Horario mHorario;
         public int idPrograma;
+
+        public Context c;
+
         public ViewHolder(View v) {
             super(v);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             mLayout = (LinearLayout)v.findViewById(R.id.layoutExterno);
+            horaTxt=(EditText) v.findViewById(R.id.txtHora);
+            horaTxt.setOnClickListener(this);
             ck = (CheckBox)v.findViewById(R.id.textCardCK);
             ck.setOnClickListener(this);
+            ((Button)v.findViewById(R.id.btnCambiarHora)).setOnClickListener(this);
             crearRecyclerViewDias(v);
             setSpecialFonts(v);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
@@ -54,28 +74,32 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
 
         @Override
         public void onClick(View v) {
-            boolean success;
-            DataBaseConnection db = new DataBaseConnection(v.getContext());
-            if (mHorario.getId()!=0){
-                success=db.eliminarHorario(mHorario.getId());
-                if (success) {
-                    ck.setChecked(false);
-                    mLayout.setVisibility(View.GONE);
-                    mHorario.setId(0);
-                    mHorario.setIdPrograma(0);
-                    ActivityDetalleSerie.actualizado=true;
-                    ActivityDetallePelicula.actualizado=true;
+            if (v.getId()==R.id.textCardCK) {
+                boolean success;
+                DataBaseConnection db = new DataBaseConnection(v.getContext());
+                if (mHorario.getId() != 0) {
+                    success = db.eliminarHorario(mHorario.getId());
+                    if (success) {
+                        ck.setChecked(false);
+                        mLayout.setVisibility(View.GONE);
+                        mHorario.setId(0);
+                        mHorario.setIdPrograma(0);
+                        ActivityDetalleSerie.actualizado = true;
+                        ActivityDetallePelicula.actualizado = true;
+                    }
+                } else {
+                    mHorario.setIdPrograma(idPrograma);
+                    success = db.insertarHorario(mHorario);
+                    if (success) {
+                        ck.setChecked(true);
+                        mHorario.setId(db.getHorarioId(mHorario.getIdPrograma(), mHorario.getNombreCanal()));
+                        mLayout.setVisibility(View.VISIBLE);
+                        ActivityDetalleSerie.actualizado = true;
+                        ActivityDetallePelicula.actualizado = true;
+                    }
                 }
-            } else {
-                mHorario.setIdPrograma(idPrograma);
-                success=db.insertarHorario(mHorario);
-                if (success) {
-                   ck.setChecked(true);
-                    mHorario.setId(db.getHorarioId(mHorario.getIdPrograma(), mHorario.getNombreCanal()));
-                    mLayout.setVisibility(View.VISIBLE);
-                    ActivityDetalleSerie.actualizado=true;
-                    ActivityDetallePelicula.actualizado=true;
-                }
+            } else if (v.getId()==R.id.btnCambiarHora){
+                showTimePickerDialog(v);
             }
         }
 
@@ -101,15 +125,46 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
             TextView diasLabel=(TextView) v.findViewById(R.id.lblDias);
             diasLabel.setTypeface(SpecialFont.getInstance(v.getContext()).getTypeFace());
             //Los textos
-            EditText hora=(EditText) v.findViewById(R.id.txtHora);
-            hora.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
+            horaTxt.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
+        }
+
+        public void showTimePickerDialog(View v) {
+            Bundle b = new Bundle();
+            b.putSerializable("horario",this);
+            DialogFragment newFragment = new TimePickerFragment();
+            newFragment.setArguments(b);
+            newFragment.show(((FragmentActivity)c).getSupportFragmentManager(), "timePicker");
+        }
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            String text =Integer.toString(hourOfDay)+":"+Integer.toString(minute);
+            horaTxt.setText(text);
+        }
+
+        public static class TimePickerFragment extends DialogFragment {
+            private HorarioAdapter.ViewHolder ev;
+
+            @Override
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                // Use the current time as the default values for the picker
+                Bundle b = getArguments();
+                ev = (HorarioAdapter.ViewHolder)b.getSerializable("horario");
+                final Calendar c = Calendar.getInstance();
+                int hour = c.get(Calendar.HOUR_OF_DAY);
+                int minute = c.get(Calendar.MINUTE);
+                // Create a new instance of TimePickerDialog and return it
+                return new TimePickerDialog(getActivity(), ev, hour, minute,
+                        DateFormat.is24HourFormat(getActivity()));
+            }
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public HorarioAdapter(Horario[] myDataset, int idPrograma) {
+    public HorarioAdapter(Context c,Horario[] myDataset, int idPrograma) {
         mDataset = myDataset;
         this.idPrograma = idPrograma;
+        this.context = c;
     }
 
     // Create new views (invoked by the layout manager)
@@ -132,6 +187,7 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         holder.mHorario = mDataset[position];
         holder.idPrograma = idPrograma;
         holder.ck.setChecked(false);
+        holder.c=context;
         if (mDataset[position].getId()!=0){
             holder.ck.setChecked(true);
             holder.mLayout.setVisibility(View.VISIBLE);

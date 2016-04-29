@@ -75,15 +75,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <EditText
-                    android:layout_width="356dp"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="1">
+                <EditText
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
                     android:layout_margin="2dp"
                     android:text=""
                     android:textColor="@color/colorNormalText"
                     android:ems="10"
                     android:id="@+id/txtHora" />
 
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cambiar"
+                    android:id="@+id/btnCambiarHora"
+                    android:layout_gravity="left|bottom"
+                    android:onClick="onClickCambiarHora"
+                    android:textColor="@color/colorButtonText"
+                    android:enabled="true" />
+                </LinearLayout>
             </TableRow>
 
             <View
@@ -139,4 +155,5 @@
             </TableRow>
         </TableLayout>
     </LinearLayout>
+
 </LinearLayout>

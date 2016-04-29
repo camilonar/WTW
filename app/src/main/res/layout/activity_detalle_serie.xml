@@ -129,8 +129,23 @@
                     android:layout_gravity="center_horizontal|bottom"
                     android:onClick="onClickAsociarCanal"
                     android:textColor="@color/colorButtonText" />
-            </TableRow>
 
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp" >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Horario (Temporal)"
+                    android:id="@+id/btn_temporal"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:onClick="onClickTemporal"
+                    android:textColor="@color/colorButtonText" />
+
+            </TableRow>
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"

@@ -60,6 +60,7 @@ public class FragmentConsultarSeriesAgenda extends Fragment implements View.OnCl
         // Se especifica el adaptador
         if (contenido!=null) {
             mAdapter = new SerieAdapter(contenido);
+            ((SerieAdapter)mAdapter).setParent("Agenda");
             mRecyclerView.setAdapter(mAdapter);
         }
     }

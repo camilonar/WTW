@@ -61,7 +61,7 @@ public class ActivityAsociarCanal extends ActivityBase {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         if (contenido!=null) {
-            mAdapter = new HorarioAdapter(contenido,idPrograma);
+            mAdapter = new HorarioAdapter(this,contenido,idPrograma);
             mRecyclerView.setAdapter(mAdapter);
         }
     }

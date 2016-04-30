@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityConsultarProgramasAgenda;
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -24,6 +23,7 @@ import epiphany_soft.wtw.R;
  */
 public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHolder> {
     private Programa[] mDataset;
+    private String parent;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -34,6 +34,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         public TextView mTextView;
         public ImageButton btnImg;
         public Programa miPrograma;
+        public String parent;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
@@ -54,13 +55,11 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
                     @Override
                     public void onClick(View v) {
                         DataBaseConnection db = new DataBaseConnection(v.getContext());
-                        ActivityConsultarProgramasAgenda pa= new ActivityConsultarProgramasAgenda();
                         if (miPrograma.isFavorito()) {
                             if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(),miPrograma.getIdPrograma())) {
                                 btnImg.setImageResource(R.drawable.ic_add);
                                 miPrograma.setFavorito(false);
-
-                                if(pa.valor()==1){
+                                if (parent.equals("Agenda")){
                                     mCardView.removeAllViews();
                                 }
                             }
@@ -93,8 +92,12 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
     // Provide a suitable constructor (depends on the kind of dataset)
     public PeliculaAdapter(Programa[] myDataset) {
         mDataset = myDataset;
+        parent="";
     }
 
+    public void setParent(String parent){
+        this.parent=parent;
+    }
     // Create new views (invoked by the layout manager)
     @Override
     public PeliculaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
@@ -114,6 +117,7 @@ public class PeliculaAdapter extends RecyclerView.Adapter<PeliculaAdapter.ViewHo
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position].getNombre());
         holder.miPrograma=mDataset[position];
+        holder.parent=this.parent;
         holder.configurarImageButton();
     }
 

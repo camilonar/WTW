@@ -129,8 +129,8 @@
                     android:layout_gravity="center_horizontal|bottom"
                     android:onClick="onClickAsociarCanal"
                     android:textColor="@color/colorButtonText" />
-            </TableRow>
 
+            </TableRow>
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"

@@ -34,8 +34,6 @@
         <activity android:name=".Activities.ActivityEliminarGenero"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.Series.ActivityConsultarSerie"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.Series.ActivityDetalleSerie"
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.Series.ActivityActualizarSerie"

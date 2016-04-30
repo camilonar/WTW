@@ -60,6 +60,7 @@ public class FragmentConsultarPeliculasAgenda extends Fragment implements View.O
         // Se especifica el adaptador
         if (contenido!=null) {
             mAdapter = new PeliculaAdapter(contenido);
+            ((PeliculaAdapter)mAdapter).setParent("Agenda");
             mRecyclerView.setAdapter(mAdapter);
         }
     }

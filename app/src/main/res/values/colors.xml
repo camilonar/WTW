@@ -11,4 +11,6 @@
     <color name="colorBackground">#e8eae7</color>color>
     <color name="colorTable">#dbe2d8</color>color>
     <color name="colorLine">#c0c0c0</color>
+    <color name="colorButtonSelected">#7cb92d</color>
+    <color name="colorButtonUnselected">#ffffff</color>
 </resources>

@@ -27,6 +27,7 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
+            mCardView.setCardBackgroundColor(v.getResources().getColor(R.color.colorButtonUnselected));
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 

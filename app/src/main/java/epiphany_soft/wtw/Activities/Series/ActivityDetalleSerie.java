@@ -14,7 +14,6 @@ import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityAgregarHorario;
 import epiphany_soft.wtw.Activities.ActivityAsociarCanal;
 import epiphany_soft.wtw.Activities.ActivityConsultarPrograma;
 import epiphany_soft.wtw.Activities.ActivityConsultarProgramasAgenda;
@@ -214,16 +213,6 @@ public class ActivityDetalleSerie extends ActivityBase{
     public void onClickAsociarCanal(View v){
 
         Intent i = new Intent(this, ActivityAsociarCanal.class);
-        Bundle b = new Bundle();
-        b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
-        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
-        i.putExtras(b);
-        startActivity(i);
-    }
-
-    public void onClickTemporal(View v){
-
-        Intent i = new Intent(this, ActivityAgregarHorario.class);
         Bundle b = new Bundle();
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);

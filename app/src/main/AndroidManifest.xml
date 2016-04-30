@@ -34,8 +34,6 @@
         <activity android:name=".Activities.ActivityEliminarGenero"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.Series.ActivityConsultarSerie"
-            android:screenOrientation="portrait"/>
         <activity android:name=".Activities.Series.ActivityDetalleSerie"
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.Series.ActivityActualizarSerie"
@@ -82,9 +80,6 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Activities.ActivityConsultarProgramasAgenda"
-            android:screenOrientation="portrait"/>
-
-        <activity android:name=".Activities.ActivityAgregarHorario"
             android:screenOrientation="portrait"/>
 
     </application>

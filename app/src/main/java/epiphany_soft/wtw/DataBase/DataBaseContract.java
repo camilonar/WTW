@@ -103,7 +103,19 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_RELACION_ID = "Rel_Identificador";
         public static final String COLUMN_NAME_PROGRAMA_ID = "Pro_Identificador";
         public static final String COLUMN_NAME_CANAL_ID = "Can_Nombre";
-        public static final String COLUMN_NAME_RELACION_FECHA = "Rel_Fecha";
         public static final String COLUMN_NAME_RELACION_HORA = "Rel_Hora";
+    }
+
+    public static abstract class DiaHorarioContract implements BaseColumns {
+        public static final String TABLE_NAME = "DiaHorario";
+        public static final String COLUMN_NAME_RELACION_ID = "Rel_Identificador";//id_horario
+        public static final String COLUMN_NAME_DIA_ID = "id_Dia";
+
+    }
+
+    public static abstract class DiaContract implements BaseColumns {
+        public static final String TABLE_NAME = "Dia";
+        public static final String COLUMN_NAME_ID_DIA = "Id_Dia";
+
     }
 }

@@ -4,11 +4,22 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.Adapters.DiaAdapter;
+import epiphany_soft.wtw.Adapters.HorarioAdapter;
 import epiphany_soft.wtw.Adapters.HorarioAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
+import epiphany_soft.wtw.Fonts.RobotoFont;
+import epiphany_soft.wtw.Fonts.SpecialFont;
+import epiphany_soft.wtw.Negocio.Dia;
 import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
 
@@ -22,9 +33,12 @@ public class ActivityAsociarCanal extends ActivityBase {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
+    //private RecyclerView.Adapter dAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     String nombrePrograma;
     int idPrograma;
+    //int id_dia;
+    //TextView txtHora;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +48,10 @@ public class ActivityAsociarCanal extends ActivityBase {
         Bundle b = getIntent().getExtras();
         nombrePrograma = b.getString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
         idPrograma = b.getInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID);
+       // id_dia= b.getInt(DataBaseContract.DiaContract.COLUMN_NAME_ID_DIA);
 
         crearRecyclerViewCanales();
+      //  setSpecialFonts();
     }
 
     private void crearRecyclerViewCanales(){
@@ -48,7 +64,8 @@ public class ActivityAsociarCanal extends ActivityBase {
                 String nombreCanal = c.getString(c.getColumnIndex(CanalContract.COLUMN_NAME_CANAL_ID));
                 int idPrograma = c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_PROGRAMA_ID));
                 int idRel = c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_ID));
-                horarios[i] = new Horario(idRel,nombreCanal,idPrograma);
+                String Hora = c.getString(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_HORA));
+                horarios[i] = new Horario(idRel,nombreCanal,idPrograma, Hora);
                 i++;
             }
             this.crearRecyclerViewCanales(horarios);
@@ -63,6 +80,102 @@ public class ActivityAsociarCanal extends ActivityBase {
         if (contenido!=null) {
             mAdapter = new HorarioAdapter(this,contenido,idPrograma);
             mRecyclerView.setAdapter(mAdapter);
+
         }
     }
+
+
+
+
+
+
+
+    public void onClickRegistrarHorario(View v) {
+       /* if (txtHora.getText().toString().trim().equals("")) {
+            txtHora.setError("Introduzca un nombre");
+            return;
+        }*/
+
+       this.registrarInfoHorario();
+        createToast("Horario Registrado");
+    }
+
+    private boolean registrarInfoHorario(){
+        HorarioAdapter e = (HorarioAdapter) mAdapter;
+        ArrayList<HorarioAdapter.ViewHolder> listHolder = e.getMisViewHolder();
+        int idPrograma;
+        String Hora;
+        for (int i=0;i<listHolder.size();i++){
+            HorarioAdapter.ViewHolder ev = listHolder.get(i);
+            if (ev.ck.isChecked()){
+                idPrograma = ev.idPrograma;
+                 if (!ev.horaTxt.getText().toString().equals(""))
+                    Hora = new String(ev.horaTxt.getText().toString());
+                else
+                    Hora = null;
+                DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+                if (ev.ck.isChecked()){
+
+                    if (ev.mHorario.getId() != 0) {
+                     // esto es para el actualizar, que porel momento no se va a realizar
+
+                    }
+                    else{
+                        boolean success;
+                         ev.mHorario.setIdPrograma(idPrograma);
+                        success = db.insertarHorario(ev.mHorario);
+                        if (success) {
+                             ev.ck.setChecked(true);
+                             ev.mHorario.setId(db.getHorarioId(ev.mHorario.getIdPrograma(), ev.mHorario.getNombreCanal()));
+                             ActivityDetalleSerie.actualizado = true;
+                             ActivityDetallePelicula.actualizado = true;
+
+                            //aqui puse lo de insertar el dia a la relacion diaHorario
+                            DiaAdapter d= (DiaAdapter) ev.mAdapter;
+                            int id_horario= db.consultarIdHorario(idPrograma);
+                            ArrayList<DiaAdapter.ViewHolder> listadias = d.getMisViewHolder();
+                            for (int j=0;j<listadias.size();j++) {
+                                DiaAdapter.ViewHolder dia = listadias.get(i);
+                                if (dia.isChecked) {
+                                    db.insertarRelacionDiaHorario(id_horario, j + 1); //   (j+1) porque se almacenan los id de los dias
+
+                                }
+                            }
+
+
+                         } // cierra if de succes
+                         }
+                }
+                else{
+                    boolean success;
+                    if (ev.mHorario.getId() != 0) {
+                        success = db.eliminarHorario(ev.mHorario.getId());
+                         if (success) {
+                        ev.ck.setChecked(false);
+                        ev.mHorario.setId(0);
+                        ev.mHorario.setIdPrograma(0);
+                        ActivityDetalleSerie.actualizado = true;
+                             ActivityDetallePelicula.actualizado = true;
+                         }
+
+
+                    }
+
+                }
+
+               /* DiaAdapter d= (DiaAdapter) mAdapter;
+                int id_horario= db.consultarIdHorario(idPrograma);
+                ArrayList<DiaAdapter.ViewHolder> listadias = d.getMisViewHolder();
+                for (int j=0;j<listadias.size();j++){
+                    DiaAdapter.ViewHolder dia = listadias.get(i);
+                    if (dia.isChecked){
+                        db.insertarRelacionDiaHorario(id_horario,j+1); //   (j+1) porque se almacenan los id de los dias
+
+                    }
+                }*/
+                 }
+        }
+        return true;
+  }
+
 }

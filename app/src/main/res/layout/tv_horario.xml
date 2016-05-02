@@ -36,6 +36,7 @@
             android:layout_alignTop="@+id/textCard"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
     <View
         android:layout_width="7dp"
@@ -162,6 +163,7 @@
                 </LinearLayout>
 
             </TableRow>
+
         </TableLayout>
     </LinearLayout>
 

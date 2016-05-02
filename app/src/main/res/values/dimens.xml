@@ -12,6 +12,6 @@
     <dimen name="size_emisora">64dp</dimen>
     <dimen name="size_canal">55dp</dimen>
     <dimen name="size_dia">50dp</dimen>
-    <dimen name="size_pantalla_horario">181dp</dimen>
+    <dimen name="size_pantalla_horario">181dp</dimen><!-- Esto es la dimensión del LinearLayout de asociarCanal -->
     <dimen name="size_add_btn">30dp</dimen>
 </resources>

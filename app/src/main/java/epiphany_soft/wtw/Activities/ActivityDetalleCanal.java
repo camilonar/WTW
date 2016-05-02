@@ -146,47 +146,5 @@ public class ActivityDetalleCanal extends ActivityBase {
     }
 }*/
 
- /* esto es para  los metodos actualizar de la clase ActivityActualizarCanal
-    public void onClickActualizarCanal(View v) {
-            if (nombreTxt.getText().toString().trim().equals("")) {
-                nombreTxt.setError("Introduzca el nombre del canal");
-                return;
-            }
-            this.ActualizarInfoCanal();
-        }
-
-        private void ActualizarInfoCanal(){
-            DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-            // el actualizar esta mal , toca cambiar el parametro para nuevo y viejo ojo.. por ahora lo ppongo asi
-            boolean success=db.actualizarCanal(nombreTxt.getText().toString(), nombreTxt.getText().toString() );
-            if (success) {
-                ActualizarEmite();
-                createToast("Canal Actualizado");
-            }
-            else createToast("El Canal No se Puede Actualizar");
-        }
-
-        private boolean ActualizarEmite(){
-            EmisoraAdapter e = (EmisoraAdapter) mAdapter;
-            ArrayList<EmisoraAdapter.ViewHolder> listHolder = e.getMisViewHolder();
-            String nombreCanal = nombreTxt.getText().toString();
-            int idEmisora;
-            Integer numCanal;
-            for (int i=0;i<listHolder.size();i++){
-                EmisoraAdapter.ViewHolder ev = listHolder.get(i);
-                if (ev.ck.isChecked()){
-                    idEmisora = ev.idEmisora;
-                    if (!ev.numCanalEdit.getText().toString().equals(""))
-                        numCanal = new Integer(ev.numCanalEdit.getText().toString());
-                    else
-                        numCanal = null;
-                    DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-                    // esto esta mal toca actualizar el viejo  y el nuevo
-                    db.actualizarEmite(nombreCanal,nombreCanal,idEmisora,numCanal);
-                }
-            }
-            return true;
-        }
-aqui termina lo de actualizar canal*/
 
 }

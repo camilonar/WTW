@@ -15,8 +15,16 @@
             android:scrollbars="vertical"
             android:textColor="@color/colorNormalText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="432dp"/>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="118dp"
+        android:layout_height="wrap_content"
+        android:text="Registrar"
+        android:id="@+id/btn_Registrar"
+        android:layout_gravity="center_horizontal"
+        android:onClick="onClickRegistrarHorario" />
 
 </LinearLayout>

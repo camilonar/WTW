@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import epiphany_soft.wtw.DataBase.DataBaseContract.AgendaContract;
 import epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
+import epiphany_soft.wtw.Negocio.Dia;
 import epiphany_soft.wtw.Negocio.Horario;
 
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CalificacionContract;
@@ -22,6 +23,9 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.SerieContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.TemporadaContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.UsuarioContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaHorarioContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaContract;
+
 
 /**
  * Created by Camilo on 23/03/2016.
@@ -655,6 +659,7 @@ public class DataBaseConnection {
             ContentValues values = new ContentValues();
             values.put(HorarioContract.COLUMN_NAME_CANAL_ID,h.getNombreCanal());
             values.put(HorarioContract.COLUMN_NAME_PROGRAMA_ID,h.getIdPrograma());
+            values.put(HorarioContract.COLUMN_NAME_RELACION_HORA,h.getHora());
             long rowid=db.insert(HorarioContract.TABLE_NAME, null, values);
             if (rowid>0) return true;
         }
@@ -708,6 +713,7 @@ public class DataBaseConnection {
             String query =
                     "SELECT " + HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
                             HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_RELACION_ID+","+
+                            HorarioContract.TABLE_NAME+"."+ HorarioContract.COLUMN_NAME_RELACION_HORA+","+
                             CanalContract.TABLE_NAME+"."+ CanalContract.COLUMN_NAME_CANAL_ID+" ";
             query +=
                     "FROM " + CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
@@ -1071,5 +1077,127 @@ public class DataBaseConnection {
         }
         else return null;
     }
+
+// consultar el id del horario para cada programa
+
+    public int consultarIdHorario (int id_programa ) {
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + HorarioContract.COLUMN_NAME_RELACION_ID +" "; // id del horario
+            query +=
+                    "FROM " + HorarioContract.TABLE_NAME+" ";
+
+            query +=
+                    "WHERE " + HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=\'" + id_programa + "\'";
+            Cursor c = db.rawQuery(query, null);
+            if (c.moveToNext()){
+                return c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_PROGRAMA_ID));
+            }
+        }
+        return -1;
+    }
+
+    public boolean insertarRelacionDiaHorario(int rel_id, int dia){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+            values.put(DataBaseContract.DiaHorarioContract.COLUMN_NAME_RELACION_ID, rel_id);
+            values.put(DataBaseContract.DiaHorarioContract.COLUMN_NAME_DIA_ID, dia);
+            long rowid=db.insert(DataBaseContract.DiaHorarioContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+ // actualizar Horario , por ahora no lo voy a hacer.
+
+    public boolean actualizarHorario(String nombrecanal_old, String nombrecanal_new, int idEmisor, Integer numCanal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if (miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(EmiteContract.COLUMN_NAME_CANAL_ID,nombrecanal_new);
+            values.put(EmiteContract.COLUMN_NAME_EMISORA_ID,idEmisor);
+            values.put(EmiteContract.COLUMN_NAME_CANAL_NUMERO,numCanal);
+
+            String query= EmiteContract.COLUMN_NAME_CANAL_ID+"=? AND "
+                    + EmiteContract.COLUMN_NAME_EMISORA_ID+"=? ";
+            String[] compare = new String[]{(nombrecanal_old),Integer.toString(idEmisor)};
+            try{
+                int rowid=db.update(EmiteContract.TABLE_NAME, values, query, compare);
+                if (rowid>0) return true;
+            } catch (Exception e){
+                //No se hace nada, y luego retorna falso
+            }
+        }
+        return false;
+    }
+
+
+
+
+
+    public Cursor getDia(){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " +  DataBaseContract.DiaContract.COLUMN_NAME_ID_DIA+" ";
+            query +=
+                    "FROM " +DataBaseContract.DiaContract.TABLE_NAME+ "";
+
+          /*  query +=
+                    "WHERE " + ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE +"=\'"+nombre+"\'";*/
+            Cursor c = db.rawQuery(query, null);
+            return c;
+        }
+        else return null;
+    }
+
+
+    public Cursor consultarHorarioDia(int idHorario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + DiaContract.TABLE_NAME+"."+ DiaContract.COLUMN_NAME_ID_DIA+","+
+                            DiaHorarioContract.COLUMN_NAME_RELACION_ID+" ";
+            query +=
+                    "FROM " + DiaContract.TABLE_NAME+" LEFT OUTER JOIN "+ DiaHorarioContract.TABLE_NAME +
+                            " ON "+ DiaContract.TABLE_NAME+"."+ DiaContract.COLUMN_NAME_ID_DIA
+                            +"="+ DiaHorarioContract.TABLE_NAME+"."+ DiaHorarioContract.COLUMN_NAME_DIA_ID+" ";
+            query +=
+                    "WHERE " + DiaHorarioContract.TABLE_NAME+"."+ DiaHorarioContract.COLUMN_NAME_RELACION_ID +"=? ";
+            query+=
+                    "ORDER BY "+ DiaContract.TABLE_NAME+"."+ DiaContract.COLUMN_NAME_ID_DIA;
+
+
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idHorario)});
+            return c;
+        }
+        else return null;
+    }
+
+
+
+
 
 }

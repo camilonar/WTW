@@ -6,14 +6,19 @@ package epiphany_soft.wtw.Negocio;
 public class Horario {
 
     private Integer id;
-
     private String nombreCanal;
     private Integer idPrograma;
+    private String Hora;
 
-    public Horario(Integer id, String nombre, Integer idPrograma){
+    public Horario(){
+
+    }
+
+    public Horario(Integer id, String nombre, Integer idPrograma,String hora){
         this.id=id;
         this.nombreCanal=nombre;
         this.idPrograma=idPrograma;
+          this.Hora=hora;
     }
 
     public void setId(Integer id) {
@@ -41,4 +46,9 @@ public class Horario {
     public String toString(){
         return nombreCanal;
     }
+
+    public String getHora() {return Hora;}
+
+    public void setHora(String hora) {Hora = hora;}
+
 }

@@ -28,7 +28,6 @@ public class Dia {
         this.isChecked = isChecked;
     }
 
-
     public String getNombre() {
         return nombre;
     }
@@ -49,5 +48,8 @@ public class Dia {
         this.id = id;
     }
 
-
+    @Override
+    public String toString(){
+        return nombre;
+    }
 }

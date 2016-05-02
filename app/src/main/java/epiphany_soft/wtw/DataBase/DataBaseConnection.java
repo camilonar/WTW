@@ -9,12 +9,13 @@ import java.io.IOException;
 
 import epiphany_soft.wtw.DataBase.DataBaseContract.AgendaContract;
 import epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
-import epiphany_soft.wtw.Negocio.Dia;
 import epiphany_soft.wtw.Negocio.Horario;
 
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CalificacionContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CapituloContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaHorarioContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.EmisoraContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.EmiteContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
@@ -23,8 +24,6 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.SerieContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.TemporadaContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.UsuarioContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaHorarioContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaContract;
 
 
 /**
@@ -1078,30 +1077,6 @@ public class DataBaseConnection {
         else return null;
     }
 
-// consultar el id del horario para cada programa
-
-    public int consultarIdHorario (int id_programa ) {
-        try {
-            miDBHelper.createDataBase();
-        } catch (IOException e) {
-        }
-        if (miDBHelper.checkDataBase()) {
-            SQLiteDatabase db = miDBHelper.getReadableDatabase();
-            String query =
-                    "SELECT " + HorarioContract.COLUMN_NAME_RELACION_ID +" "; // id del horario
-            query +=
-                    "FROM " + HorarioContract.TABLE_NAME+" ";
-
-            query +=
-                    "WHERE " + HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=\'" + id_programa + "\'";
-            Cursor c = db.rawQuery(query, null);
-            if (c.moveToNext()){
-                return c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_PROGRAMA_ID));
-            }
-        }
-        return -1;
-    }
-
     public boolean insertarRelacionDiaHorario(int rel_id, int dia){
         try {
             miDBHelper.createDataBase();
@@ -1145,10 +1120,6 @@ public class DataBaseConnection {
         return false;
     }
 
-
-
-
-
     public Cursor getDia(){
         try {
             miDBHelper.createDataBase();
@@ -1179,25 +1150,19 @@ public class DataBaseConnection {
             SQLiteDatabase db = miDBHelper.getReadableDatabase();
             String query =
                     "SELECT " + DiaContract.TABLE_NAME+"."+ DiaContract.COLUMN_NAME_ID_DIA+","+
-                            DiaHorarioContract.COLUMN_NAME_RELACION_ID+" ";
+                            DiaHorarioContract.TABLE_NAME+"."+DiaHorarioContract.COLUMN_NAME_RELACION_ID+" ";
             query +=
                     "FROM " + DiaContract.TABLE_NAME+" LEFT OUTER JOIN "+ DiaHorarioContract.TABLE_NAME +
                             " ON "+ DiaContract.TABLE_NAME+"."+ DiaContract.COLUMN_NAME_ID_DIA
-                            +"="+ DiaHorarioContract.TABLE_NAME+"."+ DiaHorarioContract.COLUMN_NAME_DIA_ID+" ";
-            query +=
-                    "WHERE " + DiaHorarioContract.TABLE_NAME+"."+ DiaHorarioContract.COLUMN_NAME_RELACION_ID +"=? ";
+                            +"="+ DiaHorarioContract.TABLE_NAME+"."+ DiaHorarioContract.COLUMN_NAME_DIA_ID+" AND "
+                            +DiaHorarioContract.TABLE_NAME+"."+ DiaHorarioContract.COLUMN_NAME_RELACION_ID +"=? ";
             query+=
                     "ORDER BY "+ DiaContract.TABLE_NAME+"."+ DiaContract.COLUMN_NAME_ID_DIA;
-
 
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idHorario)});
             return c;
         }
         else return null;
     }
-
-
-
-
 
 }

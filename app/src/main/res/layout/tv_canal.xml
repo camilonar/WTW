@@ -10,9 +10,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="9dp"
-        android:layout_margin="5dp"
-        >
+        android:padding="7dp"
+        android:layout_margin="5dp">
         <TextView
             android:id="@+id/textCard"
             android:layout_width="match_parent"

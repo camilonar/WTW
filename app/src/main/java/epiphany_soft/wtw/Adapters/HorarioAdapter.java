@@ -82,6 +82,7 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
             mRecyclerView.setHasFixedSize(true);
             mLayoutManager = new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false);
             mRecyclerView.setLayoutManager(mLayoutManager);
+            //mCardView.setCardBackgroundColor(v.getResources().getColor(R.color.colorTable2));
             layoutRV = (LinearLayout) v.findViewById(R.id.layoutHorarioRV);
         }
 

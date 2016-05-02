@@ -1,24 +1,24 @@
 package epiphany_soft.wtw.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Dia;
-import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
 public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
     private Dia[] dias;
     private String NombreDia;
+    private Context context;
 
 
     private ArrayList<DiaAdapter.ViewHolder> misViewHolder;
@@ -32,6 +32,8 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
         public TextView mTextView;
         public boolean isChecked=false;
 
+        public Dia mDia;
+
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
@@ -41,15 +43,14 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
-        public void configurarVista( /*View v*/){
-            Dia d= new Dia();
-            if (d.isChecked()){
+        public void configurarVista(Context c){
+            if (mDia.isChecked()){
                 isChecked=true;
-               // mCardView.setBackgroundColor(v.getResources().getColor(R.color.colorButtonSelected));
+                mCardView.setBackgroundColor(c.getResources().getColor(R.color.colorButtonSelected));
             }
             else {
                 isChecked=false;
-               // mCardView.setBackgroundColor(v.getResources().getColor(R.color.colorButtonUnselected));
+                mCardView.setBackgroundColor(c.getResources().getColor(R.color.colorButtonUnselected));
             }
 
         }
@@ -72,10 +73,10 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
        // le quite el parametro
-    public DiaAdapter(Dia[] misdias) {
+    public DiaAdapter(Dia[] misdias,Context c) {
         dias = misdias;
-       // this.NombreDia = Nombre;
         misViewHolder = new ArrayList<ViewHolder>();
+        context = c;
     }
 
     // Create new views (invoked by the layout manager)
@@ -84,7 +85,7 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
                                                    int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tv_agregar_horario, parent, false);
+                .inflate(R.layout.tv_dia, parent, false);
         v.setClickable(true);
         ViewHolder vh = new ViewHolder(v);
         misViewHolder.add(vh);
@@ -99,7 +100,8 @@ public class DiaAdapter extends RecyclerView.Adapter<DiaAdapter.ViewHolder> {
 
         holder.mTextView.setText(dias[position].toString());
         holder.isChecked=dias[position].isChecked();
-        holder.configurarVista(); //TODO:  OJO AQUIIII(TOCA PASAR EL PARAMETRO VIEW V)
+        holder.mDia=dias[position];
+        holder.configurarVista(context);
 
     }
 

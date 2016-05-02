@@ -10,12 +10,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="9dp"
+        android:padding="5dp"
         android:layout_margin="5dp"
         >
         <TextView
             android:id="@+id/textCard"
-            android:layout_width="match_parent"
+            android:layout_width="26dp"
+            android:gravity="center"
             android:layout_height="match_parent"
             android:textSize="@dimen/font_size_consulta_canal"
             android:textColor="@color/colorNormalText"

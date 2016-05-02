@@ -22,11 +22,11 @@
         <TextView
             android:id="@+id/textCard"
             android:layout_width="200dp"
-            android:layout_height="match_parent"
+            android:padding="3dp"
+            android:layout_height="wrap_content"
             android:textSize="@dimen/font_size_consulta_canal"
             android:textColor="@color/colorNormalText"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_alignParentBottom="true" />
+            xmlns:android="http://schemas.android.com/apk/res/android" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -155,7 +155,8 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_horario"
-                        android:scrollbars="vertical"
+                        android:scrollbars="horizontal"
+                        android:gravity="center_horizontal"
                         android:textColor="@color/colorNormalText"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"/>

@@ -109,7 +109,7 @@ public final class DataBaseContract {
     public static abstract class DiaHorarioContract implements BaseColumns {
         public static final String TABLE_NAME = "DiaHorario";
         public static final String COLUMN_NAME_RELACION_ID = "Rel_Identificador";//id_horario
-        public static final String COLUMN_NAME_DIA_ID = "id_Dia";
+        public static final String COLUMN_NAME_DIA_ID = "Id_Dia";
 
     }
 

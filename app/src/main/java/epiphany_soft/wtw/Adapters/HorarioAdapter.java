@@ -26,8 +26,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
-import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -54,6 +52,7 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         RecyclerView mRecyclerView;
        public  RecyclerView.Adapter mAdapter;//adaptador de la lista de los dias
         RecyclerView.LayoutManager mLayoutManager;
+        private LinearLayout layoutRV;
 
         public CardView mCardView;
         public TextView mTextView,horaTxt;
@@ -61,6 +60,7 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         public CheckBox ck;
         public Horario mHorario;
         public int idPrograma;
+        public boolean isChecked;
 
 
         public Context c;
@@ -75,20 +75,31 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
             ck = (CheckBox)v.findViewById(R.id.textCardCK);
             ck.setOnClickListener(this);
             ((Button)v.findViewById(R.id.btnCambiarHora)).setOnClickListener(this);
-            crearRecyclerViewDias(v);
             setSpecialFonts(v);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
+
+            mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_horario);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            //mCardView.setCardBackgroundColor(v.getResources().getColor(R.color.colorTable2));
+            layoutRV = (LinearLayout) v.findViewById(R.id.layoutHorarioRV);
         }
 
         @Override
         public void onClick(View v) {
 
-            if (ck.isChecked()) {
-                mLayout.setVisibility(View.VISIBLE);
-            } else {
-                mLayout.setVisibility(View.GONE);
+            if (v.getId()==R.id.textCardCK) {
+                if (isChecked) {
+                    mLayout.setVisibility(View.GONE);
+                    ck.setChecked(false);
+                } else {
+                    mLayout.setVisibility(View.VISIBLE);
+                    ck.setChecked(true);
+                }
+                isChecked = ck.isChecked();
             }
-            if (v.getId()==R.id.btnCambiarHora){
+            if (v.getId() == R.id.btnCambiarHora) {
                 showTimePickerDialog(v);
             }
 
@@ -127,72 +138,40 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
             */
         }
 
-
-        private void crearRecyclerViewDias(View v) {
-            Dia d= new Dia();
+        private void crearRecyclerViewDias() {
             Dia dias[]= new Dia[7];
-            mHorario= new Horario();
             String contenido[] = new String[]{"D", "L", "Ma", "Mi", "J", "V", "S"}; // aqui...
-            //Verificar si se debe hacer la consulta
 
-            /* if (mHorario.getId()==0) { //Ya se sabe que isChecked = false, no se requiere la consulta a la BD
+            if (mHorario.getId()==0) { //Ya se sabe que isChecked = false, no se requiere la consulta a la BD
 
                 for (int i=0;i<7;i++){
-                    dias[i]=new Dia(i);
-                    d.setNombre(contenido[i]);
-                    d.setId(i);
-                    d.setIsChecked(false);
+                    dias[i]=new Dia(i+1);
+                    dias[i].setNombre(contenido[i]);
+                    dias[i].setIsChecked(false);
 
                 }
-            }
-            */
-           // else{
-
-
-             DataBaseConnection db = new DataBaseConnection(v.getContext());
+            } else{
+             DataBaseConnection db = new DataBaseConnection(this.c);
                 Cursor c=db.consultarHorarioDia(mHorario.getId());
                 if (c!=null) {
-
                     for (int i=0;i<7;i++){
                         c.moveToNext();
-                       int aux=c.getInt(c.getColumnIndex(DataBaseContract.DiaContract.COLUMN_NAME_ID_DIA));
-                       dias[i]=new Dia(i);
-                        d.setNombre(contenido[i]);
-                        d.setId(i);
-                    if (aux==0)  d.setIsChecked(false);
-                    else d.setIsChecked(true);
-
+                       int aux=c.getInt(c.getColumnIndex(DataBaseContract.DiaHorarioContract.COLUMN_NAME_RELACION_ID));
+                       dias[i]=new Dia(i+1);
+                        dias[i].setNombre(contenido[i]);
+                    if (aux==0)  dias[i].setIsChecked(false);
+                    else dias[i].setIsChecked(true);
                     }
-                        }
+                }
 
-           // }
-            /*DatabaseConnection db..;
-            *Cursor c = db.consultarHorarioDia(mHorario.getId());
-            * // entre Dia LEFT OUTER JOIN HorarioDia ON Dia.Id_Dia=HorarioDia.Id_Dia WHERE HorarioDia.IdRelacion=idHorario
-            *se recuperan TODOS los días, ORDER BY Dia.Id_Dia
-            *Dia dias[]= new Dia[7];
-            * for (int i=0;i<7;i++){
-            * c.moveToNext();
-            *int aux = c.getInt(c.getColumIndex())
-            *   dias[i] = new Dia();
-            *   d.setNombreDia(contenido[i]);
-            *   d.setId(i);
-            *   if (aux==0)
-            *    d.setChecked(false);
-            *   else
-             *   d.setChecked(true);
-            * }*/
-            /*(AUX)>0 HAY QUE CHEQUEARLO*/
-            LinearLayout layoutRV = (LinearLayout) v.findViewById(R.id.layoutHorarioRV);
-            Float height = v.getResources().getDimension(R.dimen.size_dia)*(contenido.length);
+            }
+
+            Float height = this.c.getResources().getDimension(R.dimen.size_dia)*(contenido.length);
             TableRow.LayoutParams params = new TableRow.LayoutParams(1200, height.intValue());
             layoutRV.setLayoutParams(params);
-            mRecyclerView = (RecyclerView) v.findViewById(R.id.rv_horario);
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManager = new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false);
-            mRecyclerView.setLayoutManager(mLayoutManager);
+
             if (contenido!=null) {
-                mAdapter = new DiaAdapter(dias); // se le pasa el dia
+                mAdapter = new DiaAdapter(dias,c); // se le pasa el dia
                 mRecyclerView.setAdapter(mAdapter);
             }
         }
@@ -280,8 +259,14 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         holder.c=context;
         if (mDataset[position].getId()!=0){
             holder.ck.setChecked(true);
+            if (holder.mHorario.getHora()!=null)
+                holder.horaTxt.setText(holder.mHorario.getHora().toString());
+            else
+                holder.horaTxt.setText("");
             holder.mLayout.setVisibility(View.VISIBLE);
         }
+        holder.isChecked=holder.ck.isChecked();
+        holder.crearRecyclerViewDias();
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -725,43 +725,6 @@ public class DataBaseConnection {
         }
         else return null;
     }
-  /*  public boolean actualizarUsuario1(int id, String nombre, String contrasenia){
-        try {
-            miDBHelper.createDataBase();
-        } catch (IOException e) {
-        }
-        if (miDBHelper.checkDataBase()) {
-            SQLiteDatabase db = miDBHelper.getWritableDatabase();
-            ContentValues values = new ContentValues();
-            values.put(UsuarioContract.COLUMN_NAME_USUARIO_ID, id);
-            values.put(UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE, nombre);
-            values.put(UsuarioContract.COLUMN_NAME_USUARIO_PASSWORD,contrasenia);
-            String query= UsuarioContract.COLUMN_NAME_USUARIO_ID+"=?";
-            int rowid=db.update(UsuarioContract.TABLE_NAME, values, query, new String[]{nombre});
-            if (rowid>0) return true;
-        }
-        return false;
-    }
-
-    public Cursor consultarNombreUser(String nombre){
-        try {
-            miDBHelper.createDataBase();
-        } catch (IOException e) {
-        }
-        if(miDBHelper.checkDataBase()) {
-            SQLiteDatabase db = miDBHelper.getReadableDatabase();
-            String query =
-                    "SELECT " + UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE+" ";
-
-            query+= "FROM "+ UsuarioContract.TABLE_NAME;
-            query +=
-                    "WHERE " + UsuarioContract.COLUMN_NAME_USUARIO_NOMBRE +nombre;
-            Cursor c = db.rawQuery(query, null);
-            return c;
-        }
-        else return null;
-    }
-    */
 
     public Cursor consultarCanalLikeNombre(String nombre){
         try {
@@ -1165,4 +1128,25 @@ public class DataBaseConnection {
         else return null;
     }
 
+    public float consultarCalificacionPromedio(int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query = "SELECT AVG(" + CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION+") AS "+
+                    CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION+","+
+                    "COUNT(" + CalificacionContract.COLUMN_NAME_USUARIO_ID+") AS cuenta ";
+            query +=
+                    "FROM " + CalificacionContract.TABLE_NAME+" ";
+            query +=
+                    "WHERE " + CalificacionContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
+            c.moveToNext();
+            if (c.getInt(c.getColumnIndex("cuenta"))!=0);
+                return c.getFloat(c.getColumnIndex(CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION));
+        }
+        return 0;
+    }
 }

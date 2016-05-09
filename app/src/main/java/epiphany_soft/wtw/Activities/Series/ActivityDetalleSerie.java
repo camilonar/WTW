@@ -37,7 +37,7 @@ public class ActivityDetalleSerie extends ActivityBase{
     private RecyclerView.LayoutManager layoutManagerTemp, layoutManagerCanal;
 
     private String nombre,sinopsis,genero,pais;
-    private int anio, idSerie;
+    private int anio, idPrograma;
     private boolean calificado, isFavorito;
     public static boolean actualizado=false;
 
@@ -90,7 +90,7 @@ public class ActivityDetalleSerie extends ActivityBase{
 
     private void crearRecyclerViewTemporadas(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.getTemporadasDeSerie(idSerie);
+        Cursor c=db.getTemporadasDeSerie(idPrograma);
         if (c!=null) {
             String[] numerosTemp=new String[c.getCount()];
             String[] numerosCap=new String[c.getCount()];
@@ -124,7 +124,7 @@ public class ActivityDetalleSerie extends ActivityBase{
 
     private void crearRecyclerViewCanales(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarCanalesDePrograma(idSerie);
+        Cursor c=db.consultarCanalesDePrograma(idPrograma);
         if (c!=null) {
             String[] canales=new String[c.getCount()];
             int i=0;
@@ -172,7 +172,7 @@ public class ActivityDetalleSerie extends ActivityBase{
         genero = c.getString(c.getColumnIndex(GeneroContract.COLUMN_NAME_GENERO_NOMBRE));
         anio = c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO));
         pais = c.getString(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN));
-        idSerie =  c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+        idPrograma =  c.getInt(c.getColumnIndex(ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
         if (c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))==Sesion.getInstance().getIdUsuario()){
             isFavorito=true;
         } else isFavorito=false;
@@ -190,149 +190,149 @@ public class ActivityDetalleSerie extends ActivityBase{
     }
 
     private void llenarCalificacionPromedio(DataBaseConnection db){
-        float cal = db.consultarCalificacionPromedio(idSerie);
+        float cal = db.consultarCalificacionPromedio(idPrograma);
         RatingBar rb = (RatingBar)findViewById(R.id.ratingBar2);
         rb.setRating(cal);
         rb.setFocusable(false);
     }
 
-            public void onClickActualizar(View v) {
-                Intent i = new Intent(this, ActivityActualizarSerie.class);
-                Bundle b = new Bundle();
-                b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
-                b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
-                b.putString(GeneroContract.COLUMN_NAME_GENERO_NOMBRE, genero);
-                b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
-                b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
-                i.putExtras(b);
-                startActivity(i);
-            }
+    public void onClickActualizar(View v) {
+        Intent i = new Intent(this, ActivityActualizarSerie.class);
+        Bundle b = new Bundle();
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS, sinopsis);
+        b.putString(GeneroContract.COLUMN_NAME_GENERO_NOMBRE, genero);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN, pais);
+        b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO, anio);
+        i.putExtras(b);
+        startActivity(i);
+    }
 
-            public void onClickRegistrarTemporada(View v) {
+    public void onClickRegistrarTemporada(View v) {
 
-                Intent i = new Intent(this, ActivityAgregarTemporada.class);
-                Bundle b = new Bundle();
-                b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
-                b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
-                i.putExtras(b);
-                startActivity(i);
-            }
+        Intent i = new Intent(this, ActivityAgregarTemporada.class);
+        Bundle b = new Bundle();
+        b.putInt(DataBaseContract.TemporadaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        i.putExtras(b);
+        startActivity(i);
+    }
 
-            public void onClickAsociarCanal(View v) {
+    public void onClickAsociarCanal(View v) {
 
-                Intent i = new Intent(this, ActivityAsociarCanal.class);
-                Bundle b = new Bundle();
-                b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idSerie);
-                b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
-                i.putExtras(b);
-                startActivity(i);
-            }
+        Intent i = new Intent(this, ActivityAsociarCanal.class);
+        Bundle b = new Bundle();
+        b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
+        b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        i.putExtras(b);
+        startActivity(i);
+    }
 
-            private void configurarRatingBar() {
-                final RatingBar calificacion = (RatingBar) findViewById(R.id.ratingBar);
-                DataBaseConnection db = new DataBaseConnection(this.getBaseContext());
-                Cursor c = db.consultarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie);
-                calificado = false;
-                if (c != null && c.getCount() == 1) {
-                    c.moveToNext();
-                    float rating = c.getFloat(c.getColumnIndex(DataBaseContract.CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION));
-                    calificacion.setRating(rating);
+    private void configurarRatingBar() {
+        final RatingBar calificacion = (RatingBar) findViewById(R.id.ratingBar);
+        DataBaseConnection db = new DataBaseConnection(this.getBaseContext());
+        Cursor c = db.consultarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma);
+        calificado = false;
+        if (c != null && c.getCount() == 1) {
+            c.moveToNext();
+            float rating = c.getFloat(c.getColumnIndex(DataBaseContract.CalificacionContract.COLUMN_NAME_VALOR_CALIFICACION));
+            calificacion.setRating(rating);
+            calificado = true;
+        }
+        calificacion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                DataBaseConnection db = new DataBaseConnection(ratingBar.getContext());
+                if (calificado) {
+                    db.actualizarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma, calificacion.getRating());
+                    llenarCalificacionPromedio(db);
+                } else {
+                    db.insertarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma, calificacion.getRating());
+                    llenarCalificacionPromedio(db);
                     calificado = true;
                 }
-                calificacion.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            }
+        });
+    }
 
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        DataBaseConnection db = new DataBaseConnection(ratingBar.getContext());
-                        if (calificado) {
-                            db.actualizarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie, calificacion.getRating());
-                            llenarCalificacionPromedio(db);
-                        } else {
-                            db.insertarCalificacion(Sesion.getInstance().getIdUsuario(), idSerie, calificacion.getRating());
-                            llenarCalificacionPromedio(db);
-                            calificado = true;
+    protected void hideWhenNoSession() {
+        if (!Sesion.getInstance().isActiva()) {
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            hide(b);
+            Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
+            hide(btn);
+            btn = (Button) findViewById(R.id.btn_AsociarCanal);
+            hide(btn);
+            RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
+            hide(rb);
+            TextView txt = (TextView) findViewById(R.id.lblCalificacion);
+            hide(txt);
+            View v = (View) findViewById(R.id.v1);
+            hide(v);
+            v = (View) findViewById(R.id.v2);
+            hide(v);
+        }
+    }
+
+    protected void showWhenSession() {
+        if (Sesion.getInstance().isActiva()) {
+            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+            show(b);
+            Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
+            show(btn);
+            btn = (Button) findViewById(R.id.btn_AsociarCanal);
+            show(btn);
+            RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
+            show(rb);
+            TextView txt = (TextView) findViewById(R.id.lblCalificacion);
+            show(txt);
+            View v = (View) findViewById(R.id.v1);
+            show(v);
+            v = (View) findViewById(R.id.v2);
+            show(v);
+        }
+    }
+
+    public void configurarImageButton() {
+        if (Sesion.getInstance().isActiva()) {
+            btnImg.setBackgroundColor(getResources().getColor(R.color.colorTable));
+            if (this.isFavorito)
+                btnImg.setImageResource(R.drawable.ic_remove);
+            else
+                btnImg.setImageResource(R.drawable.ic_add);
+            btnImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    DataBaseConnection db = new DataBaseConnection(v.getContext());
+                    if (isFavorito) {
+                        if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(), idPrograma)) {
+                            btnImg.setImageResource(R.drawable.ic_add);
+                            isFavorito = false;
+                            ActivityConsultarProgramasAgenda.actualizado = true;
+                            ActivityConsultarPrograma.actualizado = true;
+                                /*mCardView.removeAllViews();*/
+                        }
+                    } else {
+                        if (db.insertarFavorito(Sesion.getInstance().getIdUsuario(), idPrograma)) {
+                            btnImg.setImageResource(R.drawable.ic_remove);
+                            isFavorito = true;
+                            ActivityConsultarProgramasAgenda.actualizado = true;
+                            ActivityConsultarPrograma.actualizado = true;
                         }
                     }
-                });
-            }
-
-            protected void hideWhenNoSession() {
-                if (!Sesion.getInstance().isActiva()) {
-                    FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
-                    hide(b);
-                    Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
-                    hide(btn);
-                    btn = (Button) findViewById(R.id.btn_AsociarCanal);
-                    hide(btn);
-                    RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
-                    hide(rb);
-                    TextView txt = (TextView) findViewById(R.id.lblCalificacion);
-                    hide(txt);
-                    View v = (View) findViewById(R.id.v1);
-                    hide(v);
-                    v = (View) findViewById(R.id.v2);
-                    hide(v);
                 }
-            }
-
-            protected void showWhenSession() {
-                if (Sesion.getInstance().isActiva()) {
-                    FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
-                    show(b);
-                    Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
-                    show(btn);
-                    btn = (Button) findViewById(R.id.btn_AsociarCanal);
-                    show(btn);
-                    RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
-                    show(rb);
-                    TextView txt = (TextView) findViewById(R.id.lblCalificacion);
-                    show(txt);
-                    View v = (View) findViewById(R.id.v1);
-                    show(v);
-                    v = (View) findViewById(R.id.v2);
-                    show(v);
-                }
-            }
-
-            public void configurarImageButton() {
-                if (Sesion.getInstance().isActiva()) {
-                    btnImg.setBackgroundColor(getResources().getColor(R.color.colorTable));
-                    if (this.isFavorito)
-                        btnImg.setImageResource(R.drawable.ic_remove);
-                    else
-                        btnImg.setImageResource(R.drawable.ic_add);
-                    btnImg.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            DataBaseConnection db = new DataBaseConnection(v.getContext());
-                            if (isFavorito) {
-                                if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(), idSerie)) {
-                                    btnImg.setImageResource(R.drawable.ic_add);
-                                    isFavorito = false;
-                                    ActivityConsultarProgramasAgenda.actualizado = true;
-                                    ActivityConsultarPrograma.actualizado = true;
-                                /*mCardView.removeAllViews();*/
-                                }
-                            } else {
-                                if (db.insertarFavorito(Sesion.getInstance().getIdUsuario(), idSerie)) {
-                                    btnImg.setImageResource(R.drawable.ic_remove);
-                                    isFavorito = true;
-                                    ActivityConsultarProgramasAgenda.actualizado = true;
-                                    ActivityConsultarPrograma.actualizado = true;
-                                }
-                            }
-                        }
-                    });
-                } else {
-                    btnImg.setVisibility(View.GONE);
-                }
-            }
-
-            public int getIdSerie() {
-                return idSerie;
-            }
-
-            public String getNombreSerie() {
-                return nombre;
-            }
+            });
+        } else {
+            btnImg.setVisibility(View.GONE);
         }
+    }
+
+    public int getIdPrograma() {
+        return idPrograma;
+    }
+
+    public String getNombreSerie() {
+        return nombre;
+    }
+}

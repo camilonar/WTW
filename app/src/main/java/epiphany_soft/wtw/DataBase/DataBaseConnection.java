@@ -1149,4 +1149,111 @@ public class DataBaseConnection {
         }
         return 0;
     }
+
+    public Cursor consultarPeliculaPorGenero(String genero){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+            query +=
+                    "FROM " +GeneroContract.TABLE_NAME+" NATURAL JOIN "+
+                            ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + GeneroContract.COLUMN_NAME_GENERO_NOMBRE + "=?";
+            Cursor c = db.rawQuery(query, new String[]{genero});
+            return c;
+        }
+        else return null;
+    }
+    public Cursor consultarSeriePorGenero(String genero){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+            query +=
+                    "FROM " +GeneroContract.TABLE_NAME+" NATURAL JOIN "+
+                            ProgramaContract.TABLE_NAME + " JOIN " +
+                            SerieContract.TABLE_NAME +
+                            " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + GeneroContract.COLUMN_NAME_GENERO_NOMBRE + "=?";
+            Cursor c = db.rawQuery(query, new String[]{genero});
+            return c;
+        }
+        else return null;
+    }
+    public Cursor consultarPeliculaPorDia(int idDia){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+            query +=
+                    "FROM " +DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            HorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + DiaHorarioContract.COLUMN_NAME_DIA_ID + "=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idDia)});
+            return c;
+        }
+        else return null;
+    }
+    public Cursor consultarSeriePorDia(int idDia){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+            query +=
+                    "FROM " +DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            HorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + DiaHorarioContract.COLUMN_NAME_DIA_ID + "=?";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idDia)});
+            return c;
+        }
+        else return null;
+    }
 }

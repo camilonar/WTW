@@ -1,8 +1,14 @@
 package epiphany_soft.wtw.Fragments;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,11 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Programa;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
+import epiphany_soft.wtw.Strategies.StrategyConsulta;
 
 /**
  * Created by Camilo on 14/05/2016.
@@ -25,6 +33,8 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     protected RecyclerView.Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected EditText txtBuscar;
+    protected CharSequence[] cs = new CharSequence[]{"Nombre","Genero","Horario","Canal"};
+    protected StrategyConsulta strategy;
 
     protected abstract void llenarRecyclerOnCreate();
     protected abstract RecyclerView.Adapter createAdapter(Programa[] contenido);
@@ -46,19 +56,6 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
         getView().findViewById(R.id.btnConfigurar).setOnClickListener(this);
         llenarRecyclerOnCreate();
         setSpecialFonts();
-    }
-
-    public void onClickConfigurar(View v){
-        //TODO: implementar método
-        /*spinner2 = (Spinner) v.findViewById(R.id.spinner2);
-        List<String> list = new ArrayList<String>();
-        list.add("list 1");
-        list.add("list 2");
-        list.add("list 3");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(v.getContext(),
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(dataAdapter);*/
     }
 
     protected void crearRecycledView(Programa[] contenido){
@@ -94,6 +91,42 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
             return programas;
         }
         return null;
+    }
+
+    public void onClickConfigurar(View v){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        DialogoConfirmacion dialogo = new DialogoConfirmacion();
+        dialogo.show(fragmentManager, "tagConfirmacion");
+    }
+    @SuppressLint("ValidFragment")
+    public class DialogoConfirmacion extends DialogFragment {
+        private int pos=0;
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setSingleChoiceItems(cs, 0, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    pos = which;
+                }
+            }).setTitle("Opciones de consulta").setPositiveButton("Aceptar", new DialogInterface.OnClickListener()  {
+                public void onClick(DialogInterface dialog, int id) {
+                    ((ActivityBase)getActivity()).createToast("Acción aplicada");
+                    setStrategy(pos);
+                    dialog.cancel();
+                }
+            }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    ((ActivityBase) getActivity()).createToast("Acción cancelada");
+                    dialog.cancel();
+                }
+            });
+            return builder.create();
+        }
+
+    }
+    protected void setStrategy(int i){
+        //TODO: implementar la estrategia
     }
 
     protected void setSpecialFonts(){

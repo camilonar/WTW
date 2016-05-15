@@ -23,6 +23,10 @@ import epiphany_soft.wtw.Negocio.Programa;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 import epiphany_soft.wtw.Strategies.StrategyConsulta;
+import epiphany_soft.wtw.Strategies.StrategyConsultaCanal;
+import epiphany_soft.wtw.Strategies.StrategyConsultaGenero;
+import epiphany_soft.wtw.Strategies.StrategyConsultaHorario;
+import epiphany_soft.wtw.Strategies.StrategyConsultaNombre;
 
 /**
  * Created by Camilo on 14/05/2016.
@@ -51,6 +55,7 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        this.strategy = new StrategyConsultaNombre();//POR DEFECTO LA CONSULTA ES POR NOMBRE
         txtBuscar = (EditText) getView().findViewById(R.id.txtBuscar);
         getView().findViewById(R.id.btnBuscar).setOnClickListener(this);
         getView().findViewById(R.id.btnConfigurar).setOnClickListener(this);
@@ -103,8 +108,14 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
         private int pos=0;
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            for (int i = 0; i < cs.length; i++) {
+                if (cs[i].equals(strategy.getType())){
+                    pos = i;
+                    break;
+                }
+            }
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setSingleChoiceItems(cs, 0, new DialogInterface.OnClickListener() {
+            builder.setSingleChoiceItems(cs, pos, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     pos = which;
@@ -127,6 +138,17 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     }
     protected void setStrategy(int i){
         //TODO: implementar la estrategia
+        if (cs[i].equals(strategy.getType())){
+          return;
+        } else if (cs[i].equals("Nombre")){
+            strategy = new StrategyConsultaNombre();
+        } else if (cs[i].equals("Genero")){
+            strategy = new StrategyConsultaGenero();
+        } else if (cs[i].equals("Horario")){
+            strategy = new StrategyConsultaHorario();
+        } else if (cs[i].equals("Canal")){
+            strategy = new StrategyConsultaCanal();
+        }
     }
 
     protected void setSpecialFonts(){

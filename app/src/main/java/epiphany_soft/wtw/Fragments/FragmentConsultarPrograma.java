@@ -8,12 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -29,7 +24,6 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     protected RecyclerView mRecyclerView;
     protected RecyclerView.Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-    protected Spinner spinner2;
     protected EditText txtBuscar;
 
     protected abstract void llenarRecyclerOnCreate();
@@ -55,7 +49,8 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     }
 
     public void onClickConfigurar(View v){
-        spinner2 = (Spinner) v.findViewById(R.id.spinner2);
+        //TODO: implementar método
+        /*spinner2 = (Spinner) v.findViewById(R.id.spinner2);
         List<String> list = new ArrayList<String>();
         list.add("list 1");
         list.add("list 2");
@@ -63,7 +58,7 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(v.getContext(),
                 android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(dataAdapter);
+        spinner2.setAdapter(dataAdapter);*/
     }
 
     protected void crearRecycledView(Programa[] contenido){

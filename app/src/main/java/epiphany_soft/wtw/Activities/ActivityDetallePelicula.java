@@ -84,7 +84,6 @@ public class ActivityDetallePelicula extends ActivityBase {
         paisTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
         TextView generoTxt=(TextView) findViewById(R.id.txtGenero);
         generoTxt.setTypeface(RobotoFont.getInstance(this).getTypeFace());
-
     }
 
     @Override
@@ -108,6 +107,7 @@ public class ActivityDetallePelicula extends ActivityBase {
         if (c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID))==Sesion.getInstance().getIdUsuario()){
             isFavorito=true;
         } else isFavorito=false;
+        llenarCalificacionPromedio(db);
         if (!nombre.equals("")) ((TextView) findViewById(R.id.txtNombrePelicula)).setText(nombre);
         else ((TextView) findViewById(R.id.txtNombrePelicula)).setText("Película sin nombre");
         if (!sinopsis.equals("")) ((TextView) findViewById(R.id.txtSinopsis)).setText(sinopsis);
@@ -118,6 +118,13 @@ public class ActivityDetallePelicula extends ActivityBase {
         else ((TextView) findViewById(R.id.txtAnioEstreno)).setText("Película sin año registrado");
         if (!pais.equals("")) ((TextView) findViewById(R.id.txtPaisOrigen)).setText(pais);
         else ((TextView) findViewById(R.id.txtPaisOrigen)).setText("Película sin país registrado");
+    }
+
+    private void llenarCalificacionPromedio(DataBaseConnection db){
+        float cal = db.consultarCalificacionPromedio(idPrograma);
+        RatingBar rb = (RatingBar)findViewById(R.id.ratingBar2);
+        rb.setRating(cal);
+        rb.setFocusable(false);
     }
 
     public void onClickActualizarPelicula(View v){
@@ -150,8 +157,10 @@ public class ActivityDetallePelicula extends ActivityBase {
                 DataBaseConnection db = new DataBaseConnection(ratingBar.getContext());
                 if (calificado) {
                     db.actualizarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma, calificacion.getRating());
+                    llenarCalificacionPromedio(db);
                 } else {
                     db.insertarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma, calificacion.getRating());
+                    llenarCalificacionPromedio(db);
                     calificado = true;
                 }
             }

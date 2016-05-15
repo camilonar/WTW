@@ -29,7 +29,7 @@ public class ActivityConsultarProgramasAgenda extends ActivityBase implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prueba);
+        setContentView(R.layout.activity_consultar_programa);
 
         // Initilization
         viewPager = (ViewPager) findViewById(R.id.pager);

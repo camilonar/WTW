@@ -123,6 +123,7 @@
         android:layout_gravity="bottom|end"
         android:onClick="onClickActualizarCapitulo"
         android:layout_margin="@dimen/activity_horizontal_margin"
+        android:adjustViewBounds="true"
         android:src="@android:drawable/ic_menu_edit" />
 
 </FrameLayout>

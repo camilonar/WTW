@@ -42,7 +42,7 @@ public class TemporadaAdapter extends RecyclerView.Adapter<TemporadaAdapter.View
         public void onClick(View v) {
             if (mTextView.getText()!="") {
                 Intent i = new Intent(v.getContext(), ActivityDetalleTemporada.class);
-                int idSerie=((ActivityDetalleSerie)v.getContext()).getIdSerie();
+                int idSerie=((ActivityDetalleSerie)v.getContext()).getIdPrograma();
                 String nombreSerie = ((ActivityDetalleSerie)v.getContext()).getNombreSerie();
                 //Se manda el nombre del programa para saber que información debe mostrarse
                 Bundle b = new Bundle();

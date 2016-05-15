@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -16,6 +15,18 @@
             android:layout_height="wrap_content"
             android:weightSum="1">
 
+            <ImageButton
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_more_vert"
+                android:id="@+id/btnConfigurar"
+                android:scaleX="0.9"
+                android:scaleY="0.7"
+                android:onClick="onClickBuscar"
+                android:textColor="@color/colorButtonText"
+                android:nestedScrollingEnabled="false" />
+
             <EditText
                 android:layout_width="223dp"
                 android:layout_height="wrap_content"
@@ -26,18 +37,20 @@
                 android:inputType="textPersonName"
                 android:layout_weight="0.90" />
 
-            <Button
+            <ImageButton
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Buscar"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_search"
                 android:id="@+id/btnBuscar"
+                android:scaleX="0.9"
+                android:scaleY="0.7"
                 android:onClick="onClickBuscar"
                 android:textColor="@color/colorButtonText"
                 android:nestedScrollingEnabled="false" />
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_consulta_serie"
+            android:id="@+id/rv_consulta_programa"
             android:scrollbars="vertical"
             android:textColor="@color/colorNormalText"
             android:layout_width="match_parent"

@@ -1,6 +1,5 @@
 package epiphany_soft.wtw.Activities;
 
-import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
@@ -69,12 +69,10 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_inicio) {
             Intent i = new Intent(this.getBaseContext(),ActivityInicioSesion.class);
@@ -151,6 +149,9 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.getMenu().clear();
             getMenuInflater().inflate(R.menu.activity_main_drawer_no_session, navigationView.getMenu());
+            //En esta parte se pone el nombre de la aplicación
+            TextView tv = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeader);
+            tv.setText(getResources().getString(R.string.app_name));
         }
     }
 
@@ -159,6 +160,9 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.getMenu().clear();
             getMenuInflater().inflate(R.menu.activity_main_drawer, navigationView.getMenu());
+            //En esta parte se pone el nombre de usuario
+            TextView tv = (TextView) navigationView.getHeaderView(0).findViewById(R.id.navHeader);
+            tv.setText(Sesion.getInstance().getNombreUsuario());
         }
     }
 

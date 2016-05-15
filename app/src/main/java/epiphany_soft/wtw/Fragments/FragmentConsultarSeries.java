@@ -1,14 +1,9 @@
 package epiphany_soft.wtw.Fragments;
 
 import android.database.Cursor;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
 
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.SerieAdapter;
@@ -22,36 +17,19 @@ import epiphany_soft.wtw.R;
 /**
  * Created by Camilo on 24/04/2016.
  */
-public class FragmentConsultarSeries extends Fragment implements View.OnClickListener{
+public class FragmentConsultarSeries extends FragmentConsultarPrograma{
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private EditText txtBuscar;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.activity_consultar_series, container, false);
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        txtBuscar = (EditText) getView().findViewById(R.id.txtBuscar);
-        getView().findViewById(R.id.btnBuscar).setOnClickListener(this);
-        llenarRecyclerOnCreate();
-        setSpecialFonts();
-    }
-
-    private void setSpecialFonts(){
+    protected void setSpecialFonts(){
         txtBuscar.setTypeface(RobotoFont.getInstance(this.getActivity()).getTypeFace());
     }
 
     private void crearRecycledView(Programa[] contenido){
-        mRecyclerView = (RecyclerView) getView().findViewById(R.id.rv_consulta_serie);
+        mRecyclerView = (RecyclerView) getView().findViewById(R.id.rv_consulta_programa);
         // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
         mRecyclerView.setHasFixedSize(true);
         // Se usa un layout manager lineal para el recycler view
@@ -63,7 +41,9 @@ public class FragmentConsultarSeries extends Fragment implements View.OnClickLis
             mRecyclerView.setAdapter(mAdapter);
         }
     }
-
+    public void onClickConfigurar(View v){
+        super.onClickConfigurar(v);
+    }
     public void onClickBuscar(View v) {
         String text = txtBuscar.getText().toString();
         //TODO: Revisar si es mejor usar v.getContext()
@@ -97,7 +77,7 @@ public class FragmentConsultarSeries extends Fragment implements View.OnClickLis
         }
     }
 
-    private void llenarRecyclerOnCreate(){
+    protected void llenarRecyclerOnCreate(){
         DataBaseConnection db=new DataBaseConnection(this.getActivity().getBaseContext());
         Cursor c;
         if (Sesion.getInstance().isActiva()){
@@ -123,12 +103,5 @@ public class FragmentConsultarSeries extends Fragment implements View.OnClickLis
             }
             this.crearRecycledView(programas);
         } else this.crearRecycledView(null);
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==R.id.btnBuscar){
-            onClickBuscar(v);
-        }
     }
 }

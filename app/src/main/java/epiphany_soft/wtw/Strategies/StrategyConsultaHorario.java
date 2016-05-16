@@ -10,7 +10,8 @@ import epiphany_soft.wtw.Fragments.FragmentConsultarPrograma;
 public class StrategyConsultaHorario implements StrategyConsulta {
     @Override
     public void prepare(FragmentConsultarPrograma context) {
-
+        context.getTxtBuscar().setText("");
+        context.getTxtBuscar().setHint("Consulte por Horario");
     }
 
     @Override

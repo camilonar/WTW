@@ -31,7 +31,7 @@
                 android:layout_width="223dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtBuscar"
-                android:hint="Introduzca un nombre"
+                android:hint="Consulte por Nombre"
                 android:textColor="@color/colorNormalText"
                 android:textColorHint="@color/colorHintText"
                 android:inputType="textPersonName"

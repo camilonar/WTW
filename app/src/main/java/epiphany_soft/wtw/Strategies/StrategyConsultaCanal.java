@@ -12,7 +12,8 @@ import epiphany_soft.wtw.Negocio.Sesion;
 public class StrategyConsultaCanal implements StrategyConsulta {
     @Override
     public void prepare(FragmentConsultarPrograma context) {
-
+        context.getTxtBuscar().setText("");
+        context.getTxtBuscar().setHint("Consulte por Canal");
     }
 
     @Override

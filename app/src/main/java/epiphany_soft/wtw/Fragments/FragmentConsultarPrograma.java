@@ -149,6 +149,7 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
         } else if (cs[i].equals("Canal")){
             strategy = new StrategyConsultaCanal();
         }
+        strategy.prepare(this);
     }
 
     protected void setSpecialFonts(){

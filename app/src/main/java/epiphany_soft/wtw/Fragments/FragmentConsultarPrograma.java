@@ -37,7 +37,7 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     protected RecyclerView.Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected EditText txtBuscar;
-    protected CharSequence[] cs = new CharSequence[]{"Nombre","Genero","Horario","Canal"};
+    protected CharSequence[] cs = new CharSequence[]{"Nombre","Genero","Canal"};
     protected StrategyConsulta strategy;
 
     protected abstract void llenarRecyclerOnCreate();
@@ -154,6 +154,11 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
     protected void setSpecialFonts(){
         txtBuscar.setTypeface(RobotoFont.getInstance(this.getActivity()).getTypeFace());
     }
+
+    public EditText getTxtBuscar(){
+        return txtBuscar;
+    }
+
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.btnBuscar){

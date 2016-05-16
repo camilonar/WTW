@@ -1,5 +1,7 @@
 package epiphany_soft.wtw.Strategies;
 
+import android.database.Cursor;
+
 import epiphany_soft.wtw.Fragments.FragmentConsultarPrograma;
 
 /**
@@ -12,8 +14,23 @@ public class StrategyConsultaHorario implements StrategyConsulta {
     }
 
     @Override
-    public void query(FragmentConsultarPrograma context) {
+    public Cursor consultarPeliculas(FragmentConsultarPrograma context) {
+        return null;
+    }
 
+    @Override
+    public Cursor consultarSeries(FragmentConsultarPrograma context) {
+        return null;
+    }
+
+    @Override
+    public Cursor consultarSeriesAgenda(FragmentConsultarPrograma context) {
+        return null;
+    }
+
+    @Override
+    public Cursor consultarPeliculasAgenda(FragmentConsultarPrograma context) {
+        return null;
     }
 
     @Override

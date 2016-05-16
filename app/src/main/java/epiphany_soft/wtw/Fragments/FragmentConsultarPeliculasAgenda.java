@@ -8,7 +8,6 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.PeliculaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Negocio.Programa;
-import epiphany_soft.wtw.Negocio.Sesion;
 
 /**
  * Created by Camilo on 24/04/2016.
@@ -17,7 +16,9 @@ public class FragmentConsultarPeliculasAgenda extends FragmentConsultarPrograma 
 
     @Override
     protected RecyclerView.Adapter createAdapter(Programa[] contenido) {
-        return new PeliculaAdapter(contenido);
+        PeliculaAdapter p = new PeliculaAdapter(contenido);
+        p.setParent("Agenda");
+        return p;
     }
 
     public void onClickBuscar(View v) {
@@ -26,26 +27,19 @@ public class FragmentConsultarPeliculasAgenda extends FragmentConsultarPrograma 
         DataBaseConnection db=new DataBaseConnection(this.getActivity().getBaseContext());
         if (!text.equals("")){
             Cursor c;
-            if (Sesion.getInstance().isActiva()){
-                c=db.consultarPeliculasDeAgenda(text, Sesion.getInstance().getIdUsuario());
-                if (c!=null) {
-                    this.crearRecycledView(llenarPrograma(c));
-                    if (c.getCount()==0) ((ActivityBase)this.getActivity()).createToast("No se encontraron resultados");
-                }
-
+            c = strategy.consultarPeliculasAgenda(this);
+            if (c!=null) {
+                this.crearRecycledView(llenarPrograma(c));
+                if (c.getCount()==0) ((ActivityBase)this.getActivity()).createToast("No se encontraron resultados");
             }
         }
     }
     protected void llenarRecyclerOnCreate() {
         DataBaseConnection db = new DataBaseConnection(this.getActivity().getBaseContext());
         Cursor c;
-        if (Sesion.getInstance().isActiva()) {
-            c = db.consultarPeliculasDeAgenda("", Sesion.getInstance().getIdUsuario());
-
-            if (c != null) {
-                this.crearRecycledView(llenarPrograma(c));
-
-            } else this.crearRecycledView(null);
-        }
+        c = strategy.consultarPeliculasAgenda(this);
+        if (c != null) {
+            this.crearRecycledView(llenarPrograma(c));
+        } else this.crearRecycledView(null);
     }
 }

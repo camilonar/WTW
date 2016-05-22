@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityDetalleCanal;
+import epiphany_soft.wtw.Activities.Canal.ActivityDetalleCanal;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Canal;
 import epiphany_soft.wtw.R;

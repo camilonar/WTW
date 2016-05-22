@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Strategies;
+package epiphany_soft.wtw.Strategies.StrategiesConsulta;
 
 import android.database.Cursor;
 

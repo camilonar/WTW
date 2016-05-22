@@ -1,10 +1,10 @@
-package epiphany_soft.wtw.Strategies;
+package epiphany_soft.wtw.Strategies.StrategiesCanal;
 
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import epiphany_soft.wtw.Activities.ActivityAsociarCanal;
+import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
 import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.Adapters.DiaAdapter;

@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Canal;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
-import epiphany_soft.wtw.Strategies.StrategyAsociarCanal;
-import epiphany_soft.wtw.Strategies.StrategyAsociarCanalPelicula;
-import epiphany_soft.wtw.Strategies.StrategyAsociarCanalSerie;
+import epiphany_soft.wtw.Strategies.StrategiesCanal.StrategyAsociarCanal;
+import epiphany_soft.wtw.Strategies.StrategiesCanal.StrategyAsociarCanalPelicula;
+import epiphany_soft.wtw.Strategies.StrategiesCanal.StrategyAsociarCanalSerie;
 
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;

@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Canal;
 
 import android.content.Intent;
 import android.database.Cursor;

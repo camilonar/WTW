@@ -13,6 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.Canal.ActivityAgregarCanal;
+import epiphany_soft.wtw.Activities.Canal.ActivityConsultarCanal;
+import epiphany_soft.wtw.Activities.Usuario.ActivityInicioSesion;
+import epiphany_soft.wtw.Activities.Usuario.ActivityModificarUsuario;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 

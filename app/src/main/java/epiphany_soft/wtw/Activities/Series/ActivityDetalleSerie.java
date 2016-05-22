@@ -14,7 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityAsociarCanal;
+import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.Activities.ActivityConsultarPrograma;
 import epiphany_soft.wtw.Activities.ActivityConsultarProgramasAgenda;
 import epiphany_soft.wtw.ActivityBase;

@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Strategies;
+package epiphany_soft.wtw.Strategies.StrategiesConsulta;
 
 import android.database.Cursor;
 
@@ -9,11 +9,11 @@ import epiphany_soft.wtw.Negocio.Sesion;
 /**
  * Created by Camilo on 14/05/2016.
  */
-public class StrategyConsultaCanal implements StrategyConsulta {
+public class StrategyConsultaNombre implements StrategyConsulta {
     @Override
     public void prepare(FragmentConsultarPrograma context) {
         context.getTxtBuscar().setText("");
-        context.getTxtBuscar().setHint("Consulte por Canal");
+        context.getTxtBuscar().setHint("Consulte por Nombre");
     }
 
     @Override
@@ -21,9 +21,9 @@ public class StrategyConsultaCanal implements StrategyConsulta {
         DataBaseConnection db=new DataBaseConnection(context.getActivity().getBaseContext());
         String text = context.getTxtBuscar().getText().toString();
         if (Sesion.getInstance().isActiva()){
-            return db.consultarPeliculasAndFavoritosPorCanal(text, Sesion.getInstance().getIdUsuario());
+            return db.consultarPeliculasAndFavoritos(text, Sesion.getInstance().getIdUsuario());
         } else {
-            return db.consultarPeliculaPorCanal(text);
+            return db.consultarPeliculaLikeNombre(text);
         }
     }
 
@@ -32,9 +32,9 @@ public class StrategyConsultaCanal implements StrategyConsulta {
         DataBaseConnection db=new DataBaseConnection(context.getActivity().getBaseContext());
         String text = context.getTxtBuscar().getText().toString();
         if (Sesion.getInstance().isActiva()){
-            return db.consultarSeriesAndFavoritosPorCanal(text, Sesion.getInstance().getIdUsuario());
+            return db.consultarSeriesAndFavoritos(text, Sesion.getInstance().getIdUsuario());
         } else {
-            return db.consultarSeriePorCanal(text);
+            return db.consultarSerieLikeNombre(text);
         }
     }
 
@@ -43,7 +43,7 @@ public class StrategyConsultaCanal implements StrategyConsulta {
         DataBaseConnection db=new DataBaseConnection(context.getActivity().getBaseContext());
         String text = context.getTxtBuscar().getText().toString();
         if (Sesion.getInstance().isActiva()){
-            return db.consultarSeriesDeAgendaPorCanal(text, Sesion.getInstance().getIdUsuario());
+            return db.consultarSeriesDeAgenda(text, Sesion.getInstance().getIdUsuario());
         }
         return null;
     }
@@ -54,13 +54,13 @@ public class StrategyConsultaCanal implements StrategyConsulta {
         DataBaseConnection db=new DataBaseConnection(context.getActivity().getBaseContext());
         String text = context.getTxtBuscar().getText().toString();
         if (Sesion.getInstance().isActiva()){
-            return db.consultarPeliculasDeAgendaPorCanal(text, Sesion.getInstance().getIdUsuario());
+            return db.consultarPeliculasDeAgenda(text, Sesion.getInstance().getIdUsuario());
         }
         return null;
     }
 
     @Override
     public String getType() {
-        return "Canal";
+        return "Nombre";
     }
 }

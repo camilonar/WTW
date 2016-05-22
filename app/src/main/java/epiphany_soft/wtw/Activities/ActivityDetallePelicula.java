@@ -205,6 +205,7 @@ public class ActivityDetallePelicula extends ActivityBase {
         Bundle b = new Bundle();
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        b.putString("Tipo","Pelicula");
         i.putExtras(b);
         startActivity(i);
     }

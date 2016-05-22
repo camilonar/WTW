@@ -128,7 +128,6 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
                 }
             }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    ((ActivityBase) getActivity()).createToast("Acción cancelada");
                     dialog.cancel();
                 }
             });

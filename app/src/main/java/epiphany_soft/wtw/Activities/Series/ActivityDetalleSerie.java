@@ -258,7 +258,6 @@ public class ActivityDetalleSerie extends ActivityBase{
     }
 
     protected void hideWhenNoSession() {
-        if (!Sesion.getInstance().isActiva()) {
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
@@ -273,11 +272,9 @@ public class ActivityDetalleSerie extends ActivityBase{
             hide(v);
             v = (View) findViewById(R.id.v2);
             hide(v);
-        }
     }
 
     protected void showWhenSession() {
-        if (Sesion.getInstance().isActiva()) {
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
@@ -292,7 +289,6 @@ public class ActivityDetalleSerie extends ActivityBase{
             show(v);
             v = (View) findViewById(R.id.v2);
             show(v);
-        }
     }
 
     public void configurarImageButton() {

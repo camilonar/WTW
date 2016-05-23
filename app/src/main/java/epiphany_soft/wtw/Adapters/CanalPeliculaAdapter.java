@@ -61,7 +61,7 @@ public class CanalPeliculaAdapter extends RecyclerView.Adapter<CanalPeliculaAdap
                                                    int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tv_canal, parent, false);
+                .inflate(R.layout.tv_canal_pelicula, parent, false);
         v.setClickable(true);
         ViewHolder vh = new ViewHolder(v);
         return vh;

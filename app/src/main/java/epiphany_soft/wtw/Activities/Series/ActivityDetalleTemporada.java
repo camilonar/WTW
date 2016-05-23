@@ -12,7 +12,6 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.CapituloAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
-import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -97,17 +96,13 @@ public class ActivityDetalleTemporada extends ActivityBase {
     }
 
     protected void hideWhenNoSession(){
-        if (!Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
-        }
     }
 
     protected void showWhenSession(){
-        if (Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
-        }
     }
 
     public int getIdSerie(){

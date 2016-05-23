@@ -3,6 +3,7 @@ package epiphany_soft.wtw.Activities;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -61,12 +62,27 @@ public class ActivityConsultarHorarioPelicula extends ActivityBase {
             String[] horarios=new String[c.getCount()];
             int i=0;
             while (c.moveToNext()){
-                horarios[i]=c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA));
+                String hora = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA));
+                horarios[i]="Fecha: ";
+                horarios[i]+=c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA));
+                horarios[i]+="     Hora: ";
+                horarios[i]+=((hora==null))? "ND":hora;
                 i++;
             }
             this.crearRecyclerViewHorarios(horarios);
         }
     }
+
+    protected void hideWhenNoSession(){
+        FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.fab);
+        hide(btn);
+    }
+
+    protected void showWhenSession(){
+        FloatingActionButton btn = (FloatingActionButton) findViewById(R.id.fab);
+        show(btn);
+    }
+
 
     private void crearRecyclerViewHorarios(String[] contenido){
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_horario);

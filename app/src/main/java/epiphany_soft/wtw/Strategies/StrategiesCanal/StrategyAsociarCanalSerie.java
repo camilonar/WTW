@@ -49,7 +49,6 @@ public class StrategyAsociarCanalSerie implements StrategyAsociarCanal {
                         DiaAdapter.ViewHolder dia = listadias.get(j);
                         if (dia.isChecked) {
                             db.insertarRelacionDiaHorario(ev.mHorario.getId(), j + 1); //(j+1) porque se almacenan los id de los dias
-
                         }
                     }
                 }
@@ -86,8 +85,8 @@ public class StrategyAsociarCanalSerie implements StrategyAsociarCanal {
                 String nombreCanal = c.getString(c.getColumnIndex(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID));
                 int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID));
                 int idRel = c.getInt(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_ID));
-                String Hora = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA));
-                horarios[i] = new Horario(idRel, nombreCanal, idPrograma, Hora);
+                String hora = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA));
+                horarios[i] = new Horario(idRel, nombreCanal, idPrograma, hora);
                 i++;
             }
             return horarios;

@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -170,11 +169,8 @@ public class ActivityDetallePelicula extends ActivityBase {
     }
 
     protected void hideWhenNoSession(){
-        if (!Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
-            Button btn = (Button) findViewById(R.id.btn_AsociarCanal);
-            hide(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             hide(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
@@ -183,15 +179,11 @@ public class ActivityDetallePelicula extends ActivityBase {
             hide(v);
             v = findViewById(R.id.v2);
             hide(v);
-        }
     }
 
     protected void showWhenSession(){
-        if (Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
-            Button btn = (Button) findViewById(R.id.btn_AsociarCanal);
-            show(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             show(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
@@ -200,7 +192,6 @@ public class ActivityDetallePelicula extends ActivityBase {
             show(v);
             v = findViewById(R.id.v2);
             show(v);
-        }
     }
 
     public void configurarImageButton(){

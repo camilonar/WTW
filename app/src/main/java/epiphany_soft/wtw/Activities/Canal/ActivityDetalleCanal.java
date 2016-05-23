@@ -19,7 +19,6 @@ import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Canal;
 import epiphany_soft.wtw.Negocio.Emisora;
-import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -114,17 +113,13 @@ public class ActivityDetalleCanal extends ActivityBase {
     }
 
     protected void hideWhenNoSession(){
-        if (!Sesion.getInstance().isActiva()){
-            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
-            hide(b);
-        }
+        FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+        hide(b);
     }
 
     protected void showWhenSession(){
-        if (Sesion.getInstance().isActiva()){
-            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
-            show(b);
-        }
+        FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+        show(b);
     }
 
 

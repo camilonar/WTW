@@ -34,6 +34,8 @@ public class DataBaseHorario {
             values.put(DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID,h.getNombreCanal());
             values.put(DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID,h.getIdPrograma());
             values.put(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA,h.getHora());
+            if (h.getFecha()!=null)
+                values.put(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA,h.getFecha());
             long rowid=db.insert(DataBaseContract.HorarioContract.TABLE_NAME, null, values);
             if (rowid>0) return true;
         }
@@ -88,6 +90,7 @@ public class DataBaseHorario {
                     "SELECT " + DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
                             DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_ID+","+
                             DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA+","+
+                            DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA+","+
                             DataBaseContract.CanalContract.TABLE_NAME+"."+ DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID+" ";
             query +=
                     "FROM " + DataBaseContract.CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
@@ -96,6 +99,33 @@ public class DataBaseHorario {
                             DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID+
                             " AND "+ DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=?";
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma)});
+            return c;
+        }
+        else return null;
+    }
+
+    public Cursor getHorariosProgramaCanal(int idPrograma,String canal){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID+","+
+                            DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_ID+","+
+                            DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA+","+
+                            DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA+","+
+                            DataBaseContract.CanalContract.TABLE_NAME+"."+ DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID+" ";
+            query +=
+                    "FROM " + DataBaseContract.CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
+                            DataBaseContract.HorarioContract.TABLE_NAME+" ON "+ DataBaseContract.CanalContract.TABLE_NAME+"."+
+                            DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID+"="+
+                            DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID+
+                            " AND "+ DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=? ";
+            query +=
+                    "WHERE "+ DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID+"=? ";
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma),canal});
             return c;
         }
         else return null;

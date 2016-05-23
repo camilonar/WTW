@@ -83,6 +83,9 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityAgregarHorarioPelicula"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ActivityConsultarHorarioPelicula"
+            android:screenOrientation="portrait"/>
+
 
     </application>
 

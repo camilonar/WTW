@@ -1,26 +1,9 @@
 package epiphany_soft.wtw.DataBase;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import java.io.IOException;
-
-import epiphany_soft.wtw.DataBase.DataBaseContract.AgendaContract;
-import epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
 import epiphany_soft.wtw.Negocio.Horario;
-
-import static epiphany_soft.wtw.DataBase.DataBaseContract.CalificacionContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaHorarioContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.EmisoraContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.EmiteContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.PeliculaContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.SerieContract;
 
 
 /**
@@ -52,23 +35,18 @@ public class DataBaseConnection {
         DBSerieCapitulo= new DataBaseSerieCapitulo(context);
         DBUsuarioInicioSesion= new DataBaseUsuarioInicioSesion(context);
         DBEmisoraEmite= new DataBaseEmisoraEmite(context);
-
     }
 
     public Cursor consultarAllGeneros(){
         return  DBGenero.consultarAllGeneros();
-
-
     }
 
     public boolean insertarGenero(String nombre){
        return  DBGenero.insertarGenero(nombre);
-
     }
 
     public Cursor getGenerosNoUsados(){
        return DBGenero.getGenerosNoUsados();
-
     }
 
     public boolean eliminarGenero(int id){
@@ -77,28 +55,23 @@ public class DataBaseConnection {
 
     public Cursor consultarPeliculaLikeNombre(String nombre){
        return DBProgramaPelicula.consultarPeliculaLikeNombre(nombre);
-
     }
     /**@param nombre es el nombre con el que se realizará la búsqueda de la película
     * @return la pelicula cuyo nombre es nombre*/
     public Cursor consultarPeliculaPorNombre(String nombre){
         return DBProgramaPelicula.consultarPeliculaPorNombre(nombre);
-
     }
 
     public int consultarId_Programa (String nombre) {
         return DBProgramaPelicula.consultarId_Programa(nombre);
-
     }
 
     public boolean insertarPrograma( int id_gen, String nombre, String sinopsis, int anio, String pais) {
         return DBProgramaPelicula.insertarPrograma(id_gen, nombre, sinopsis, anio, pais);
-
     }
 
     public boolean insertarPelicula(int  id) {
         return DBProgramaPelicula.insertarPelicula(id);
-
     }
 
     public boolean insertarSerie(int  id) {
@@ -187,6 +160,10 @@ public class DataBaseConnection {
 
     public boolean insertarHorario(Horario h){
     return  DBHorario.insertarHorario(h);
+    }
+
+    public Cursor getHorariosProgramaCanal(int idPrograma,String canal){
+        return DBHorario.getHorariosProgramaCanal(idPrograma,canal);
     }
 
     public int getHorarioId(int idPrograma, String idCanal){

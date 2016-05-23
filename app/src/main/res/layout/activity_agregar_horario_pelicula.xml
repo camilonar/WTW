@@ -134,9 +134,24 @@
 
                 </TableRow>
 
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></TableRow>
+
             </TableLayout>
         </LinearLayout>
     </ScrollView>
+
+    <Button
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+        android:gravity="center"
+       android:text="Agregar"
+       android:id="@+id/btnAgregar"
+       android:layout_gravity="center_horizontal"
+       android:onClick="onClickAgregar"
+       android:textColor="@color/colorButtonText"
+       android:enabled="true" />
 
 
 </LinearLayout>

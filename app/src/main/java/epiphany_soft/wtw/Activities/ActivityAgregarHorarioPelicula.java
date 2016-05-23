@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import epiphany_soft.wtw.ActivityBase;
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Horario;
@@ -34,14 +36,23 @@ public class ActivityAgregarHorarioPelicula extends ActivityBase implements
     private Spinner spnDia, spnMes, spnAnio;
     private Horario mHorario;
     private int currentDay, currentMonth, currentYear;
+    private int idPrograma;
+    private String idCanal;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_horario_pelicula);
+        Bundle b = getIntent().getExtras();
+        idPrograma = b.getInt(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID);
+        idCanal = b.getString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID);
         horaTxt=(EditText) findViewById(R.id.txtHora);
         spnDia = (Spinner) findViewById(R.id.spnDia);
         spnMes = (Spinner) findViewById(R.id.spnMes);
         spnAnio = (Spinner) findViewById(R.id.spnAnio);
         mHorario = new Horario();
+        mHorario.setIdPrograma(idPrograma);
+        mHorario.setNombreCanal(idCanal);
+        setTitle("AGREGAR HORARIO");
         crearSpinners();
         setSpecialFonts();
     }
@@ -56,6 +67,16 @@ public class ActivityAgregarHorarioPelicula extends ActivityBase implements
 
     public void onClickCambiarHora(View v){
         showTimePickerDialog();
+    }
+
+    public void onClickAgregar(View v){
+        mHorario.setFecha(currentDay, currentMonth, currentYear);
+        DataBaseConnection db = new DataBaseConnection(this);
+        if (db.insertarHorario(mHorario)){
+            ActivityConsultarHorarioPelicula.actualizado=true;
+            this.createToast("Horario agregado");
+            this.finish();
+        } else this.createToast("Ocurrió un error");
     }
 
     @Override

@@ -116,34 +116,13 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:id="@+id/layoutCanalRV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_gravity="center_horizontal">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_canales"
-                        android:scrollbars="vertical"
-                        android:textColor="@color/colorNormalText"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-                </LinearLayout>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp" >
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Editar"
+                    android:text="Consultar"
                     android:id="@+id/btn_AsociarCanal"
                     android:layout_gravity="center_horizontal|bottom"
                     android:onClick="onClickAsociarCanal"

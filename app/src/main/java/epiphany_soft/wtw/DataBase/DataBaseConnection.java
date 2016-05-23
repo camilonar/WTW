@@ -163,7 +163,11 @@ public class DataBaseConnection {
     }
 
     public Cursor getHorariosProgramaCanal(int idPrograma,String canal){
-        return DBHorario.getHorariosProgramaCanal(idPrograma,canal);
+        return DBHorario.getHorariosProgramaCanal(idPrograma, canal);
+    }
+
+    public Cursor getAllCanalesWithHorario(int idPrograma) {
+        return DBHorario.getAllCanalesWithHorario(idPrograma);
     }
 
     public int getHorarioId(int idPrograma, String idCanal){

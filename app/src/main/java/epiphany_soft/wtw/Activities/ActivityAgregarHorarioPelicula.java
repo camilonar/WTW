@@ -19,6 +19,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -74,6 +75,7 @@ public class ActivityAgregarHorarioPelicula extends ActivityBase implements
         DataBaseConnection db = new DataBaseConnection(this);
         if (db.insertarHorario(mHorario)){
             ActivityConsultarHorarioPelicula.actualizado=true;
+            ActivityAsociarCanal.actualizado=true;
             this.createToast("Horario agregado");
             this.finish();
         } else this.createToast("Ocurrió un error");

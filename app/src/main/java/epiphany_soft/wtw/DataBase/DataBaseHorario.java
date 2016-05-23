@@ -125,7 +125,34 @@ public class DataBaseHorario {
                             " AND "+ DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=? ";
             query +=
                     "WHERE "+ DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID+"=? ";
+            query +=
+                    "ORDER BY "+DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA+ " DESC ,"
+                    +DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA+" DESC ";
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idPrograma),canal});
+            return c;
+        }
+        else return null;
+    }
+
+    public Cursor getAllCanalesWithHorario(int idPrograma){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + "DISTINCT "+ DataBaseContract.CanalContract.TABLE_NAME+"."+ DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID+","+
+                    DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID+" ";
+            query +=
+                    "FROM " + DataBaseContract.CanalContract.TABLE_NAME + " LEFT OUTER JOIN "+
+                            DataBaseContract.HorarioContract.TABLE_NAME+" ON "+ DataBaseContract.CanalContract.TABLE_NAME+"."+
+                            DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID+"="+
+                            DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID+
+                            " AND "+ DataBaseContract.HorarioContract.TABLE_NAME+"."+ DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID + "=? ";
+            query +=
+                    "GROUP BY 1,2 ";
+            Cursor c = db.rawQuery(query,new String[]{Integer.toString(idPrograma)});
             return c;
         }
         else return null;

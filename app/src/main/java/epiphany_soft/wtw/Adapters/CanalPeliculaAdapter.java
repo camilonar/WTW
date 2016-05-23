@@ -27,12 +27,14 @@ public class CanalPeliculaAdapter extends RecyclerView.Adapter<CanalPeliculaAdap
         // each data item is just a string in this case
         public CardView mCardView;
         public TextView mTextView;
+        public View view2;
         public int idPrograma;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
+            view2 = v.findViewById(R.id.view2);
             mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
         }
 
@@ -74,6 +76,9 @@ public class CanalPeliculaAdapter extends RecyclerView.Adapter<CanalPeliculaAdap
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position].getNombreCanal());
         holder.idPrograma=idPrograma;
+        if (mDataset[position].getIdPrograma()<=0){
+            holder.view2.setVisibility(View.GONE);
+        }
 
     }
 

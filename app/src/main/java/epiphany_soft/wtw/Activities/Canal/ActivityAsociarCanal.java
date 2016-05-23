@@ -24,8 +24,8 @@ public class ActivityAsociarCanal extends ActivityBase {
     private StrategyAsociarCanal strategy;
     public String nombrePrograma;
     public int idPrograma;
-    //int id_dia;
-    //TextView txtHora;
+
+    public static boolean actualizado=false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +69,15 @@ public class ActivityAsociarCanal extends ActivityBase {
         if (contenido!=null) {
             mAdapter = strategy.createAdapter(this, contenido, idPrograma);
             mRecyclerView.setAdapter(mAdapter);
+        }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (actualizado){
+            actualizado=false;
+            this.crearRecyclerViewCanales();
         }
     }
 

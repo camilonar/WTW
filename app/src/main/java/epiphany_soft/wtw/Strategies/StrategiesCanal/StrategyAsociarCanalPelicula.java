@@ -26,13 +26,13 @@ public class StrategyAsociarCanalPelicula implements StrategyAsociarCanal {
     @Override
     public Horario[] consultarHorario(ActivityAsociarCanal context) {
         DataBaseConnection db=new DataBaseConnection(context.getBaseContext());
-        Cursor c=db.consultarCanalLikeNombre("");
+        Cursor c=db.getAllCanalesWithHorario(context.idPrograma);
         if (c != null) {
             Horario[] horarios = new Horario[c.getCount()];
             int i = 0;
             while (c.moveToNext()) {
                 String nombreCanal = c.getString(c.getColumnIndex(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID));
-                int idPrograma = -1;
+                int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID));
                 int idRel = -1;
                 String Hora = "";
                 horarios[i] = new Horario(idRel, nombreCanal, idPrograma, Hora);

@@ -14,7 +14,6 @@ import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.CanalAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
@@ -202,7 +201,7 @@ public class ActivityDetallePelicula extends ActivityBase {
 
     public void onClickAsociarCanal(View v){
 
-        Intent i = new Intent(this, ActivityAsociarCanal.class);
+        Intent i = new Intent(this,ActivityAgregarHorarioPelicula.class);
         Bundle b = new Bundle();
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);

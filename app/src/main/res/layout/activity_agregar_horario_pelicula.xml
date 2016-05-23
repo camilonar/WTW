@@ -118,15 +118,15 @@
                         android:layout_gravity="center_horizontal">
 
                         <Spinner
-                            android:layout_width="match_parent"
+                            android:layout_width="70dp"
                             android:layout_height="match_parent"
                             android:id="@+id/spnDia"></Spinner>
                         <Spinner
-                            android:layout_width="match_parent"
+                            android:layout_width="70dp"
                             android:layout_height="match_parent"
                             android:id="@+id/spnMes"></Spinner>
                         <Spinner
-                            android:layout_width="match_parent"
+                            android:layout_width="90dp"
                             android:layout_height="match_parent"
                             android:id="@+id/spnAnio"></Spinner>
 

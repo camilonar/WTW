@@ -100,10 +100,8 @@ public class ActivityDetalleCapitulo extends ActivityBase {
     }
 
     protected void hideWhenNoSession(){
-        if (!Sesion.getInstance().isActiva()){
-            FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
-            hide(b);
-        }
+        FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
+        hide(b);
     }
 
     protected void showWhenSession(){

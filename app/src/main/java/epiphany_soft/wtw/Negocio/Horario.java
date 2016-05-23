@@ -1,5 +1,9 @@
 package epiphany_soft.wtw.Negocio;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by Camilo on 11/04/2016.
  */
@@ -9,9 +13,24 @@ public class Horario {
     private String nombreCanal;
     private Integer idPrograma;
     private String Hora;
+    private String fecha;
 
     public Horario(){
 
+    }
+
+    public void setFecha(int dia, int mes, int anio){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.getDefault());
+        Date date = new Date();
+        date.setDate(dia);
+        date.setMonth(mes-1);
+        date.setYear(anio-1900);
+        fecha = dateFormat.format(date);
+    }
+
+    public String getFecha(){
+        return fecha;
     }
 
     public Horario(Integer id, String nombre, Integer idPrograma,String hora){

@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Usuario;
 
 import android.content.Context;
 import android.content.Intent;

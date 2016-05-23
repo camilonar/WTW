@@ -14,7 +14,7 @@ import android.widget.RatingBar;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.ActivityAsociarCanal;
+import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.Activities.ActivityConsultarPrograma;
 import epiphany_soft.wtw.Activities.ActivityConsultarProgramasAgenda;
 import epiphany_soft.wtw.ActivityBase;
@@ -224,6 +224,7 @@ public class ActivityDetalleSerie extends ActivityBase{
         Bundle b = new Bundle();
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        b.putString("Tipo","Serie");
         i.putExtras(b);
         startActivity(i);
     }
@@ -257,7 +258,6 @@ public class ActivityDetalleSerie extends ActivityBase{
     }
 
     protected void hideWhenNoSession() {
-        if (!Sesion.getInstance().isActiva()) {
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
@@ -272,11 +272,9 @@ public class ActivityDetalleSerie extends ActivityBase{
             hide(v);
             v = (View) findViewById(R.id.v2);
             hide(v);
-        }
     }
 
     protected void showWhenSession() {
-        if (Sesion.getInstance().isActiva()) {
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
             Button btn = (Button) findViewById(R.id.btn_AgregarTemporada);
@@ -291,7 +289,6 @@ public class ActivityDetalleSerie extends ActivityBase{
             show(v);
             v = (View) findViewById(R.id.v2);
             show(v);
-        }
     }
 
     public void configurarImageButton() {

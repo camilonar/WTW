@@ -102,40 +102,6 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
             if (v.getId() == R.id.btnCambiarHora) {
                 showTimePickerDialog(v);
             }
-
-
-/*
-            if (v.getId()==R.id.textCardCK) {
-               // boolean success;
-               // DataBaseConnection db = new DataBaseConnection(v.getContext());
-                if (mHorario.getId() != 0) {
-                   // success = db.eliminarHorario(mHorario.getId());
-                   // if (success) {
-                        ck.setChecked(false);
-                       mLayout.setVisibility(View.GONE);
-                        //mHorario.setId(0);
-                       // mHorario.setIdPrograma(0);
-                      //  ActivityDetalleSerie.actualizado = true;
-                       // ActivityDetallePelicula.actualizado = true;
-                   // }
-                }
-            else {
-                  //  mHorario.setIdPrograma(idPrograma);
-                    //success = db.insertarHorario(mHorario);
-                   // if (success) {
-                      //  ck.setChecked(true);
-                      //  mHorario.setId(db.getHorarioId(mHorario.getIdPrograma(), mHorario.getNombreCanal()));
-                        mLayout.setVisibility(View.VISIBLE);
-                       // ActivityDetalleSerie.actualizado = true;
-                       // ActivityDetallePelicula.actualizado = true;
-                    }
-                }
-           //}
-        else if (v.getId()==R.id.btnCambiarHora){
-                showTimePickerDialog(v);
-            }
-
-            */
         }
 
         private void crearRecyclerViewDias() {
@@ -196,7 +162,7 @@ public class HorarioAdapter extends RecyclerView.Adapter<HorarioAdapter.ViewHold
         @Override
         //Este se activa cuando se fija la hora en el reloj
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            String text =Integer.toString(hourOfDay)+":"+Integer.toString(minute);
+            String text =Integer.toString(hourOfDay)+":"+((minute < 10)? 0 + Integer.toString(minute):Integer.toString(minute));
            // esto le agregamos para la hora
             horaTxt.setText(text);
             mHorario.setHora(text);

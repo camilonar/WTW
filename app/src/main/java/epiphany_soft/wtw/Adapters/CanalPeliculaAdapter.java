@@ -1,6 +1,7 @@
 package epiphany_soft.wtw.Adapters;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,14 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Activities.Canal.ActivityDetalleCanal;
+import epiphany_soft.wtw.Activities.ActivityConsultarHorarioPelicula;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
-import epiphany_soft.wtw.Negocio.Canal;
+import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
-public class CanalAdapter extends RecyclerView.Adapter<CanalAdapter.ViewHolder> {
-    private String[] mDataset;
+public class CanalPeliculaAdapter extends RecyclerView.Adapter<CanalPeliculaAdapter.ViewHolder> {
+    private Horario[] mDataset;
+    private int idPrograma;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -24,6 +27,7 @@ public class CanalAdapter extends RecyclerView.Adapter<CanalAdapter.ViewHolder> 
         // each data item is just a string in this case
         public CardView mCardView;
         public TextView mTextView;
+        public int idPrograma;
         public ViewHolder(View v) {
             super(v);
             v.setOnClickListener(this);
@@ -35,26 +39,29 @@ public class CanalAdapter extends RecyclerView.Adapter<CanalAdapter.ViewHolder> 
         @Override
         public void onClick(View v) {
             if (mTextView.getText()!="") {
-                Intent i = new Intent(v.getContext(), ActivityDetalleCanal.class);
-                //Se manda el nombre del programa para saber que información debe mostrarse
-                Canal.getInstance().setNombreCanal(this.mTextView.getText().toString());
+                Intent i = new Intent(v.getContext(), ActivityConsultarHorarioPelicula.class);
+                Bundle b = new Bundle();
+                b.putInt(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
+                b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID, mTextView.getText().toString());
+                b.putString("Tipo","Pelicula");
+                i.putExtras(b);
                 v.getContext().startActivity(i);
             }
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public CanalAdapter(String[] myDataset) {
+    public CanalPeliculaAdapter(Horario[] myDataset, int idPrograma) {
         mDataset = myDataset;
+        this.idPrograma = idPrograma;
     }
-
     // Create new views (invoked by the layout manager)
     @Override
-    public CanalAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public CanalPeliculaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                    int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.tv_canal, parent, false);
+                .inflate(R.layout.tv_canal_pelicula, parent, false);
         v.setClickable(true);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -65,7 +72,8 @@ public class CanalAdapter extends RecyclerView.Adapter<CanalAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
+        holder.mTextView.setText(mDataset[position].getNombreCanal());
+        holder.idPrograma=idPrograma;
 
     }
 

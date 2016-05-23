@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Canal;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
 import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.EmisoraActualizarAdapter;

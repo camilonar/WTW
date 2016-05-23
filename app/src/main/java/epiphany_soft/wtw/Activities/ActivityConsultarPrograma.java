@@ -74,11 +74,12 @@ public class ActivityConsultarPrograma extends ActivityBase implements
         // on tab selected
         // show respected fragment view
         viewPager.setCurrentItem(tab.getPosition());
+        actionBar.getSelectedTab().setText("*"+tabs[actionBar.getSelectedNavigationIndex()]);
     }
 
     @Override
     public void onTabUnselected(android.support.v7.app.ActionBar.Tab tab, android.support.v4.app.FragmentTransaction ft) {
-
+        actionBar.getSelectedTab().setText(tabs[actionBar.getSelectedNavigationIndex()]);
     }
 
     @Override

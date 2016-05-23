@@ -104,6 +104,7 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_PROGRAMA_ID = "Pro_Identificador";
         public static final String COLUMN_NAME_CANAL_ID = "Can_Nombre";
         public static final String COLUMN_NAME_RELACION_HORA = "Rel_Hora";
+        public static final String COLUMN_NAME_RELACION_FECHA = "Rel_Fecha";
     }
 
     public static abstract class DiaHorarioContract implements BaseColumns {

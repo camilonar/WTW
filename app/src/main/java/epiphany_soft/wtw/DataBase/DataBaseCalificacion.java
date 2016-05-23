@@ -12,12 +12,8 @@ public class DataBaseCalificacion {
 
     DataBaseHelper miDBHelper;
 
-
-
     public DataBaseCalificacion(Context context) {
-
         miDBHelper = new DataBaseHelper(context);
-
     }
 
 

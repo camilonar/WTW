@@ -1,4 +1,4 @@
-package epiphany_soft.wtw.Activities;
+package epiphany_soft.wtw.Activities.Usuario;
 
 import android.os.Bundle;
 import android.view.View;

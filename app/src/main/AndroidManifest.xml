@@ -53,34 +53,39 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
 
-        <activity android:name=".Activities.ActivityInicioSesion"
+        <activity android:name=".Activities.Usuario.ActivityInicioSesion"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.ActivityModificarUsuario"
+        <activity android:name=".Activities.Usuario.ActivityModificarUsuario"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".Activities.ActivityAgregarUsuario"
+        <activity android:name=".Activities.Usuario.ActivityAgregarUsuario"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
 
-        <activity android:name=".Activities.ActivityAgregarCanal"
+        <activity android:name=".Activities.Canal.ActivityAgregarCanal"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible"/>
 
-        <activity android:name=".Activities.ActivityDetalleCanal"
+        <activity android:name=".Activities.Canal.ActivityDetalleCanal"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"/>/>
 
-        <activity android:name=".Activities.ActivityConsultarCanal"
+        <activity android:name=".Activities.Canal.ActivityConsultarCanal"
         android:screenOrientation="portrait" />
 
-        <activity android:name=".Activities.ActivityAsociarCanal"
+        <activity android:name=".Activities.Canal.ActivityAsociarCanal"
             android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.ActivityActualizarCanal"
+        <activity android:name=".Activities.Canal.ActivityActualizarCanal"
             android:screenOrientation="portrait"/>
 
         <activity android:name=".Activities.ActivityConsultarProgramasAgenda"
             android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ActivityAgregarHorarioPelicula"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ActivityConsultarHorarioPelicula"
+            android:screenOrientation="portrait"/>
+
 
     </application>
 

@@ -4,18 +4,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.TableRow;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.ActivityBase;
-import epiphany_soft.wtw.Adapters.CanalAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.RobotoFont;
@@ -30,10 +25,6 @@ import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
  * Created by Camilo on 26/03/2016.
  */
 public class ActivityDetallePelicula extends ActivityBase {
-
-    private RecyclerView recyclerViewCanal;
-    private RecyclerView.Adapter adapterCanal;
-    private RecyclerView.LayoutManager layoutManagerCanal;
 
     private String nombre,sinopsis,genero,pais;
     private int anio,idPrograma;
@@ -53,7 +44,6 @@ public class ActivityDetallePelicula extends ActivityBase {
         setTitle(nombrePelicula);
         this.llenarInfo(nombrePelicula);
         this.configurarRatingBar();
-        this.crearRecyclerViewCanales();
         this.configurarImageButton();
         this.setSpecialFonts();
     }
@@ -142,7 +132,7 @@ public class ActivityDetallePelicula extends ActivityBase {
     private void configurarRatingBar(){
         final RatingBar calificacion = (RatingBar) findViewById(R.id.ratingBar);
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarCalificacion(Sesion.getInstance().getIdUsuario(),idPrograma);
+        Cursor c=db.consultarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma);
         calificado=false;
         if (c!=null && c.getCount()==1){
             c.moveToNext();
@@ -167,54 +157,20 @@ public class ActivityDetallePelicula extends ActivityBase {
         });
     }
 
-    private void crearRecyclerViewCanales(){
-        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarCanalesDePrograma(idPrograma);
-        if (c!=null) {
-            String[] canales=new String[c.getCount()];
-            int i=0;
-            while (c.moveToNext()){
-                canales[i]=c.getString(c.getColumnIndex(DataBaseContract.EmiteContract.COLUMN_NAME_CANAL_ID));
-                i++;
-            }
-            this.crearRecyclerViewCanales(canales);
-        }
-    }
-
-    private void crearRecyclerViewCanales(String[] contenido){
-        LinearLayout layoutRV = (LinearLayout) findViewById(R.id.layoutCanalRV);
-        Float height = getResources().getDimension(R.dimen.size_canal)*(contenido.length);
-        TableRow.LayoutParams params = new TableRow.LayoutParams(200, height.intValue());
-        layoutRV.setLayoutParams(params);
-        recyclerViewCanal = (RecyclerView) findViewById(R.id.rv_canales);
-        // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
-        recyclerViewCanal.setHasFixedSize(false);
-        // Se usa un layout manager lineal para el recycler view
-        layoutManagerCanal = new LinearLayoutManager(this);
-        recyclerViewCanal.setLayoutManager(layoutManagerCanal);
-        // Se especifica el adaptador
-        if (contenido!=null) {
-            adapterCanal = new CanalAdapter(contenido);
-            recyclerViewCanal.setAdapter(adapterCanal);
-        }
-    }
-
     public void onClickAsociarCanal(View v){
 
-        Intent i = new Intent(this, ActivityAsociarCanal.class);
+        Intent i = new Intent(this,ActivityAsociarCanal.class);
         Bundle b = new Bundle();
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
+        b.putString("Tipo","Pelicula");
         i.putExtras(b);
         startActivity(i);
     }
 
     protected void hideWhenNoSession(){
-        if (!Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             hide(b);
-            Button btn = (Button) findViewById(R.id.btn_AsociarCanal);
-            hide(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             hide(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
@@ -223,15 +179,11 @@ public class ActivityDetallePelicula extends ActivityBase {
             hide(v);
             v = findViewById(R.id.v2);
             hide(v);
-        }
     }
 
     protected void showWhenSession(){
-        if (Sesion.getInstance().isActiva()){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);
             show(b);
-            Button btn = (Button) findViewById(R.id.btn_AsociarCanal);
-            show(btn);
             RatingBar rb = (RatingBar) findViewById(R.id.ratingBar);
             show(rb);
             TextView txt = (TextView) findViewById(R.id.lblCalificacion);
@@ -240,7 +192,6 @@ public class ActivityDetallePelicula extends ActivityBase {
             show(v);
             v = findViewById(R.id.v2);
             show(v);
-        }
     }
 
     public void configurarImageButton(){

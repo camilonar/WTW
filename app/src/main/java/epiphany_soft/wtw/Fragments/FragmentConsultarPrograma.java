@@ -22,11 +22,11 @@ import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Programa;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
-import epiphany_soft.wtw.Strategies.StrategyConsulta;
-import epiphany_soft.wtw.Strategies.StrategyConsultaCanal;
-import epiphany_soft.wtw.Strategies.StrategyConsultaGenero;
-import epiphany_soft.wtw.Strategies.StrategyConsultaHorario;
-import epiphany_soft.wtw.Strategies.StrategyConsultaNombre;
+import epiphany_soft.wtw.Strategies.StrategiesConsulta.StrategyConsulta;
+import epiphany_soft.wtw.Strategies.StrategiesConsulta.StrategyConsultaCanal;
+import epiphany_soft.wtw.Strategies.StrategiesConsulta.StrategyConsultaGenero;
+import epiphany_soft.wtw.Strategies.StrategiesConsulta.StrategyConsultaHorario;
+import epiphany_soft.wtw.Strategies.StrategiesConsulta.StrategyConsultaNombre;
 
 /**
  * Created by Camilo on 14/05/2016.
@@ -128,7 +128,6 @@ public abstract class FragmentConsultarPrograma extends Fragment implements View
                 }
             }).setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    ((ActivityBase) getActivity()).createToast("Acción cancelada");
                     dialog.cancel();
                 }
             });

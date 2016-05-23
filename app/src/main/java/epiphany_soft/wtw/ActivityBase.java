@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import epiphany_soft.wtw.Negocio.Sesion;
+
 /**
  * Created by Camilo on 2/04/2016.
  */
@@ -48,8 +50,9 @@ public abstract class ActivityBase extends AppCompatActivity{
      */
     public void onResume(){
         super.onResume();
-        hideWhenNoSession();
-        showWhenSession();
+        if (!Sesion.getInstance().isActiva())
+            hideWhenNoSession();
+        else showWhenSession();
     }
 
     protected void hideWhenNoSession(){}

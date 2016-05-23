@@ -1,5 +1,6 @@
 package epiphany_soft.wtw.Strategies.StrategiesCanal;
 
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.Adapters.DiaAdapter;
 import epiphany_soft.wtw.Adapters.HorarioAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Negocio.Horario;
 
 /**
@@ -71,5 +73,25 @@ public class StrategyAsociarCanalSerie implements StrategyAsociarCanal {
     @Override
     public RecyclerView.Adapter createAdapter(ActivityAsociarCanal context, Horario[] contenido, int idPrograma) {
         return new HorarioAdapter(context,contenido,idPrograma);
+    }
+
+    @Override
+    public Horario[] consultarHorario(ActivityAsociarCanal context) {
+        DataBaseConnection db = new DataBaseConnection(context.getBaseContext());
+        Cursor c = db.getHorariosPrograma(context.idPrograma);
+        if (c != null) {
+            Horario[] horarios = new Horario[c.getCount()];
+            int i = 0;
+            while (c.moveToNext()) {
+                String nombreCanal = c.getString(c.getColumnIndex(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID));
+                int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_PROGRAMA_ID));
+                int idRel = c.getInt(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_ID));
+                String Hora = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA));
+                horarios[i] = new Horario(idRel, nombreCanal, idPrograma, Hora);
+                i++;
+            }
+            return horarios;
+        }
+        return null;
     }
 }

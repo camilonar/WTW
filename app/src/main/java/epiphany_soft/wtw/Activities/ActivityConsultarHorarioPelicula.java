@@ -22,8 +22,8 @@ public class ActivityConsultarHorarioPelicula extends ActivityBase {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
-    private int idPrograma, idCanal;
-    private String nombre;
+    private int idPrograma;
+    private String nombreCanal;
 
     public static boolean actualizado = false;
 
@@ -32,8 +32,8 @@ public class ActivityConsultarHorarioPelicula extends ActivityBase {
         setContentView(R.layout.activity_consultar_horario_pelicula);
         Bundle b = getIntent().getExtras();
         idPrograma = b.getInt(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID);
-        nombre = b.getString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE);
-        setTitle("HORARIOS DE "+nombre);
+        nombreCanal = b.getString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID);
+        setTitle("HORARIOS");
         crearRecyclerViewHorarios();
     }
     @Override
@@ -49,15 +49,14 @@ public class ActivityConsultarHorarioPelicula extends ActivityBase {
         Intent i = new Intent(this,ActivityAgregarHorarioPelicula.class);
         Bundle b = new Bundle();
         b.putInt(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
-        b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);
-        b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID,"ABC");
+        b.putString(DataBaseContract.CanalContract.COLUMN_NAME_CANAL_ID,nombreCanal);
         i.putExtras(b);
         startActivity(i);
     }
 
     private void crearRecyclerViewHorarios(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.getHorariosProgramaCanal(idPrograma, "ABC");
+        Cursor c=db.getHorariosProgramaCanal(idPrograma, nombreCanal);
         if (c!=null) {
             String[] horarios=new String[c.getCount()];
             int i=0;

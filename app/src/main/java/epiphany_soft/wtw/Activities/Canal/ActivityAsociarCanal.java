@@ -1,22 +1,17 @@
 package epiphany_soft.wtw.Activities.Canal;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import epiphany_soft.wtw.ActivityBase;
-import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
 import epiphany_soft.wtw.Negocio.Horario;
 import epiphany_soft.wtw.R;
 import epiphany_soft.wtw.Strategies.StrategiesCanal.StrategyAsociarCanal;
 import epiphany_soft.wtw.Strategies.StrategiesCanal.StrategyAsociarCanalPelicula;
 import epiphany_soft.wtw.Strategies.StrategiesCanal.StrategyAsociarCanalSerie;
-
-import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
 
 /**
  * Created by Camilo on 15/04/2016.
@@ -27,8 +22,8 @@ public class ActivityAsociarCanal extends ActivityBase {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private StrategyAsociarCanal strategy;
-    String nombrePrograma;
-    int idPrograma;
+    public String nombrePrograma;
+    public int idPrograma;
     //int id_dia;
     //TextView txtHora;
 
@@ -53,28 +48,17 @@ public class ActivityAsociarCanal extends ActivityBase {
     }
 
     public void setStrategy(String tipo){
-        if (tipo.equals("Pelicula"))
+        if (tipo.equals("Pelicula")) {
             this.strategy = new StrategyAsociarCanalPelicula();
+            findViewById(R.id.fab).setVisibility(View.GONE);
+        }
         else if (tipo.equals("Serie"))
             this.strategy = new StrategyAsociarCanalSerie();
     }
 
     private void crearRecyclerViewCanales(){
-        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.getHorariosPrograma(idPrograma);
-        if (c!=null) {
-            Horario[] horarios=new Horario[c.getCount()];
-            int i=0;
-            while (c.moveToNext()) {
-                String nombreCanal = c.getString(c.getColumnIndex(CanalContract.COLUMN_NAME_CANAL_ID));
-                int idPrograma = c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_PROGRAMA_ID));
-                int idRel = c.getInt(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_ID));
-                String Hora = c.getString(c.getColumnIndex(HorarioContract.COLUMN_NAME_RELACION_HORA));
-                horarios[i] = new Horario(idRel,nombreCanal,idPrograma, Hora);
-                i++;
-            }
-            this.crearRecyclerViewCanales(horarios);
-        } else this.crearRecyclerViewCanales(null);
+        Horario[] horarios = strategy.consultarHorario(this);
+        this.crearRecyclerViewCanales(horarios);
     }
 
     private void crearRecyclerViewCanales(Horario[] contenido){
@@ -85,7 +69,6 @@ public class ActivityAsociarCanal extends ActivityBase {
         if (contenido!=null) {
             mAdapter = strategy.createAdapter(this, contenido, idPrograma);
             mRecyclerView.setAdapter(mAdapter);
-
         }
     }
 

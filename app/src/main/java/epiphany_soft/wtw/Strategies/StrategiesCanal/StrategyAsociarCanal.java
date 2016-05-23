@@ -10,4 +10,5 @@ import epiphany_soft.wtw.Negocio.Horario;
  */public interface StrategyAsociarCanal {
     public boolean registrarInfoHorario(ActivityAsociarCanal context);
     public RecyclerView.Adapter createAdapter(ActivityAsociarCanal context, Horario[] contenido, int idPrograma);
+    public Horario[] consultarHorario(ActivityAsociarCanal context);
 }

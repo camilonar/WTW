@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -132,7 +133,7 @@ public class ActivityDetallePelicula extends ActivityBase {
     private void configurarRatingBar(){
         final RatingBar calificacion = (RatingBar) findViewById(R.id.ratingBar);
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
-        Cursor c=db.consultarCalificacion(Sesion.getInstance().getIdUsuario(),idPrograma);
+        Cursor c=db.consultarCalificacion(Sesion.getInstance().getIdUsuario(), idPrograma);
         calificado=false;
         if (c!=null && c.getCount()==1){
             c.moveToNext();
@@ -159,7 +160,7 @@ public class ActivityDetallePelicula extends ActivityBase {
 
     public void onClickAsociarCanal(View v){
 
-        Intent i = new Intent(this,ActivityConsultarHorarioPelicula.class);
+        Intent i = new Intent(this,ActivityAsociarCanal.class);
         Bundle b = new Bundle();
         b.putInt(ProgramaContract.COLUMN_NAME_PROGRAMA_ID, idPrograma);
         b.putString(ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, nombre);

@@ -13,4 +13,7 @@
     <color name="colorLine">#c0c0c0</color>
     <color name="colorButtonSelected">#b0ca8b</color>
     <color name="colorButtonUnselected">#ffffff</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="tab_highlight">#7bcab1</color>
 </resources>

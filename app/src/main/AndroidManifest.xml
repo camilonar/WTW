@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.ActivityConsultarPrograma"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity android:name=".Activities.ActivityDetallePelicula"
             android:screenOrientation="portrait"/>
         <activity android:name=".Activities.ActivityAgregarGenero"

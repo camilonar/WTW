@@ -7,6 +7,13 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:actionBarTabStyle">@style/AppTheme.Tab</item>
+        <item name="actionBarTabStyle">@style/AppTheme.Tab</item>
+        <!--<item name="android:actionBarTabTextStyle"> Poner aquí el estilo del texto de la barra </item>-->
+    </style>
+
+    <style name="AppTheme.Tab">
+        <item name="android:background">@drawable/tab_bar_background</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import epiphany_soft.wtw.ActivityBase;
-import epiphany_soft.wtw.Adapters.CanalAdapter;
+import epiphany_soft.wtw.Adapters.FechaAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.R;
@@ -93,7 +93,7 @@ public class ActivityConsultarHorarioPelicula extends ActivityBase {
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Se especifica el adaptador
         if (contenido!=null) {
-            mAdapter = new CanalAdapter(contenido);
+            mAdapter = new FechaAdapter(contenido);
             mRecyclerView.setAdapter(mAdapter);
         }
     }

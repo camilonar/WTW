@@ -12,6 +12,8 @@ import epiphany_soft.wtw.ActivityBase;
 import epiphany_soft.wtw.Adapters.CapituloAdapter;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
+import epiphany_soft.wtw.Negocio.Capitulo;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 /**
@@ -22,6 +24,7 @@ public class ActivityDetalleTemporada extends ActivityBase {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    public Capitulo miCapitulo;
 
     int idSerie, idTemporada;
     String nombreSerie;
@@ -45,7 +48,7 @@ public class ActivityDetalleTemporada extends ActivityBase {
     private void setTitlePersonalizado(){
         String numTemp = Integer.toString(idTemporada);
         if (numTemp.length()==1) numTemp = "0"+numTemp;
-        setTitle(nombreSerie + "-T" + numTemp +": Capítulos");
+        setTitle(nombreSerie + "-T" + numTemp + ": Capítulos");
     }
 
     @Override
@@ -64,7 +67,7 @@ public class ActivityDetalleTemporada extends ActivityBase {
         i.putExtras(b);
         startActivity(i);
     }
-
+/*
     private void crearRecycledViewCapitulos(){
         DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
         Cursor c=db.consultarCapitulosPorTemporada(idTemporada,idSerie);
@@ -90,10 +93,56 @@ public class ActivityDetalleTemporada extends ActivityBase {
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Se especifica el adaptador
         if (numCapitulos!=null && nombreCapitulos!=null) {
+
             mAdapter = new CapituloAdapter(numCapitulos,nombreCapitulos);
+
             mRecyclerView.setAdapter(mAdapter);
         }
     }
+    */
+
+
+    private void crearRecycledViewCapitulos(){
+        DataBaseConnection db=new DataBaseConnection(this.getBaseContext());
+        Cursor c;
+        if (Sesion.getInstance().isActiva())
+            c=db.consultarCapitulosVistos(idTemporada, idSerie);
+        else
+            c=db.consultarCapitulosPorTemporada(idTemporada, idSerie);
+        if (c!=null) {
+            Capitulo[] InfoCap=new Capitulo[c.getCount()];
+            int i=0;
+            while (c.moveToNext()){
+                String nombre =c.getString(c.getColumnIndex(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_NOMBRE));
+                int capitulo_id =c.getInt(c.getColumnIndex(DataBaseContract.CapituloContract.COLUMN_NAME_CAPITULO_ID));
+                InfoCap[i]= new Capitulo (capitulo_id, nombre );
+                if (Sesion.getInstance().isActiva() &&
+                        c.getInt(c.getColumnIndex(DataBaseContract.CapitulosVistosContract.COLUMN_NAME_USUARIO_ID))>0)
+                    InfoCap[i].setCapitulo_visto(true);
+                i++;
+            }
+            this.crearRecycledViewCapitulos(InfoCap);
+        }
+    }
+
+
+    private void crearRecycledViewCapitulos(Capitulo[] contenido){
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_consultar_capitulo);
+        // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
+        mRecyclerView.setHasFixedSize(true);
+        // Se usa un layout manager lineal para el recycler view
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // Se especifica el adaptador
+        if (contenido!=null) {
+            mAdapter = new CapituloAdapter(contenido);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+    }
+
+
+
+
 
     protected void hideWhenNoSession(){
             FloatingActionButton b = (FloatingActionButton) findViewById(R.id.fab);

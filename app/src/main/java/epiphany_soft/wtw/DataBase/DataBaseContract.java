@@ -119,4 +119,14 @@ public final class DataBaseContract {
         public static final String COLUMN_NAME_ID_DIA = "Id_Dia";
 
     }
+    public static abstract class CapitulosVistosContract implements BaseColumns {
+        public static final String TABLE_NAME = "UsuarioCapitulo";
+        public static final String COLUMN_NAME_USUARIO_ID = "Usu_Identificador";
+        public static final String COLUMN_NAME_CAPITULO_ID = "Cap_Identificador";
+        public static final String COLUMN_NAME_TEMPORADA_ID = "Tem_Identificador";
+        public static final String COLUMN_NAME_SERIE_ID = "Ser_Id";
+    }
+
+
+
 }

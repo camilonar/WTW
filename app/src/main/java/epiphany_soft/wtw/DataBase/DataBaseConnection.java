@@ -321,4 +321,18 @@ public class DataBaseConnection {
     return  DBAgenda.consultarPeliculasDeAgendaPorCanal(canal, idUsuario);
     }
 
+    public boolean insertarCapituloVisto(int idUsuario, int idCapitulo, int idTemporada, int IdSerie){
+        return  DBAgenda.insertarCapituloVisto(idUsuario, idCapitulo, idTemporada, IdSerie);
+    }
+
+
+    public boolean eliminarCapituloVisto(int idUsuario, int idCapitulo, int idTemporada, int IdSerie){
+        return  DBAgenda.eliminarCapituloVisto(idUsuario, idCapitulo, idTemporada, IdSerie);
+    }
+
+
+    public Cursor consultarCapitulosVistos(int idTemporada, int idSerie){
+        return DBSerieCapitulo.consultarCapitulosVistos(idTemporada, idSerie);
+    }
+
 }

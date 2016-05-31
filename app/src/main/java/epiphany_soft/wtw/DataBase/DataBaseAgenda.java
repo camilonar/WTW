@@ -307,6 +307,45 @@ public class DataBaseAgenda {
         else return null;
     }
 
+    public boolean insertarCapituloVisto(int idUsuario, int idCapitulo, int idTemporada, int IdSerie){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(DataBaseContract.CapitulosVistosContract.COLUMN_NAME_USUARIO_ID, idUsuario);
+            values.put(DataBaseContract.CapitulosVistosContract.COLUMN_NAME_CAPITULO_ID, idCapitulo);
+            values.put(DataBaseContract.CapitulosVistosContract.COLUMN_NAME_TEMPORADA_ID, idTemporada);
+            values.put(DataBaseContract.CapitulosVistosContract.COLUMN_NAME_SERIE_ID, IdSerie);
+            long rowid=db.insert(DataBaseContract.CapitulosVistosContract.TABLE_NAME, null, values);
+            if (rowid>0) return true;
+        }
+        return false;
+    }
+
+
+    public boolean eliminarCapituloVisto(int idUsuario, int idCapitulo, int idTemporada, int IdSerie){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getWritableDatabase();
+            String query= DataBaseContract.CapitulosVistosContract.COLUMN_NAME_USUARIO_ID+"=? AND "+
+                    DataBaseContract.CapitulosVistosContract.COLUMN_NAME_CAPITULO_ID+"=? AND "+
+                    DataBaseContract.CapitulosVistosContract.COLUMN_NAME_TEMPORADA_ID+"=? AND "+
+                    DataBaseContract.CapitulosVistosContract.COLUMN_NAME_SERIE_ID+"=?";
+            int numDel=db.delete(DataBaseContract.CapitulosVistosContract.TABLE_NAME, query, new String[]{Integer.toString(idUsuario), Integer.toString(idCapitulo), Integer.toString(idTemporada), Integer.toString(IdSerie)});
+            if (numDel>0) return true;
+        }
+        return false;
+    }
+
+
+
+
 
 
 }

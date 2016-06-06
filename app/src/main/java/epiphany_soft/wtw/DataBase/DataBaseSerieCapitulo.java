@@ -116,7 +116,9 @@ public class DataBaseSerieCapitulo {
                             ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
                             ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
                             ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + " ";
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + "," +
+                            HorarioContract.COLUMN_NAME_RELACION_HORA + "," +
+                            HorarioContract.COLUMN_NAME_CANAL_ID + " ";
             query +=
                     "FROM " + DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
                             HorarioContract.TABLE_NAME+" NATURAL JOIN "+
@@ -126,6 +128,8 @@ public class DataBaseSerieCapitulo {
                             + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
             query +=
                     "WHERE " + DiaHorarioContract.COLUMN_NAME_DIA_ID + "=?";
+            query +=
+                    "ORDER BY "+ HorarioContract.COLUMN_NAME_RELACION_HORA + " ASC ";
             Cursor c = db.rawQuery(query, new String[]{Integer.toString(idDia)});
             return c;
         }

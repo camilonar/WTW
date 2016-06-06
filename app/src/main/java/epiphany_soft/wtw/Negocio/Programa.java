@@ -12,6 +12,9 @@ public class Programa {
     private String pais;
     private boolean favorito;
 
+    private String canal;
+    private String hora;
+
     public Programa(){
         idPrograma=-1;
         nombre=null;
@@ -19,6 +22,24 @@ public class Programa {
         anioEstreno=-1;
         pais=null;
         favorito=false;
+        canal=null;
+        hora=null;
+    }
+
+    public String getCanal() {
+        return canal;
+    }
+
+    public void setCanal(String canal) {
+        this.canal = canal;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public int getIdPrograma() {

@@ -65,20 +65,24 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
                     programas[i] = new Programa();
                     String nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
                     int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+                    String nombreCanal = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID));
+                    String hora = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA));
                    /* if (Sesion.getInstance().isActiva()) {
                         boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID)) != 0;
                         programas[i].setFavorito(isFavorito);
                     }*/
                     programas[i].setNombre(nombre);
                     programas[i].setIdPrograma(idPrograma);
+                    programas[i].setHora(hora);
+                    programas[i].setCanal(nombreCanal);
                     i++;
                 }
                 Float height = this.c.getResources().getDimension(R.dimen.size_programa) * (programas.length);
-                TableRow.LayoutParams params = new TableRow.LayoutParams(1200, height.intValue());
+                TableRow.LayoutParams params = new TableRow.LayoutParams(1030, height.intValue());
                 mLayout.setLayoutParams(params);
 
                 if (programas != null) {
-                    mAdapter = new SerieAdapter(programas); // se le pasa el dia
+                    mAdapter = new ProgramaAgendaAdapter(programas); // se le pasa el dia
                     mRecyclerView.setAdapter(mAdapter);
                 }
             }

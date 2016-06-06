@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import epiphany_soft.wtw.Activities.Canal.ActivityAsociarCanal;
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
+import epiphany_soft.wtw.Activities.MainActivity;
 import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.Adapters.DiaAdapter;
 import epiphany_soft.wtw.Adapters.HorarioAdapter;
@@ -52,6 +53,7 @@ public class StrategyAsociarCanalSerie implements StrategyAsociarCanal {
                         }
                     }
                 }
+                MainActivity.actualizado = true;
             }
             else{
                 boolean success;

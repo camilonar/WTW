@@ -1,6 +1,7 @@
 package epiphany_soft.wtw.Adapters;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.DataBase.DataBaseConnection;
+import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Dia;
+import epiphany_soft.wtw.Negocio.Programa;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
@@ -47,21 +51,36 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
 
             mRecyclerView = (RecyclerView) v.findViewById(R.id.rv);
             mRecyclerView.setHasFixedSize(false);
-            mLayoutManager = new LinearLayoutManager(v.getContext(),LinearLayoutManager.HORIZONTAL,false);
+            mLayoutManager = new LinearLayoutManager(v.getContext());
             mRecyclerView.setLayoutManager(mLayoutManager);
         }
 
         private void crearRecyclerViewDias() {
-            Dia dias[]= new Dia[]{new Dia("D"), new Dia("L"), new Dia("Ma"), new Dia("Mi"), new Dia("J"),
-                    new Dia("V"), new Dia("S")};
+            DataBaseConnection db = new DataBaseConnection(this.c);
+            Cursor c=db.consultarSeriePorDia(mDia.getId());
+            if (c!=null) {
+                Programa[] programas = new Programa[c.getCount()];
+                int i = 0;
+                while (c.moveToNext()) {
+                    programas[i] = new Programa();
+                    String nombre = c.getString(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE));
+                    int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
+                   /* if (Sesion.getInstance().isActiva()) {
+                        boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID)) != 0;
+                        programas[i].setFavorito(isFavorito);
+                    }*/
+                    programas[i].setNombre(nombre);
+                    programas[i].setIdPrograma(idPrograma);
+                    i++;
+                }
+                Float height = this.c.getResources().getDimension(R.dimen.size_programa) * (programas.length);
+                TableRow.LayoutParams params = new TableRow.LayoutParams(1200, height.intValue());
+                mLayout.setLayoutParams(params);
 
-            Float height = this.c.getResources().getDimension(R.dimen.size_dia)*(dias.length);
-            TableRow.LayoutParams params = new TableRow.LayoutParams(1200, height.intValue());
-            mLayout.setLayoutParams(params);
-
-            if (dias!=null) {
-                mAdapter = new DiaAdapter(dias,c); // se le pasa el dia
-                mRecyclerView.setAdapter(mAdapter);
+                if (programas != null) {
+                    mAdapter = new SerieAdapter(programas); // se le pasa el dia
+                    mRecyclerView.setAdapter(mAdapter);
+                }
             }
         }
     }

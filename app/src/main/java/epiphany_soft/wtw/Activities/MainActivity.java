@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
+    public static boolean actualizado=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,31 +55,31 @@ public class MainActivity extends AppCompatActivity
 
     private void crearRecyclerView(){
         int currentDay = getCurrentDay();
-        String nombres[] = new String[]{"Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
+        String nombres[] = new String[]{"Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sabado"};
         Dia dias[] = new Dia[7];
         for (int i=currentDay-1, j=0;j<7;i=(i+1)%7,j++){
-            dias[j] = new Dia(i,false,nombres[i]);
+            dias[j] = new Dia(i+1,false,nombres[i]);
         }
         this.crearRecyclerView(dias);
     }
 
     private int getCurrentDay(){
-        int currentDay = Calendar.DAY_OF_WEEK;
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         switch (currentDay){
             case Calendar.SUNDAY:
-                return 7;
-            case Calendar.MONDAY:
                 return 1;
-            case Calendar.TUESDAY:
+            case Calendar.MONDAY:
                 return 2;
-            case Calendar.WEDNESDAY:
+            case Calendar.TUESDAY:
                 return 3;
-            case Calendar.THURSDAY:
+            case Calendar.WEDNESDAY:
                 return 4;
-            case Calendar.SATURDAY:
+            case Calendar.THURSDAY:
                 return 5;
-            default:
+            case Calendar.FRIDAY:
                 return 6;
+            default:
+                return 7;
         }
     }
 
@@ -226,6 +228,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume(){
         super.onResume();
+        if (actualizado) {
+            actualizado = false;
+            this.crearRecyclerView();
+        }
         hideWhenNoSesion();
         showWhenSesion();
     }

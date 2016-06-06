@@ -121,7 +121,7 @@ public class DataBaseSerieCapitulo {
                     "FROM " + DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
                             HorarioContract.TABLE_NAME+" NATURAL JOIN "+
                             ProgramaContract.TABLE_NAME + " JOIN " +
-                            PeliculaContract.TABLE_NAME +
+                            SerieContract.TABLE_NAME +
                             " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
                             + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
             query +=

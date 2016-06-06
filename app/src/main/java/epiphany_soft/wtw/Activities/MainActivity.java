@@ -8,6 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,12 +19,16 @@ import epiphany_soft.wtw.Activities.Canal.ActivityAgregarCanal;
 import epiphany_soft.wtw.Activities.Canal.ActivityConsultarCanal;
 import epiphany_soft.wtw.Activities.Usuario.ActivityInicioSesion;
 import epiphany_soft.wtw.Activities.Usuario.ActivityModificarUsuario;
+import epiphany_soft.wtw.Adapters.AgendaAdapter;
+import epiphany_soft.wtw.Negocio.Dia;
 import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,28 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         getUserInfo();
+        crearRecyclerView();
+    }
+
+    private void crearRecyclerView(){
+        Dia dias[] = new Dia[]{new Dia(1,false,"Lunes"),
+                new Dia(2,false,"Martes"), new Dia(3,false,"Miercoles"), new Dia(4,false,"Jueves"),
+                new Dia(5,false,"Viernes"), new Dia(6,false,"Sabado"), new Dia(7,false,"Domingo")};
+        this.crearRecyclerView(dias);
+    }
+
+    private void crearRecyclerView(Dia[] contenido){
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv);
+        // Se usa cuando se sabe que cambios en el contenido no cambian el tamaño del layout
+        mRecyclerView.setHasFixedSize(false);
+        // Se usa un layout manager lineal para el recycler view
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        // Se especifica el adaptador
+        if (contenido!=null) {
+            mAdapter = new AgendaAdapter(this,contenido);
+            mRecyclerView.setAdapter(mAdapter);
+        }
     }
 
     @Override

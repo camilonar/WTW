@@ -22,7 +22,6 @@ import epiphany_soft.wtw.R;
 
 import static epiphany_soft.wtw.DataBase.DataBaseContract.CapituloContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
-// parece q ya esta bn.
 
 public class CapituloAdapter extends RecyclerView.Adapter<CapituloAdapter.ViewHolder> {
     private String[] numCaps;

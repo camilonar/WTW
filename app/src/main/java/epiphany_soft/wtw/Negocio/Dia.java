@@ -12,8 +12,6 @@ public class Dia {
     public Dia() {
     }
 
-
-
     public Dia(Integer id, boolean isChecked, String nombre) {
         this.id = id;
         this.isChecked = isChecked;

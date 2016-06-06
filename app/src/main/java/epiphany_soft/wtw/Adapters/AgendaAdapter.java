@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import epiphany_soft.wtw.Fonts.RobotoFont;
+import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Dia;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
@@ -43,7 +43,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
             mCardView = (CardView)v.findViewById(R.id.cv);
             mTextView = (TextView)v.findViewById(R.id.textCard);
             mLayout = (LinearLayout)v.findViewById(R.id.layoutExterno);
-            mTextView.setTypeface(RobotoFont.getInstance(v.getContext()).getTypeFace());
+            mTextView.setTypeface(SpecialFont.getInstance(v.getContext()).getTypeFace());
 
             mRecyclerView = (RecyclerView) v.findViewById(R.id.rv);
             mRecyclerView.setHasFixedSize(false);
@@ -52,14 +52,14 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
         }
 
         private void crearRecyclerViewDias() {
-            Dia dias[]= new Dia[7];
-            String contenido[] = new String[]{"D", "L", "Ma", "Mi", "J", "V", "S"}; // aqui...
+            Dia dias[]= new Dia[]{new Dia("D"), new Dia("L"), new Dia("Ma"), new Dia("Mi"), new Dia("J"),
+                    new Dia("V"), new Dia("S")};
 
-            Float height = this.c.getResources().getDimension(R.dimen.size_dia)*(contenido.length);
+            Float height = this.c.getResources().getDimension(R.dimen.size_dia)*(dias.length);
             TableRow.LayoutParams params = new TableRow.LayoutParams(1200, height.intValue());
             mLayout.setLayoutParams(params);
 
-            if (contenido!=null) {
+            if (dias!=null) {
                 mAdapter = new DiaAdapter(dias,c); // se le pasa el dia
                 mRecyclerView.setAdapter(mAdapter);
             }

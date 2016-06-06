@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import epiphany_soft.wtw.Activities.Canal.ActivityAgregarCanal;
 import epiphany_soft.wtw.Activities.Canal.ActivityConsultarCanal;
 import epiphany_soft.wtw.Activities.Usuario.ActivityInicioSesion;
@@ -50,10 +52,33 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void crearRecyclerView(){
-        Dia dias[] = new Dia[]{new Dia(1,false,"Lunes"),
-                new Dia(2,false,"Martes"), new Dia(3,false,"Miercoles"), new Dia(4,false,"Jueves"),
-                new Dia(5,false,"Viernes"), new Dia(6,false,"Sabado"), new Dia(7,false,"Domingo")};
+        int currentDay = getCurrentDay();
+        String nombres[] = new String[]{"Lunes","Martes","Miercoles","Jueves","Viernes","Sabado","Domingo"};
+        Dia dias[] = new Dia[7];
+        for (int i=currentDay-1, j=0;j<7;i=(i+1)%7,j++){
+            dias[j] = new Dia(i,false,nombres[i]);
+        }
         this.crearRecyclerView(dias);
+    }
+
+    private int getCurrentDay(){
+        int currentDay = Calendar.DAY_OF_WEEK;
+        switch (currentDay){
+            case Calendar.SUNDAY:
+                return 7;
+            case Calendar.MONDAY:
+                return 1;
+            case Calendar.TUESDAY:
+                return 2;
+            case Calendar.WEDNESDAY:
+                return 3;
+            case Calendar.THURSDAY:
+                return 4;
+            case Calendar.SATURDAY:
+                return 5;
+            default:
+                return 6;
+        }
     }
 
     private void crearRecyclerView(Dia[] contenido){

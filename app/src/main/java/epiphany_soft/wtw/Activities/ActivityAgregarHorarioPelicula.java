@@ -76,6 +76,7 @@ public class ActivityAgregarHorarioPelicula extends ActivityBase implements
         if (db.insertarHorario(mHorario)){
             ActivityConsultarHorarioPelicula.actualizado=true;
             ActivityAsociarCanal.actualizado=true;
+            MainActivity.actualizado=true;
             this.createToast("Horario agregado");
             this.finish();
         } else this.createToast("Ocurrió un error");

@@ -9,21 +9,11 @@ import java.io.IOException;
 
 import epiphany_soft.wtw.DataBase.DataBaseContract.AgendaContract;
 import epiphany_soft.wtw.DataBase.DataBaseContract.HorarioContract;
-import epiphany_soft.wtw.Negocio.Horario;
 
-import static epiphany_soft.wtw.DataBase.DataBaseContract.CalificacionContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.CanalContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.CapituloContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.DiaHorarioContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.EmisoraContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.EmiteContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.PeliculaContract;
 import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.SerieContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.TemporadaContract;
-import static epiphany_soft.wtw.DataBase.DataBaseContract.UsuarioContract;
 
 
 
@@ -99,9 +89,6 @@ public class DataBaseProgramaPelicula {
         }
         else return null;
     }
-
-
-
 
     public int consultarId_Programa (String nombre ) {
         try {
@@ -182,6 +169,60 @@ public class DataBaseProgramaPelicula {
         return false;
     }
 
+    public Cursor consultarProgramasPorDia(int idDia, String fecha){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + "," +
+                            HorarioContract.COLUMN_NAME_RELACION_HORA + "," +
+                            HorarioContract.COLUMN_NAME_CANAL_ID + "," +
+                            "\"Serie\" AS Tipo ";
+            query +=
+                    "FROM " + DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            HorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            ProgramaContract.TABLE_NAME + " JOIN " +
+                            DataBaseContract.SerieContract.TABLE_NAME +
+                            " ON " + DataBaseContract.SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + DiaHorarioContract.COLUMN_NAME_DIA_ID + "=?";
+            query +=" UNION ";
+
+            query +=
+                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + "," +
+                            HorarioContract.COLUMN_NAME_RELACION_HORA + "," +
+                            HorarioContract.COLUMN_NAME_CANAL_ID + "," +
+                            "\"Pelicula\" AS Tipo ";
+            query +=
+                    "FROM " + HorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            ProgramaContract.TABLE_NAME + " JOIN " +
+                            PeliculaContract.TABLE_NAME +
+                            " ON " + PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
+            query +=
+                    "WHERE " + HorarioContract.COLUMN_NAME_RELACION_FECHA + "=? ";
+            query +=
+                    "ORDER BY "+ HorarioContract.COLUMN_NAME_RELACION_HORA + " ASC ";
+
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idDia),fecha});
+            return c;
+        }
+        else return null;
+    }
+
+    /*No usado*/
     public Cursor consultarPeliculaPorDia(int idDia){
         try {
             miDBHelper.createDataBase();

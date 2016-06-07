@@ -12,6 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.SpecialFont;
@@ -39,6 +44,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
         public TextView mTextView;
         public LinearLayout mLayout;
         public Dia mDia;
+        public int index;
 
         public Context c;
 
@@ -55,9 +61,25 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
             mRecyclerView.setLayoutManager(mLayoutManager);
         }
 
+        private String getFecha(){
+            int dia = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+            int mes = Calendar.getInstance().get(Calendar.MONTH);
+            int anio = Calendar.getInstance().get(Calendar.YEAR);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                    "yyyy-MM-dd", Locale.getDefault());
+            Date date = new Date();
+            date.setDate(dia);
+            date.setMonth(mes);
+            date.setYear(anio - 1900);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            cal.add( Calendar.DATE, index );
+            return dateFormat.format(cal.getTime());
+        }
+
         private void crearRecyclerViewDias() {
             DataBaseConnection db = new DataBaseConnection(this.c);
-            Cursor c=db.consultarSeriePorDia(mDia.getId());
+            Cursor c=db.consultarProgramasPorDia(mDia.getId(), getFecha());
             if (c!=null) {
                 Programa[] programas = new Programa[c.getCount()];
                 int i = 0;
@@ -67,6 +89,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
                     int idPrograma = c.getInt(c.getColumnIndex(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID));
                     String nombreCanal = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID));
                     String hora = c.getString(c.getColumnIndex(DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA));
+                    String tipo = c.getString(c.getColumnIndex("Tipo"));
                    /* if (Sesion.getInstance().isActiva()) {
                         boolean isFavorito = c.getInt(c.getColumnIndex(DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID)) != 0;
                         programas[i].setFavorito(isFavorito);
@@ -75,6 +98,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
                     programas[i].setIdPrograma(idPrograma);
                     programas[i].setHora(hora);
                     programas[i].setCanal(nombreCanal);
+                    programas[i].setTipo(tipo);
                     i++;
                 }
                 Float height = this.c.getResources().getDimension(R.dimen.size_programa) * (programas.length);
@@ -115,6 +139,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position].getNombre());
         holder.mDia = mDataset[position];
+        holder.index = position;
         holder.c=context;
         holder.crearRecyclerViewDias();
     }

@@ -14,6 +14,7 @@ public class Programa {
 
     private String canal;
     private String hora;
+    private String tipo;
 
     public Programa(){
         idPrograma=-1;
@@ -24,6 +25,15 @@ public class Programa {
         favorito=false;
         canal=null;
         hora=null;
+        tipo=null;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getCanal() {

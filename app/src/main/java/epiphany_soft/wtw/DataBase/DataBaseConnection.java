@@ -290,11 +290,8 @@ public class DataBaseConnection {
         return DBAgenda.consultarSeriesDeAgendaPorGenero(genero, idUsuario);
     }
 
-    public Cursor consultarPeliculaPorDia(int idDia){
-   return  DBProgramaPelicula.consultarPeliculaPorDia(idDia);
-    }
-    public Cursor consultarSeriePorDia(int idDia){
-        return DBSerieCapitulo.consultarSeriePorDia(idDia);
+    public Cursor consultarProgramasPorDia(int idDia, String fecha){
+        return DBProgramaPelicula.consultarProgramasPorDia(idDia, fecha);
 
     }
 

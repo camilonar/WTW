@@ -11,7 +11,12 @@ import java.io.IOException;
 import epiphany_soft.wtw.DataBase.DataBaseContract.CapituloContract;
 import epiphany_soft.wtw.Negocio.Sesion;
 
-import static epiphany_soft.wtw.DataBase.DataBaseContract.*;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.AgendaContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.CapitulosVistosContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.GeneroContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.ProgramaContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.SerieContract;
+import static epiphany_soft.wtw.DataBase.DataBaseContract.TemporadaContract;
 
 
 public class DataBaseSerieCapitulo {
@@ -26,7 +31,7 @@ public class DataBaseSerieCapitulo {
 
     }
 
-    public boolean insertarSerie(int  id) {
+    public boolean insertarSerie(int id) {
         try {
             miDBHelper.createDataBase();
         } catch (IOException e) {
@@ -102,40 +107,6 @@ public class DataBaseSerieCapitulo {
         else return null;
     }
 
-
-
-    public Cursor consultarSeriePorDia(int idDia){
-        try {
-            miDBHelper.createDataBase();
-        } catch (IOException e) {
-        }
-        if(miDBHelper.checkDataBase()) {
-            SQLiteDatabase db = miDBHelper.getReadableDatabase();
-            String query =
-                    "SELECT " + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
-                            ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + "," +
-                            HorarioContract.COLUMN_NAME_RELACION_HORA + "," +
-                            HorarioContract.COLUMN_NAME_CANAL_ID + " ";
-            query +=
-                    "FROM " + DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
-                            HorarioContract.TABLE_NAME+" NATURAL JOIN "+
-                            ProgramaContract.TABLE_NAME + " JOIN " +
-                            SerieContract.TABLE_NAME +
-                            " ON " + SerieContract.COLUMN_NAME_SERIE_ID + "="
-                            + ProgramaContract.COLUMN_NAME_PROGRAMA_ID + " ";
-            query +=
-                    "WHERE " + DiaHorarioContract.COLUMN_NAME_DIA_ID + "=?";
-            query +=
-                    "ORDER BY "+ HorarioContract.COLUMN_NAME_RELACION_HORA + " ASC ";
-            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idDia)});
-            return c;
-        }
-        else return null;
-    }
-
     public boolean insertarCapitulo(int id_cap, String nombreCap, int id_temp, int id_ser){
         try {
             miDBHelper.createDataBase();
@@ -154,25 +125,6 @@ public class DataBaseSerieCapitulo {
         }
         return false;
     }
-/*
-    public Cursor getTemporadasDeSerie(int idSerie){
-        try {
-            miDBHelper.createDataBase();
-        } catch (IOException e) {
-        }
-        if(miDBHelper.checkDataBase()) {
-            SQLiteDatabase db = miDBHelper.getReadableDatabase();
-            String query =
-                    "SELECT " + TemporadaContract.COLUMN_NAME_TEMPORADA_ID + " ";
-            query +=
-                    "FROM " + TemporadaContract.TABLE_NAME+" ";
-            query +=
-                    "WHERE " + TemporadaContract.COLUMN_NAME_PROGRAMA_ID +"=? ";
-            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idSerie)});
-            return c;
-        }
-        else return null;
-    }*/
 
     public Cursor getTemporadasDeSerie(int idSerie){
         try {

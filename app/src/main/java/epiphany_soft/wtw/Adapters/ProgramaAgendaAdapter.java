@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
 import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -81,14 +82,18 @@ public class ProgramaAgendaAdapter extends RecyclerView.Adapter<ProgramaAgendaAd
 
         @Override
         public void onClick(View v) {
-            if (mTextView.getText()!="") {
-                Intent i = new Intent(v.getContext(), ActivityDetalleSerie.class);
-                //Se manda el nombre del programa para saber que información debe mostrarse
-                Bundle b = new Bundle();
-                b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, mTextView.getText().toString());
-                i.putExtras(b);
-                v.getContext().startActivity(i);
+            Intent i;
+            if (mTextView.getText()!="" && miPrograma.getTipo().equals("Serie")) {
+                i = new Intent(v.getContext(), ActivityDetalleSerie.class);
             }
+            else if (mTextView.getText()!="" && miPrograma.getTipo().equals("Pelicula")) {
+                i = new Intent(v.getContext(), ActivityDetallePelicula.class);
+            } else return;
+            //Se manda el nombre del programa para saber que información debe mostrarse
+            Bundle b = new Bundle();
+            b.putString(DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE, mTextView.getText().toString());
+            i.putExtras(b);
+            v.getContext().startActivity(i);
         }
     }
 
@@ -120,8 +125,8 @@ public class ProgramaAgendaAdapter extends RecyclerView.Adapter<ProgramaAgendaAd
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset[position].getNombre());
         if (mDataset[position].getHora()!=null)
-            holder.txtHora.setText("     Hora: "+mDataset[position].getHora());
-        else holder.txtHora.setText("     Hora: NA");
+            holder.txtHora.setText("Hora: "+mDataset[position].getHora());
+        else holder.txtHora.setText("Hora: NA");
         if (mDataset[position].getCanal()!=null)
             holder.txtCanal.setText("Canal: "+mDataset[position].getCanal());
         else holder.txtCanal.setText("Canal: NA");

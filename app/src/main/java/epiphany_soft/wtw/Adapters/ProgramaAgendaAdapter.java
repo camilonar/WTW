@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import epiphany_soft.wtw.Activities.ActivityDetallePelicula;
+import epiphany_soft.wtw.Activities.MainActivity;
 import epiphany_soft.wtw.Activities.Series.ActivityDetalleSerie;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.DataBase.DataBaseContract;
@@ -61,6 +62,7 @@ public class ProgramaAgendaAdapter extends RecyclerView.Adapter<ProgramaAgendaAd
                         if (miPrograma.isFavorito()) {
                             if (db.eliminarFavorito(Sesion.getInstance().getIdUsuario(),miPrograma.getIdPrograma())) {
                                 btnImg.setImageResource(R.drawable.ic_add);
+                                MainActivity.actualizado=true;
                                 miPrograma.setFavorito(false);
                                 if (parent.equals("Agenda")){
                                     mCardView.removeAllViews();
@@ -69,6 +71,7 @@ public class ProgramaAgendaAdapter extends RecyclerView.Adapter<ProgramaAgendaAd
                         } else {
                             if (db.insertarFavorito(Sesion.getInstance().getIdUsuario(), miPrograma.getIdPrograma())) {
                                 btnImg.setImageResource(R.drawable.ic_remove);
+                                MainActivity.actualizado=true;
                                 miPrograma.setFavorito(true);
                             }
                         }

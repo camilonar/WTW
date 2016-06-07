@@ -292,7 +292,10 @@ public class DataBaseConnection {
 
     public Cursor consultarProgramasPorDia(int idDia, String fecha){
         return DBProgramaPelicula.consultarProgramasPorDia(idDia, fecha);
+    }
 
+    public Cursor consultarProgramasAgendaPorDia(int idDia, String fecha, int idUsuario){
+        return DBAgenda.consultarProgramasAgendaPorDia(idDia, fecha, idUsuario);
     }
 
     public Cursor consultarPeliculaPorCanal(String canal){

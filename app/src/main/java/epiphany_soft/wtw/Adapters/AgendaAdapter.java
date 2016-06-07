@@ -22,6 +22,7 @@ import epiphany_soft.wtw.DataBase.DataBaseContract;
 import epiphany_soft.wtw.Fonts.SpecialFont;
 import epiphany_soft.wtw.Negocio.Dia;
 import epiphany_soft.wtw.Negocio.Programa;
+import epiphany_soft.wtw.Negocio.Sesion;
 import epiphany_soft.wtw.R;
 // parece q ya esta bn.
 
@@ -79,7 +80,11 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
 
         private void crearRecyclerViewDias() {
             DataBaseConnection db = new DataBaseConnection(this.c);
-            Cursor c=db.consultarProgramasPorDia(mDia.getId(), getFecha());
+            Cursor c;
+            if (Sesion.getInstance().isActiva())
+                c=db.consultarProgramasAgendaPorDia(mDia.getId(), getFecha(), Sesion.getInstance().getIdUsuario());
+            else
+                c=db.consultarProgramasPorDia(mDia.getId(), getFecha());
             if (c!=null) {
                 Programa[] programas = new Programa[c.getCount()];
                 int i = 0;

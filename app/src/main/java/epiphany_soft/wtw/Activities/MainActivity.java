@@ -181,6 +181,8 @@ public class MainActivity extends AppCompatActivity
         Sesion.getInstance().refresh();
         hideWhenNoSesion();
         deleteUserInfo();
+        setTitle(getResources().getString(R.string.app_name));
+        this.crearRecyclerView();
     }
 
     private void deleteUserInfo() {
@@ -232,6 +234,9 @@ public class MainActivity extends AppCompatActivity
             actualizado = false;
             this.crearRecyclerView();
         }
+        if (Sesion.getInstance().isActiva())
+            setTitle("HORARIOS DE AGENDA");
+        else setTitle(getResources().getString(R.string.app_name));
         hideWhenNoSesion();
         showWhenSesion();
     }

@@ -275,6 +275,63 @@ public class DataBaseAgenda {
         else return null;
     }
 
+    public Cursor consultarProgramasAgendaPorDia(int idDia, String fecha, int idUsuario){
+        try {
+            miDBHelper.createDataBase();
+        } catch (IOException e) {
+        }
+        if(miDBHelper.checkDataBase()) {
+            SQLiteDatabase db = miDBHelper.getReadableDatabase();
+            String query =
+                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + "," +
+                            DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA + "," +
+                            DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID + "," +
+                            "\"Serie\" AS Tipo ";
+            query +=
+                    "FROM " +DataBaseContract.DiaHorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            DataBaseContract.HorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            DataBaseContract.ProgramaContract.TABLE_NAME + " JOIN " +
+                            DataBaseContract.SerieContract.TABLE_NAME +
+                            " ON " + DataBaseContract.SerieContract.COLUMN_NAME_SERIE_ID + "="
+                            + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID +
+                            " NATURAL JOIN "+DataBaseContract.AgendaContract.TABLE_NAME +" ";
+            query +=
+                    "WHERE " + DataBaseContract.DiaHorarioContract.COLUMN_NAME_DIA_ID + "=? AND "+
+                    DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID+"=? ";
+            query +=" UNION ";
+
+            query +=
+                    "SELECT " + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_NOMBRE + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_SINOPSIS + ","+
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ANIO_ESTRENO + "," +
+                            DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_PAIS_ORIGEN + "," +
+                            DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA + "," +
+                            DataBaseContract.HorarioContract.COLUMN_NAME_CANAL_ID + "," +
+                            "\"Pelicula\" AS Tipo ";
+            query +=
+                    "FROM " + DataBaseContract.HorarioContract.TABLE_NAME+" NATURAL JOIN "+
+                            DataBaseContract.ProgramaContract.TABLE_NAME + " JOIN " +
+                            DataBaseContract.PeliculaContract.TABLE_NAME +
+                            " ON " + DataBaseContract.PeliculaContract.COLUMN_NAME_PELICULA_ID + "="
+                            + DataBaseContract.ProgramaContract.COLUMN_NAME_PROGRAMA_ID +
+                            " NATURAL JOIN "+DataBaseContract.AgendaContract.TABLE_NAME + " ";
+            query +=
+                    "WHERE " + DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_FECHA + "=? AND "+
+                            DataBaseContract.AgendaContract.COLUMN_NAME_USUARIO_ID+"=? ";
+            query +=
+                    "ORDER BY "+ DataBaseContract.HorarioContract.COLUMN_NAME_RELACION_HORA + " ASC ";
+
+            Cursor c = db.rawQuery(query, new String[]{Integer.toString(idDia),Integer.toString(idUsuario),fecha,Integer.toString(idUsuario)});
+            return c;
+        }
+        else return null;
+    }
+
     public Cursor consultarSeriesDeAgendaPorCanal(String canal, int idUsuario){
         try {
             miDBHelper.createDataBase();

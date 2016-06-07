@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import epiphany_soft.wtw.Activities.MainActivity;
 import epiphany_soft.wtw.DataBase.DataBaseConnection;
 import epiphany_soft.wtw.Fonts.RobotoFont;
 import epiphany_soft.wtw.Negocio.Sesion;
@@ -28,6 +29,7 @@ public class ActivityInicioSesion extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
         //this.getSupportActionBar().hide();
+        this.setTitle("INICIO DE SESIÓN");
 
         txtNombre = (EditText) findViewById(R.id.txtNombreUsuario);
         txtPassword = (EditText) findViewById(R.id.txtContrasenia);
@@ -62,7 +64,8 @@ public class ActivityInicioSesion extends AppCompatActivity {
             int idCur = c.getInt(c.getColumnIndex(UsuarioContract.COLUMN_NAME_USUARIO_ID));
             s.setNombreUsuario(nombreCur);
             s.setIdUsuario(idCur);
-            saveUserInfo(idCur,nombreCur,true);
+            saveUserInfo(idCur, nombreCur, true);
+            MainActivity.actualizado=true;
             this.finish();
         }
         else createToast("Usuario o password incorrecto");
